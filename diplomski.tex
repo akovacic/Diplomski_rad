@@ -22,6 +22,9 @@
 % hiperlinkovi 
 \usepackage[pdftex]{hyperref} % ukoliko se koristi XeLaTeX onda je \usepackage[xetex]{hyperref}
 
+\DisemulatePackage{setspace}
+\usepackage{setspace}
+
 % Odabir familije fontova:
 % koristenjem XeLaTeX-a mogu se koristiti svi fontovi instalirani na racunalu, npr
 % \defaultfontfeatures{Mapping=tex-text}
@@ -30,7 +33,6 @@
 % \newcommand{\nas}[1]{\fontspec{Adobe Garamond Pro}\fontsize{24pt}{24pt}\color{Chocolate}\selectfont #1}
 % i onda \nas{Naslov ...}
 \usepackage{txfonts} % times new roman 
-
 % Paket graphicx sluzi za manipuliranje grafikom 
 \usepackage[pdftex]{graphicx} % ukoliko se koristi XeLaTeX onda je \usepackage[xetex]{graphicx}
 % Paket amsmath je vec ukljucen
@@ -46,6 +48,8 @@
 
 \pagestyle{headings}
 % uz paket fancyhdr mogu se lako kreirati fancy zaglavlja i podnozja
+
+
 
 % Podaci koje treba unijeti
 \title{DNA kriptografija}
@@ -64,13 +68,15 @@
 \frontmatter
 
 % Tekst diplomskog ...
-
+\begin{spacing}{1.5}
 % Diplomski rad treba poceti s uvodnim poglavljem  
 \begin{intro}
+
 U današnje vrijeme svjedoci smo nagloga porasta razmjene podataka. Naglim napretkom današnjih računala, javila se potreba za povećanjem sigurnosti, odnosno zaštite podataka, koji putuju preko komunikacijskog kanala. Današnji kriptosustavi omogućuju siguran prijenos takvih podataka, a ključ njihovog razbijanja zapravo leži u faktoriziranju nekog \textit{velikog} broja (na primjer \textsc{RSA} kriptosustav). Na današnjim računalima, takav problem nije lako riješiv - pa su ti sustavi još uvijek sigurni. Razvojem novih teoretskih modela računala - koji se pokušavaju i u praksi realizirati - uočeno je da problem faktorizacije neće biti više takav problem. Primjer jednog takvog računala je kvantno računalo za kojeg postoji algoritam (\textit{Shorov algoritam}) koji faktorizira broj u polinomnom vremenu.
 Time se javila potreba za osmišljanjem  novih teoretskih modela računala - odnosno kriptosustava - koji bi bili otporni na kvantno izračunavanje - ne bi se mogli probiti uporabom kvantnog računala u nekom razumnom vremenu. Takve kriptosustave ćemo zvati \textit{kvantno rezistentnima}.
-Tema ovog diplomskog rada biti će DNA kriptografija. Kratko rečeno, radi se o teoretskom modelu kriptografskog sustava koji pomoću DNA izračunavanja šifrira podatke. Prednost takvog sustava jest upravo što je kvantno rezistentan.\\
+Tema ovog diplomskog rada biti će DNA kriptografija. Kratko rečeno, radi se o teoretskom modelu kriptografskog sustava koji pomoću DNA izračunavanja šifrira podatke. Prednost takvog sustava jest upravo što je kvantno rezistentan.\\[0.2cm]
 U ovom radu najprije ćemo se ukratko upoznati s pojmom DNA računala, odnosno DNA izračunavanja, složenosti DNA računala te algoritmom za enkripciju, odnosno dekripciju podataka pomoću DNA računala.
 \end{intro}
 
+\end{spacing}
 \end{document}
