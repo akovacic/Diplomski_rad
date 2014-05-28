@@ -84,8 +84,8 @@ DNA stroj, kao ni DNA izračunavanje nećemo striktno definirati već će defini
 \textbf{Alfabet} je proizvoljan konačan skup, čije elemente nazivamo \textbf{simboli}.\\
 Neka je $n \in \mathbb{N}$ proizvoljan te $A$ proizvoljan alfabet, proizvoljni element $w \in A^n$ zovemo \textbf{riječ alfabeta A}. Neka su $s_1,..., s_n \in A$, riječ $w=(s_1,...,s_n)$ alfabeta A još zapisujemo kao $w=s_1s_2...s_n$. Smatramo da postoji riječ alfabeta A, koju ćemo označavati s $\varepsilon$, koja se ne sastoji ni od jednog simbola i zovemo je \textbf{prazna riječ}. Po dogovoru smatramo da je $A^0=\{\varepsilon\}$. Skup svih riječi alfabeta $A$ označavamo sa $A^*$. \textbf{Duljina riječi} se definira kao funkcija $d:A^*\to \mathbb{N}$ sa:
 \begin{align*}
-	d(\varepsilon) &= 0 \\
-	d(wa) &= d(w)+1
+	d(\varepsilon) :&= 0 \\
+	d(wa) :&= d(w)+1
 \end{align*}
 \end{defn}
 \begin{defn}
@@ -117,6 +117,12 @@ Neka je S proizvoljan konačan skup, a $m:S \to \mathbb{N}$ proizvoljna funkcija
     Program za DNA stroj definiramo kao konačan niz gornje navedenih instrukcija. U svakom koraku programa se može izvesti točno jedna instrukcija.
 \end{defn}
 Vidimo da se sve ove operacije izvršavaju nad jednom epruvetom u jednom koraku, odnosno multiskupom MulS(K). Što je veća kardinalnost multiskupa $MulS(K)$, to se više operacija na riječima izvrši istovremeno, a u stvarnom svijetu sve te operacije imaju svoje "biokemijske analogone" - biokemijske reakcije. Takvo računalo zapravo možemo interpretirati kao superračunalo s izuzetno velikim brojem procesora. U pozadini svega toga se zapravo krije masivni paralelizam. Memoriju DNA računala zapravo predstavljaju epruvete. Jasno je odakle naziv epruvete.\\
-Iz ovoga svega se čini da je broj procesora DNA računala zapravo neograničen - u teoriji jest, ali u praksi se već sada zaključuje da to neće biti moguće - naime broj DNA lanaca u epruveti (laboratorijskoj) biti će ograničen volumenom te epruvete.  A kako procijeniti složenost DNA programa? Složenost DNA programa procjenjujemo prema broju izvršenih instrukcija i kardinalnosti skupa MulS(K).
+Iz navedenoga se čini da je broj procesora DNA računala zapravo neograničen - u teoriji jest, ali u praksi se već sada zaključuje da to neće biti moguće - naime broj DNA lanaca u epruveti (laboratorijskoj) biti će ograničen volumenom te epruvete.\\
+Uočimo da operacija konkatenacije uključuje vjerojatnosni efekt - \textit{vjerojatnost nastajanja duljih riječi konkatenacijom je veća} - odnosno dvije riječi iz skupa K koje će se konkatenirati neće biti izabrane na slučajan način - već tako da se pokuša dobiti riječ maksimalne duljine (maksimalna duljina je određena nekom konstantom). Iz toga očito možemo vidjeti da sam ishod DNA računanja nije sasvim siguran  - no u praksi se pokazuje (pri sintezi DNA lanaca) da je to moguće - u tu svrhu je i uvedena pretpostavka da će  se, ukoliko MulS(K) sadrži velik broj kopija od svake riječi iz K, dobiti svaka moguća konkatenacija riječi iz K.
+\section{O složenosti DNA računala}
+\newpage
+\nocite{*}
+\bibliographystyle{abbrv}
+\bibliography{borda2011fundamentals,literatura,CNTYan}
 \end{spacing}
 \end{document}
