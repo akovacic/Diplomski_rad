@@ -5,44 +5,44 @@ The style file: abbrv.bst
 Database file #1: borda2011fundamentals.bib
 Database file #2: literatura.bib
 Database file #3: CNTYan.bib
-You've used 3 entries,
+You've used 5 entries,
             2118 wiz_defined-function locations,
-            517 strings with 4081 characters,
-and the built_in function-call counts, 725 in all, are:
-= -- 67
-> -- 27
+            530 strings with 4258 characters,
+and the built_in function-call counts, 1171 in all, are:
+= -- 109
+> -- 41
 < -- 0
-+ -- 11
-- -- 8
-* -- 34
-:= -- 134
-add.period$ -- 10
-call.type$ -- 3
-change.case$ -- 11
++ -- 17
+- -- 12
+* -- 54
+:= -- 212
+add.period$ -- 16
+call.type$ -- 5
+change.case$ -- 19
 chr.to.int$ -- 0
-cite$ -- 3
-duplicate$ -- 36
-empty$ -- 67
-format.name$ -- 8
-if$ -- 153
+cite$ -- 5
+duplicate$ -- 60
+empty$ -- 111
+format.name$ -- 12
+if$ -- 249
 int.to.chr$ -- 0
-int.to.str$ -- 3
-missing$ -- 6
-newline$ -- 18
-num.names$ -- 6
-pop$ -- 21
+int.to.str$ -- 5
+missing$ -- 10
+newline$ -- 28
+num.names$ -- 10
+pop$ -- 35
 preamble$ -- 1
-purify$ -- 10
+purify$ -- 16
 quote$ -- 0
-skip$ -- 19
+skip$ -- 31
 stack$ -- 0
-substring$ -- 15
-swap$ -- 3
+substring$ -- 25
+swap$ -- 5
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 6
+type$ -- 10
 warning$ -- 0
-while$ -- 6
-width$ -- 4
-write$ -- 35
+while$ -- 10
+width$ -- 6
+write$ -- 57
