@@ -138,7 +138,7 @@ Kako bi nešto rekli o složenosti DNA računala, najprije ćemo navesti nekolik
 \begin{rem} (Opis rada Turingovog stroja)\\
 Turingov stroj zapravo ima četiri glavna dijela: kontrolnu jedinicu (koja zapravo oponaša dijelovanje funkcije $\delta$), beskonačnu traku, neograničenu s lijeve i desne strane, takvu da se u svakom trenutku rada stroja na jednom registru trake nalazi točno jedan simbol, memoriju u kojoj se pamti trenutačno stanje stroja te glavu za čitanje koja se u jednom koraku rada stroja može pomicati za točno jedno mjesto na traci: desno, lijevo ili ostati na istom simbolu. Glava se na početku nalazi na nekom mjestu na traci (unaprijed definiranom), zatim čita simbol. Pročitani simbol, u paru s trenutnim stanjem stroja "se šalje" u kontrolnu jedinicu. Glava nakon toga, najprije zamijeni pročitani simbol nekim drugim simbolom, stroj prelazi u novo stanje, a glava se pomiče na drugi registar (L (lijevo), D (desno)) ili ostaje na istom mjestu (S). \\
 Vidimo da opisani Turingov stroj može stati u dva završna stanja $q_{DA}$, odnosno $q_{NE}$, takav Turingov stroj se naziva još odlučitelj. Uočimo da Turingov stroj ne mora nužno uvijek stati. Shematski prikaz Turingovog stroja možete vidjeti na slici \ref{fig:Turing}.\\
-Nedeterministički Turingov stroj se definira na analogan način, samo što je funkcija prijelaza definirana sa: $\delta : Q \times \Gamma \to \mathcal{P}(Q \times \Gamma \times \{L,D,S\})$.
+Nedeterministički Turingov stroj se definira na analogan način, samo što je funkcija prijelaza definirana sa: $\delta : Q \times \Gamma \to \mathcal{P}(Q \times \Gamma \times \{L,D,S\})$. 
 \end{rem}
 \begin{figure}[h!t]
 \centering \includegraphics[height=200pt, width=400pt]{Turing.png}
@@ -151,11 +151,22 @@ Neka su $f, g: \N \to \R^{+}$ dvije funkcije. Kažemo da je funkcija $g$ \textbf
 Činjenicu da je $g$ asimptotska međa od $f$ označavamo sa $f(n)=O(g(n)$. 
 \end{defn}
 Osnovne definicije (što je alfabet logike sudova, interpretacija, ispunjivost formule, konjunktivna, odnosno, disjunktivna normalna forma  i tako dalje) se mogu naći u \cite{Vukovic}.\\
+Više o Turingovom stroju (Turing prepoznatiljivost, Turing odlučivost, univerzalni Turingov stroj, i tako dalje) se može naći u \cite{Sipser}. Pojmovi kao što su klasa $NTIME,TIME$, $PTIME,NP$, te o \textit{polinomnoj reducibilnost} i \textit{NP-potpunosti} također se mogu naći u \cite{Sipser}.
 Označimo sa $SAT$ skup definiran na idući način:
 \[SAT=\{F: F \textrm{ je ispunjiva formula logike sudova }\}\]
 Formulacija \textit{problema SAT} glasi:\\
-Za danu formulu logike sudova F koja je u konjunktivnoj normalnoj formi odrediti vrijedi li $F \in  SAT$.
-
+\begin{center}
+Za danu formulu logike sudova F koja je u konjunktivnoj normalnoj formi odrediti\\ vrijedi li $F \in  SAT$.
+\end{center}
+Konjunktivnu normalnu formu koja u svakoj svojoj elementarnoj disjunkciji sadrži točno $k \in \N \backslash \{0\}$ literala nazivamo $k$-knf. Formulacija problema $k-SAT$ glasi:
+\begin{center}
+	Za proizvoljnu formulu $F$ koja je $k$-knf odrediti je li $F$ ispunjiva. 
+\end{center} 
+U \cite{Sipser} se može vidjeti da je problem $SAT$ \textit{NP-potpun} problem, kao i $3-SAT$.
+Sljedeći teorem govori zapravo o tome da DNA računala, u pogledu vremenske složenosti, imaju bolja svojstva nego Turnigovi strojevi:
+\begin{thm} (Lipton)
+Za svaku konjunktivnu normalnu formu $F$ u kojoj se pojavljuje $n$ propozicionalih varijabli i $m$ klauzula, u $\mathcal{O}(m+1)$ separacija i $\mathcal{O}(m)$ spajanja te jednim uočavanjem možemo odlučiti vrijedi li $F \in SAT$
+\end{thm}
 \newpage
 \nocite{*}
 \bibliographystyle{abbrv}
