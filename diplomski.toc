@@ -4,4 +4,5 @@
 \contentsline {chapter}{\chapternumberline {1}DNA ra\IeC {\v c}unalo}{2}{chapter.1}
 \contentsline {section}{\numberline {1.1}DNA izra\IeC {\v c}unljivost}{2}{section.1.1}
 \contentsline {section}{\numberline {1.2}O slo\IeC {\v z}enosti DNA ra\IeC {\v c}unala}{6}{section.1.2}
-\contentsline {chapter}{Bibliografija}{9}{chapter*.3}
+\contentsline {subsection}{Problem Hamiltonovog puta}{10}{section*.3}
+\contentsline {chapter}{Bibliografija}{11}{chapter*.4}

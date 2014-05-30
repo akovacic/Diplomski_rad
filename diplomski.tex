@@ -97,7 +97,7 @@ Neka je S proizvoljan konačan skup, a $m:S \to \mathbb{N}$ proizvoljna funkcija
     \begin{itemize}
         \item Kopiraj($K_1$,$K_2$) $\to$ uz pretpostavku da je $K_2$ = $\emptyset$ , kopira MulS($K_1$) u MulS($K_2$) time više $K_2$ nije prazan
         \item Spoji($K_1$, $K_2$, $K$) $\to$ uz pretpostavku da $K$=$\emptyset$: \[MulS(K)=MulS(K_1)\bigcup MulS(K_2) \]
-        \item Uoči($K$) $\to$ ispituje je li $MulS(K)\neq\emptyset$, ako je rezultat operacije je $\top$, inače $\bot$
+        \item Uoči($K$) $\to$ ispituje je li $MulS(K)\neq\emptyset$, ako je rezultat operacije je $\top$, inače $\bot$. Također se može pročitati sadržaj epruvete $MulS(K)$.
         \item Odvoji(K,w) $\to$ za skup $K$ i riječ $w$ (iz $MulS(K)$) izbacuje sve riječi iz $K$ koje kao podriječ ne sadrže riječ $w$
         \item Izvadi(K,w) $\to$ $K\backslash Odvoji(K,w)\to $izbacuje sve riječi iz $K$ koje sadrže $w$
         \item Odvoji\textunderscore Pref(K,w) $\to$ izbacuje sve riječi iz K koje ne sadrže w kao prefiks
@@ -114,7 +114,9 @@ Neka je S proizvoljan konačan skup, a $m:S \to \mathbb{N}$ proizvoljna funkcija
     \item Izaberi(K) $\to$ na slučajan način iz MulS(K) izabire neku riječ te “generira” novi skup sastavljen od samo te riječi
 
     \end{itemize}
-    Program za DNA stroj definiramo kao konačan niz gornje navedenih instrukcija. U svakom koraku programa se može izvesti točno jedna instrukcija.
+    \textbf{Program za DNA stroj} definiramo kao konačan niz gornje navedenih instrukcija. U svakom koraku programa se može izvesti točno jedna instrukcija.  Kažemo da program P za DNA stroj \textbf{izračunava} funkciju $f:S \subseteq N^k \to \N$ ako vrijedi:\\
+$\vec{x}=(x_1,...,x_k) \in S$ ako i samo ako program P za DNA stroj s ulazom  $\vec{x}$ (reprezentiranim pomoću DNA lanaca) u epruveti K završi s izvršavanjem te na kraju izvršavanja vrijedi $Detect(K)=\top$ te je pri tome $K=\{f(\vec{x})\}$.\\
+Kažemo da je funkcija $f:\N \to N$ \textbf{DNA izračunljiva} ako postoji program za DNA stroj koji ju izračunava.
 \end{defn}
 \begin{rem}
 Vidimo da se sve ove operacije izvršavaju nad jednom epruvetom u jednom koraku, odnosno multiskupom $MulS(K)$. Što je veća kardinalnost multiskupa $MulS(K)$, to se više operacija na riječima izvrši istovremeno, a u stvarnom svijetu sve te operacije imaju svoje "biokemijske analogone" - biokemijske reakcije. Takvo računalo zapravo možemo interpretirati kao superračunalo s izuzetno velikim brojem procesora. U pozadini svega toga se zapravo krije masivni paralelizam. Memoriju DNA računala zapravo predstavljaju epruvete. Jasno je odakle naziv epruvete.\\
@@ -150,8 +152,21 @@ Neka su $f, g: \N \to \R^{+}$ dvije funkcije. Kažemo da je funkcija $g$ \textbf
 \[f(n)\leq cg(n)\]
 Činjenicu da je $g$ asimptotska međa od $f$ označavamo sa $f(n)=O(g(n)$. 
 \end{defn}
-Osnovne definicije (što je alfabet logike sudova, interpretacija, ispunjivost formule, konjunktivna, odnosno, disjunktivna normalna forma  i tako dalje) se mogu naći u \cite{Vukovic}.\\
-Više o Turingovom stroju (Turing prepoznatiljivost, Turing odlučivost, univerzalni Turingov stroj, i tako dalje) se može naći u \cite{Sipser}. Pojmovi kao što su klasa $NTIME,TIME$, $PTIME,NP$, te o \textit{polinomnoj reducibilnost} i \textit{NP-potpunosti} također se mogu naći u \cite{Sipser}.
+Osnovne definicije (što je alfabet logike sudova, interpretacija, ispunjivost formule, konjunktivna, odnosno, disjunktivna normalna forma  i tako dalje) se mogu naći u \cite[s. ~12-25]{Vukovic}.\\
+Više o Turingovom stroju te nekim pojmovima na koje se pozivamo u idućim rezultatima se mogu naći u:
+\begin{itemize}
+\item Turing prepoznatiljivost, Turing odlučivost \cite[s. ~141-142]{Sipser}
+\item Vremenska složenost Turingovog stroja determinističkog se može naći u \cite[s. ~248]{Sipser}, a nedeterminističkog u \cite[s. ~255]{Sipser}
+\item Klase vremenske složenosti:
+ \begin{itemize}
+ 	\item $TIME(f(n))$ u \cite[s. ~251]{Sipser}
+ 	\item $P$  u \cite[s. ~258]{Sipser}
+ 	\item Vezano uz klasu $NP$ u \cite[s. ~265-267]{Sipser}
+ \end{itemize}
+ 
+ 	\item Polinomna reducibilnost u \cite[s. ~272]{Sipser}
+ 	\item NP-potpunost u \cite[s. ~276]{Sipser}
+\end{itemize}
 Označimo sa $SAT$ skup definiran na idući način:
 \[SAT=\{F: F \textrm{ je ispunjiva formula logike sudova }\}\]
 Formulacija \textit{problema SAT} glasi:\\
@@ -162,14 +177,20 @@ Konjunktivnu normalnu formu koja u svakoj svojoj elementarnoj disjunkciji sadrž
 \begin{center}
 	Za proizvoljnu formulu $F$ koja je $k$-knf odrediti je li $F$ ispunjiva. 
 \end{center} 
-U \cite{Sipser} se može vidjeti da je problem $SAT$ \textit{NP-potpun} problem, kao i $3-SAT$.
-Sljedeći teorem govori zapravo o tome da DNA računala, u pogledu vremenske složenosti, imaju bolja svojstva nego Turnigovi strojevi:
+U \cite[s. ~276-283]{Sipser} se može vidjeti da je problem $SAT$ \textit{NP-potpun} problem, kao i $3-SAT$.
+Sljedeći teorem govori zapravo o tome da DNA računala, u pogledu vremenske složenosti, imaju bolja svojstva nego deterministički Turnigovi strojevi:
 \begin{thm} (Lipton)
 Za svaku konjunktivnu normalnu formu $F$ u kojoj se pojavljuje $n$ propozicionalih varijabli i $m$ klauzula, u $\mathcal{O}(m+1)$ separacija i $\mathcal{O}(m)$ spajanja te jednim uočavanjem možemo odlučiti vrijedi li $F \in SAT$
 \end{thm}
+Dokaz navedenog teorema se može naći u \cite{Lipton}.\\
+S pogleda odlučivosti jezika ipak nemamo takav rezultat, odnosno postoji slutnja koja kaže:
+\begin{conj} (Kvantna i biološka slutnja) Problem je odlučiv na DNA računalu ili kvantnom računalu ako i samo ako je Turing-odlučiv.
+\end{conj}
+Postavlja se prirodno pitanje kako izračunati složenost DNA računala. Odgovor je jednostavan: složenost DNA računala procijenjujemo brojem instrukcija koje DNA stroj izvrši, te s kardinalosti skupa $MulS(K)$. Zbog toga što kardinalnost skupa $MulS(K)$ može izrazito brzo rasti (samo jedna operacija \textit{Proširi(K)}, za pripadnu funkciju kratnosti $m$ multiskupa $MulS(K)$ vrijedi da je: $m_{nova}(x):=2\cdot m_{stara}(x)$, gdje je $m_{nova}(x)$ kratnost od $x$ nakon izvršenja operacije \textit{Proširi},a $m_{stara}(x)$ kratnost od $x$ prije izvršenja te iste operacije) prostorna složenost nekog programa za DNA stroj obično doseže nadeksponencijalnu veličinu (vidjet ćemo u idućem podpoglavlju takav slučaj).  
+\subsection{Problem Hamiltonovog puta}
 \newpage
 \nocite{*}
 \bibliographystyle{abbrv}
-\bibliography{borda2011fundamentals,literatura,CNTYan}
+\bibliography{borda2011fundamentals,literatura,CNTYan,lipton}
 \end{spacing}
 \end{document}

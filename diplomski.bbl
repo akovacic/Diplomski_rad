@@ -10,6 +10,11 @@ J.~Hromkovic and W.~M. Oliva.
 \newblock {\em Algorithmics for Hard Problems}.
 \newblock Springer-Verlag New York, Inc., Secaucus, NJ, USA, 2nd edition, 2002.
 
+\bibitem{Lipton}
+R.~J. Lipton.
+\newblock {DNA solution of hard computational problems}.
+\newblock {\em Science}, 268(5210):542--545, Apr. 1995.
+
 \bibitem{Sipser}
 M.~Sipser.
 \newblock {\em Introduction to the Theory of Computation}.
@@ -18,7 +23,7 @@ M.~Sipser.
 \bibitem{Vukovic}
 M.~Vukovi\'c.
 \newblock {\em Matematička logika}.
-\newblock Element, prvo izdanje edition, 2009.
+\newblock Element, 1st edition, 2009.
 
 \bibitem{yan2012computational}
 S.~Yan.
