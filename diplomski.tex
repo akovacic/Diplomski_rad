@@ -115,8 +115,8 @@ Neka je S proizvoljan konačan skup, a $m:S \to \mathbb{N}$ proizvoljna funkcija
 
     \end{itemize}
     \textbf{Program za DNA stroj} definiramo kao konačan niz gornje navedenih instrukcija. U svakom koraku programa se može izvesti točno jedna instrukcija.  Kažemo da program P za DNA stroj \textbf{izračunava} funkciju $f:S \subseteq N^k \to \N$ ako vrijedi:\\
-$\vec{x}=(x_1,...,x_k) \in S$ ako i samo ako program P za DNA stroj s ulazom  $\vec{x}$ (reprezentiranim pomoću DNA lanaca) u epruveti K završi s izvršavanjem te na kraju izvršavanja vrijedi $Detect(K)=\top$ te je pri tome $K=\{f(\vec{x})\}$.\\
-Kažemo da je funkcija $f:\N \to N$ \textbf{DNA izračunljiva} ako postoji program za DNA stroj koji ju izračunava.
+$\vec{x}=(x_1,...,x_k) \in S$ ako i samo ako program P za DNA stroj s ulazom  $\vec{x}$ (reprezentiranim pomoću DNA lanaca) u epruveti K završi s izvršavanjem te na kraju izvršavanja vrijedi \textit{Uoči(K)}$=\top$ te je pri tome $K=\{f(\vec{x})\}$.\\
+Kažemo da je funkcija $f:\N \to \N$ \textbf{DNA izračunljiva} ako postoji program za DNA stroj koji ju izračunava.
 \end{defn}
 \begin{rem}
 Vidimo da se sve ove operacije izvršavaju nad jednom epruvetom u jednom koraku, odnosno multiskupom $MulS(K)$. Što je veća kardinalnost multiskupa $MulS(K)$, to se više operacija na riječima izvrši istovremeno, a u stvarnom svijetu sve te operacije imaju svoje "biokemijske analogone" - biokemijske reakcije. Takvo računalo zapravo možemo interpretirati kao superračunalo s izuzetno velikim brojem procesora. U pozadini svega toga se zapravo krije masivni paralelizam. Memoriju DNA računala zapravo predstavljaju epruvete. Jasno je odakle naziv epruvete.\\
@@ -186,8 +186,88 @@ Dokaz navedenog teorema se može naći u \cite{Lipton}.\\
 S pogleda odlučivosti jezika ipak nemamo takav rezultat, odnosno postoji slutnja koja kaže:
 \begin{conj} (Kvantna i biološka slutnja) Problem je odlučiv na DNA računalu ili kvantnom računalu ako i samo ako je Turing-odlučiv.
 \end{conj}
-Postavlja se prirodno pitanje kako izračunati složenost DNA računala. Odgovor je jednostavan: složenost DNA računala procijenjujemo brojem instrukcija koje DNA stroj izvrši, te s kardinalosti skupa $MulS(K)$. Zbog toga što kardinalnost skupa $MulS(K)$ može izrazito brzo rasti (samo jedna operacija \textit{Proširi(K)}, za pripadnu funkciju kratnosti $m$ multiskupa $MulS(K)$ vrijedi da je: $m_{nova}(x):=2\cdot m_{stara}(x)$, gdje je $m_{nova}(x)$ kratnost od $x$ nakon izvršenja operacije \textit{Proširi},a $m_{stara}(x)$ kratnost od $x$ prije izvršenja te iste operacije) prostorna složenost nekog programa za DNA stroj obično doseže nadeksponencijalnu veličinu (vidjet ćemo u idućem podpoglavlju takav slučaj).  
+Postavlja se prirodno pitanje kako izračunati složenost DNA računala. Odgovor je jednostavan: složenost DNA računala procijenjujemo brojem instrukcija koje DNA stroj izvrši, te s kardinalosti skupa $MulS(K)$. Zbog toga što kardinalnost skupa $MulS(K)$ može izrazito brzo rasti (samo jedna operacija \textit{Proširi(K)}, za pripadnu funkciju kratnosti $m$ multiskupa $MulS(K)$ vrijedi da je: $m_{nova}(x)=2\cdot m_{stara}(x)$, gdje je $m_{nova}(x)$ kratnost od $x$ nakon izvršenja operacije \textit{Proširi},a $m_{stara}(x)$ kratnost od $x$ prije izvršenja te iste operacije) prostorna složenost nekog programa za DNA stroj obično doseže nadeksponencijalnu veličinu (vidjet ćemo u idućem podpoglavlju takav slučaj). \\
+U sljedećem potpoglavlju ćemo procijeniti složenost jednog programa za DNA stroj.
 \subsection{Problem Hamiltonovog puta}
+\begin{defn}
+\textbf{Konačan usmjereni graf} je uređeni par $G=(V,E)$ gdje je V proizvoljan konačan skup čije elemente nazivamo \textbf{vrhovi}, a $E\subseteq V \times V$ skup čije elemente nazivamo \textbf{bridovi}. Ako je $E=V\times	V$ kažemo da je usmjereni graf $G$ \textbf{potpuni graf}. Kažemo da je brid $e$ \textbf{petlja} ako vrijedi:
+$(\exists x \in V) : e=(x,x)$.
+\textbf{Šetnja u grafu} G je $2n+1$-torka $(v_0,e_0,v_1,e_1,...,v_{n-1},e_{n-1}, v_{n})$, pri čemu vrijedi:
+\begin{itemize}
+	\item $(\forall i \in \{0,...,n\}) \quad v_i \in V$
+	\item $(\forall i \in \{0,...,n-1\}) \quad e_i \in E$
+	\item $e_i=(v_i, v_{i+1}), \forall i \in \{0,...,n-1\}$
+\end{itemize}
+Kažemo da šetnja  $(v_0,e_0,v_1,e_1,...,v_{n-1},e_{n-1}, v_{n})$ \textbf{prolazi kroz vrh} $x \in V$ ako postoji $i \in \{0,...,n\}$ takav da je $x=v_i$, te da šetnja \textbf{počinje} s vrhom $v_0$ i \textbf{zavšrava} s vrhom $v_n$. Duljina šetnje se definira kao broj bridova koji se pojavljuju u njoj.\\
+\textbf{Staza} u grafu je šetnja $(v_0,e_0,v_1,e_1,...,v_{n-1},e_{n-1}, v_{n})$ za koju vrijedi 
+\[(\forall i,j \in \{0,...,n-1\})\, (i\neq j) \to e_i \neq e_j\] \textbf{Put} u grafu je šetnja $(v_0,e_0,v_1,e_1,...,v_{n-1},e_{n-1}, v_{n})$ za koju vrijedi:
+\[(\forall i,j \in \{0,...,n\})\, (i\neq j) \to v_i \neq v_j\] \textbf{Hamiltonov put} je put koji prolazi kroz sve vrhove grafa G.
+\end{defn}
+\begin{rem}
+Neusmjereni graf se definira analogno, ali se skup bridova definira kao:
+\[E\subseteq \{\{x,y\} : x, y \in V\}\]
+Također, radi jednostavnosti, pretpostavili smo da između dva vrha $x,y \in V$ može biti najviše dva usmjerena brida i u tom slučaju vrijedi: $(x,y) \in E$ i $(y,x) \in E$.  
+\end{rem}
+Problem Hamiltonovog puta glasi:\\
+\begin{center}
+\textit{Postoji li u proizvoljnom konačnom grafu $G=(V,E)$ za vrhove $x,y \in V$  Hamiltonov put koji počinje s $x$, a završava s $y$.}
+\end{center}
+U \cite[s. ~286-291]{Sipser} se može vidjeti da je problem Hamiltonovog puta NP-potpun problem. U ovom poglavlju analiziramo \textit{Adlemanov algoritam} koji riješava problem u $\mathcal{O}(n \log (n))$ operacija. U kasnijim poglavljima ćemo obrazložiti reprezentaciju podataka pomoću DNA lanaca, za sada ćemo samo reći da su naši podaci reprezentirani lancima parne duljine $l$. Sada ćemo prezentirat Adlemanov algoriatam za traženje Hamiltonovog puta koji počinje s vrhom $v_{in}$, a završava s $v_{out}$ u usmjerenom označenom grafu $G=(V,E)$. Ali prije toga ćemo reći nešto o vezi bridova i vrhova. Ako su dani vrhovi $A$ i $B$ i reprezentirani riječima $H$ i $J$, tada je brid $(A,B)$ reprezentiran riječju koja je nastala konkatenacijom (u smislu operacije nad riječima) biološkog sufiksa riječi $H$ i biološkog prefiksa riječi $J$. Kako bi mogli razlikovati koji brid povezuje koje vrhove, uviđamo da svaki vrh mora imati jedinstveni prefiks i sufiks, a ne samo jedinstven prikaz jednom riječju. 
+    Nakon što smo objasnili vezu između bridova i vrhova moramo najprije "pripremiti" epruvetu za algoritam. \[K=V\cup E\]
+    U početku je upravo $MulS(K)=K$.\\
+    \indent Adlemanov algoritam:
+    \begin{enumerate}
+        \item Ulaz: Graf $G=(V,E)$, $|V|=n$, $v_1=v_{in}$ vrh iz kojeg krećemo, $v_n=v_{out}$ vrh u kojem završavamo, stavi vrhove i bridove u $K$
+        \item $ \lceil 2n\log_{2}(n) \rceil$ puta primjeni operaciju \textit{Proširi(K)} tako da dobiješ barem $2^{2n\log_{2}(n)}=n^{2n}$ kopija svake riječi u $MulS(K)$
+        \item Primjeni operaciju \textit{Konkatenacija(K)} da dobiješ šetnju u $G$, tako da duljina šetnje bude manja od $n$ - broj bridova u šetnji može biti manji ili jednak $n$
+        \item Primjeni \textit{Odvoji\textunderscore Pref(K, $v_{in}$)}: izbacujemo one šetnje koje ne počinju vrhom $v_{in}$
+        \item  \textit{Odvoji\textunderscore Suff(K, $v_{out}$)} : izbacujemo one šetnje koje ne završavaju s $v_{out}$
+        \item Primjeni operaciju \textit{Izdvoji\textunderscore po \textunderscore duljini(K, $l\cdot n + l\cdot (n-1) $)} da iz $K (MulS(K))$ izbaciš sve one riječi koje u sebi ne sadrže točno $n$ vrhova i $n-1$ bridova (šetnje čija je duljina točno $n-1$)
+        \item na $v_i$ primjeni operaciju \textit{Odvoji(K, $v_i$)} , $\forall{i} \in \{2,3,...,n-1\}$: iz $MulS(K)$ ukloni sve one šetnje u kojima se neki od vrhova ne pojavljuje
+        \item \textit{Uoči(K)}: postoji li Hamiltonov put
+    \end{enumerate}
+
+
+Nama zapravo bridovi u ovom algoritmu, na ovaj način konstruirani daju mogućnost povezivanja dva vrha koja su povezana nekim birdom (u smislu biokemije, igraju ulogu enzima inače se vrhovi ne bi mogli povezati). \\
+Brojimo korake algoritma:
+\begin{itemize}
+\item 2: $\lceil 2n \log _2 (n) \rceil$ koraka
+\item  3-6: Po jedan korak svaka operacija
+\item 7: $n-2$ koraka
+\item 8: jedan korak
+\end{itemize}
+Ukupno: $\lceil 2n \log _2 (n) \rceil + n-2 + 5=\lceil 2n \log _2 (n) \rceil + n+3 = \mathcal{O}(n \log(n))$ operacija. No, rekli smo da se složenost DNA stroja mjeri i kardinalnošću skupa $MulS(K)$ koji u jednom trenutku sadrži i $n^{2n}$ elemenata. 
+Još je preostalo dokazati da algoritam radi:
+\begin{thm} Neka je G=(V,E) usmjeren označen graf, te $v_{in}$ i $v_{out}$ elementi iz V, tada Adlemanov algoritam odlučuje postoji li u usmjerenom grafu G=(V,E) Hamiltonov put od $v_{in}$ do $v_{out}$. \end{thm}
+
+\begin{proof}
+    \begin{itemize}
+        \item $|V|=n$, $K=V\cup E$ gdje smatramo da je svakom vrhu dodijeljen jedinstven prefiks i sufiks. Neka je minimalni DNA lanac duljine $l$.
+        \item Definiramo rekurzivno skupove $MulS(K_n)$ odakle ćemo zapravo izvući kako izgleda naš skup $MulS(K)$ nakon primjene operacije \textit{Proširi(K)} $\lceil 2n\log_2(n) \rceil$ puta
+        \[K_0=K \to MulS(K_0)=K_0\]
+        \[MulS(K_{n+1})=MulS(K_n) \cup MulS(K_n) , n \in \mathbb{N}\]
+        Nakon ovog koraka, redefiniramo skup MulS(K)
+        \[MulS(K)=MulS(K_{\lceil 2n\log_2(n) \rceil})\]
+        Zapravo sada trebamo dokazati da je $2^{\lceil 2n\log_2(n) \rceil}$ dovoljan broj kopija skupa K za kreiranje svih šetnji u grafu:
+        \[2^{\lceil 2n\log_2(n) \rceil} \geq 2^{ 2n\log_2(n) } = n^{2n}\]
+        pa je dovoljno pokazati da je $n^{2n}$ dovoljan broj kopija skupa K od kojih možemo kreirati sve šetnje u grafu. Bez smanjenja općenitosti u tu svrhu možemo pretpostaviti da je G potpuno povezan usmjeren graf (dakle svaki brid je povezan sa svakim u oba smjera). Zašto? Jer ako G nije potpuno povezan onda ima manji broj šetnji od potpuno povezanog usmjerenog grafa. \\
+        \noindent U tu svrhu definiramo skup $A^k$:
+        \[A^k=\{(b_1,...,b_k): b_i \in V\}\]
+        Uvidimo da smo u skupu $A^k$ dozvolili i petlje! Dakle može postojati brid $(v_i, v_i)$. Kada to ne bi dozvolili, na uređenu $k$-torku bi samo još stavili uvjet da je $b_i \neq b_{i+1}, \quad \forall i \in \{1,...,k-1\}$.
+        Sada, jer između svaka 2 vrha ima točno 1 brid za svaki smjer koji povezuje te vrhove, vidimo da su sve šetnje duljine $k-1$ jedinstveno određene skupom $A^k$. Pa su sve šetnje do duljine $n-1$ (jer ćemo tako izabrati operaciju konkatenacije da kreira šetnje duljine ne duže od $n-1$) reprezentirane idućim skupom:
+        \[\bigcup_{k=1}^n A^k\]
+        Preostalo je dokazati da kardinalnost gornjeg skupa nije veća od $n^{2n}$. Kardinalnost skupa $A^k$ je lako odrediti. Naime za prvu komponentu uređene $k$-torke ima $n$ mogućnosti, za $2$ isto $n$, općenito za $i$-tu komponentu ima $n$ mogućnosti.
+        \[|A^k|=n^k \to \bigg|\bigcup_{k=1}^n A^k\bigg|=\sum_{k=1}^n |A^k|=\sum_{k=1}^n n^k=\frac{n(n^n-1)}{n-1}\]
+        \[\frac{n(n^n-1)}{n-1} \leq \frac{n\cdot n^n}{n-1} \leq n\cdot n^n =n^{n+1} \leq n^{2n}\]
+        \item Primjenom operacije \textit{Konkatenacija(K)} dobili smo sve moguće šetnje u grafu $G$ (spremljene u $MulS(K)$)
+        \item Operacijama \textit{Odvoji\textunderscore Pref(K, $v_{in}$)} i \textit{Odvoji\textunderscore Suff(K, $v_{out}$)} iz skupa $MulS(K)$ izbacujemo sve one šetnje koje ne počinju vrhovima $v_{in}$ i $v_{out}$
+        \item operacijom \textit{Izdvoji\textunderscore po\textunderscore duljini(K, $l\cdot n + l\cdot (n-1)$)} uklanjamo sve preostale bridove i one šetnje čija je duljina strogo manja od $n-1$.
+        Sada su ostale šetnje duljine $n-1$, ali to još nisu putevi (a onda ni Hamiltonovi putevi). Kako ima $n$ vrhova, a šetnja je duljine $n-1$, to znači da je u šetnji točno $n$ vrhova kroz koje šetnja prolazi, ako se neki vrh ne nalazi u šetnji, to znači da se neki drugi vrh pojavljuje dva puta. A kako smo već uklonili one šetnje koje ne počinju s  $v_{in}$ i ne završavaju s $v_{out}$ jedino je preostalo ukloniti sve one šetnje koje ne sadrže neki $v_i \in V \backslash \{v_{in}, v_{out}\}$.
+        \item Za svaki $x \in V \backslash \{v_{in}, v_{out}\}$ čini:
+        \[Odvoji(K,x)\]
+        \item Ovim su korakom zapravo u $MulS(K)$ ostali samo Hamiltonovi putevi koji počinju s  $v_{in}$ i završavaju s $v_{out}$, ako takvih ima, operacijom \textit{Uoči(K)} dobivamo rješenje.
+    \end{itemize} 
+\end{proof}
 \newpage
 \nocite{*}
 \bibliographystyle{abbrv}
