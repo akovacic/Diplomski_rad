@@ -79,6 +79,7 @@ U ovom radu najprije ćemo se ukratko upoznati s pojmom DNA računala, odnosno D
 \end{intro}
 \chapter{DNA računalo}
 \section{DNA izračunljivost}
+\label{sec:DNAizr}
 DNA stroj, kao ni DNA izračunavanje nećemo striktno definirati već će definicija biti opisna - u definiciji ćemo reći koje operacije DNA stroj može izvršavati, i što pri tome mora biti zadovoljeno.\\ Prije nego definiramo DNA stroj moramo definirati neke pojmove iz logike sudova i kombinatorike.
 \begin{defn}
 \textbf{Alfabet} je proizvoljan konačan skup, čije elemente nazivamo \textbf{simboli}.\\
@@ -270,12 +271,34 @@ Još je preostalo dokazati da algoritam radi:
 \end{proof}
 \chapter{DNA kriptografija}
 \section{Osnovni biološki koncepti deoksiribonukleinske kiseline}
-Deoksiribonukleinska kiselina (DNA) sastavljena je od dva duga lanca nukleotida. Nukleotid je osnovna građevna jedinica DNA, a gradi ju jedna od četiri dušićne baze: adenina (A), gvanina (G), timina (T) i citozina (C), šećera pentoze te fosfatne skupine.  
+\textbf{Deoksiribonukleinska kiselina} (DNA) sastavljena je od dva duga lanca nukleotida (polinukleotidni lanci) koji su omotani jedan oko drugoga, odnosno ima strukturu \textit{dvostruke uzvojnice }(engleski \textbf{double helix}) (slika \ref{fig:DNA}). \textbf{Nukleotid} je osnovna građevna jedinica DNA, a gradi ju jedna od četiri dušićne baze: \textit{adenina (A), gvanina (G), timina (T) i citozina (C)}, šećera pentoze te fosfatne skupine. Sa $1' - 5'$ označavamo ugljikove atome u molekuli šećera, a na slici \ref{fig:Nukleotid} se može vidjeti atomska struktura nukleotida. Vidimo da ako se na $2'$ veže hidroksilna skupina - govorimo o \textbf{ribonukleinskoj kiselini}, u kojoj se timin zamjenjuje \textit{uracinom (U)}, inače, ako se na $2'$ veže vodik, govorimo o DNA (pripadna pentoza je deoksiriboza). Veza između dva nukleotida je kovalentna, a nastaje tako da se hidroksilna skupina na $3'$ ugljikovom atomu pentoze veže s fosfatnom skupinom drugog nukleotida koja se nalazi na $5'$ ugljikovom atomu pripadne pentoze. Pripadna dva lanca koja sastavljaju jednu molekulu DNA su \textit{antiparalelni} što znači da moraju biti suprotne orijentacije - jedan lanac dvostruke uzvojnice mora završavati s 5' ugljikovim atomom kao krajem, a druga zavravati s 3' ugljikovim atomom kao kraje (slika \ref{fig:antipar}). Pri povezivanju pripadnih dušićnih baza uvijek se adenin povezuje s timinom, a gvanin s citozinom. Sada kada smo osbjasnili neke osnovne principe DNA molekule, komentirat ćemo neka tehnološka postignuća koja su biokemijski analogoni operacija DNA stroja navedenih u poglavlju \ref{sec:DNAizr}.
+\textit{DNA sintetizator} je stroj koji kemijski sintetizira DNA lance. Umjetne jednolančane DNA (signle stranded DNA) koje ćemo kasnije označavati sa \textit{ssDNA} nazivamo oligonukleotide. Dvostruke uzvojnice ćemo nadalje označavati sa \textit{dsDNA}. U određenim uvjetima, komplementarne ssDNA mogu oformiti dsDNA, a taj proces se zove \textit{hibridizacija} (analogon operacije $Konkatenacija(K)$, slika \ref{fig:hybrid}). 
+\begin{figure}[h!t]
+\centering \includegraphics[scale=0.8]{DNA.png}
+\caption{Struktura DNA: a) 2D model, b) 3D model}
+\label{fig:DNA}
+\end{figure}
+
+\begin{figure}[h!t]
+\centering \includegraphics[scale=0.8]{hybrid.jpg}
+\caption{Hibridizacija}
+\label{fig:hybrid}
+\end{figure}
+
+\begin{figure}[h!t]
+\centering \includegraphics[scale=1]{antipar.jpg}
+\caption{Antiparalelnost DNA}
+\label{fig:antipar}
+\end{figure} 
+
+
 \begin{figure}[h!t]
 \centering \includegraphics[scale=0.7]{Nukleotid.png}
 \caption{Nukleotid}
 \label{fig:Nukleotid}
 \end{figure} 
+
+\newpage
 \section{Reprezentacija podataka DNA lancima}
 \section{Osnove kriptografije i DES kriptosustav}
 \section{Enkripcija i dekripcija podataka}
