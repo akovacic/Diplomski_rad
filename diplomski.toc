@@ -7,7 +7,12 @@
 \contentsline {subsection}{Problem Hamiltonovog puta}{10}{section*.3}
 \contentsline {chapter}{\chapternumberline {2}DNA kriptografija}{16}{chapter.2}
 \contentsline {section}{\numberline {2.1}Osnovni biolo\IeC {\v s}ki koncepti deoksiribonukleinske kiseline}{16}{section.2.1}
-\contentsline {section}{\numberline {2.2}Reprezentacija podataka DNA lancima}{18}{section.2.2}
-\contentsline {section}{\numberline {2.3}Osnove kriptografije i DES kriptosustav}{18}{section.2.3}
-\contentsline {section}{\numberline {2.4}Enkripcija i dekripcija podataka}{18}{section.2.4}
-\contentsline {chapter}{Bibliografija}{20}{chapter*.4}
+\contentsline {section}{\numberline {2.2}Reprezentacija podataka DNA lancima}{19}{section.2.2}
+\contentsline {section}{\numberline {2.3}Osnove kriptografije}{20}{section.2.3}
+\contentsline {section}{\numberline {2.4}DES kriptosustav}{22}{section.2.4}
+\contentsline {subsection}{Povijest DES-a}{22}{section*.4}
+\contentsline {subsection}{Algoritam}{22}{section*.5}
+\contentsline {subsection}{Kratki pregled kriptoanalize DES-a}{22}{section*.6}
+\contentsline {subsection}{Provaljivanje DES-a DNA izra\IeC {\v c}unavanjem}{22}{section*.7}
+\contentsline {section}{\numberline {2.5}Enkripcija i dekripcija podataka}{22}{section.2.5}
+\contentsline {chapter}{Bibliografija}{23}{chapter*.8}

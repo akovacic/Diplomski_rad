@@ -1,9 +1,19 @@
 \begin{thebibliography}{1}
 
+\bibitem{Adleman}
+L.~M. Adleman.
+\newblock Molecular computation of solutions to combinatorial problems.
+\newblock {\em Science}, 266(11):1021--1024, Nov. 1994.
+
 \bibitem{borda2011fundamentals}
 M.~Borda.
 \newblock {\em Fundamentals in Information Theory and Coding}.
 \newblock Springer, 2011.
+
+\bibitem{duje}
+A.~Dujella and M.~Maretić.
+\newblock {\em Kriptografija}.
+\newblock Element, 1st edition, 2007.
 
 \bibitem{HromkovicAHP}
 J.~Hromkovic and W.~M. Oliva.

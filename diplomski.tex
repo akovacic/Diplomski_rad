@@ -14,7 +14,7 @@
 % opcija utf8 za unicode (unix, linux, mac)
 % opcija cp1250 za windowse
 \usepackage[utf8]{inputenc}  % ukoliko se koristi XeLaTeX onda je \usepackage{xunicode}\usepackage{xltxtra}
-
+\usepackage{color}
 % Stil za diplomski, unutra je ukljucena podrska za hrvatski jezik
 \usepackage{diplomski}
 % bibliografija na hrvatskom
@@ -272,7 +272,8 @@ Još je preostalo dokazati da algoritam radi:
 \chapter{DNA kriptografija}
 \section{Osnovni biološki koncepti deoksiribonukleinske kiseline}
 \textbf{Deoksiribonukleinska kiselina} (DNA) sastavljena je od dva duga lanca nukleotida (polinukleotidni lanci) koji su omotani jedan oko drugoga, odnosno ima strukturu \textit{dvostruke uzvojnice }(engleski \textbf{double helix}) (slika \ref{fig:DNA}). \textbf{Nukleotid} je osnovna građevna jedinica DNA, a gradi ju jedna od četiri dušićne baze: \textit{adenina (A), gvanina (G), timina (T) i citozina (C)}, šećera pentoze te fosfatne skupine. Sa $1' - 5'$ označavamo ugljikove atome u molekuli šećera, a na slici \ref{fig:Nukleotid} se može vidjeti atomska struktura nukleotida. Vidimo da ako se na $2'$ veže hidroksilna skupina - govorimo o \textbf{ribonukleinskoj kiselini}, u kojoj se timin zamjenjuje \textit{uracinom (U)}, inače, ako se na $2'$ veže vodik, govorimo o DNA (pripadna pentoza je deoksiriboza). Veza između dva nukleotida je kovalentna, a nastaje tako da se hidroksilna skupina na $3'$ ugljikovom atomu pentoze veže s fosfatnom skupinom drugog nukleotida koja se nalazi na $5'$ ugljikovom atomu pripadne pentoze. Pripadna dva lanca koja sastavljaju jednu molekulu DNA su \textit{antiparalelni} što znači da moraju biti suprotne orijentacije - jedan lanac dvostruke uzvojnice mora završavati s 5' ugljikovim atomom kao krajem, a druga zavravati s 3' ugljikovim atomom kao kraje (slika \ref{fig:antipar}). Pri povezivanju pripadnih dušićnih baza uvijek se adenin povezuje s timinom, a gvanin s citozinom. Sada kada smo osbjasnili neke osnovne principe DNA molekule, komentirat ćemo neka tehnološka postignuća koja su biokemijski analogoni operacija DNA stroja navedenih u poglavlju \ref{sec:DNAizr}.
-\textit{DNA sintetizator} je stroj koji kemijski sintetizira DNA lance. Umjetne jednolančane DNA (signle stranded DNA) koje ćemo kasnije označavati sa \textit{ssDNA} nazivamo oligonukleotide. Dvostruke uzvojnice ćemo nadalje označavati sa \textit{dsDNA}. U određenim uvjetima, komplementarne ssDNA mogu oformiti dsDNA, a taj proces se zove \textit{hibridizacija} (analogon operacije $Konkatenacija(K)$, slika \ref{fig:hybrid}). 
+\textit{DNA sintetizator} je stroj koji kemijski sintetizira DNA lance. Umjetne jednolančane DNA (signle stranded DNA) koje ćemo kasnije označavati sa \textit{ssDNA} nazivamo oligonukleotide. Dvostruke uzvojnice ćemo nadalje označavati sa \textit{dsDNA}. U određenim uvjetima, komplementarne ssDNA mogu oformiti dsDNA, a taj proces se zove \textit{hibridizacija}. (Navesti ostale biokemijske operacije koje se mogu upotrebljavati).
+
 \begin{figure}[h!t]
 \centering \includegraphics[scale=0.8]{DNA.png}
 \caption{Struktura DNA: a) 2D model, b) 3D model}
@@ -293,14 +294,92 @@ Još je preostalo dokazati da algoritam radi:
 
 
 \begin{figure}[h!t]
-\centering \includegraphics[scale=0.7]{Nukleotid.png}
+\centering \includegraphics[scale=0.5]{Nukleotid.png}
 \caption{Nukleotid}
 \label{fig:Nukleotid}
 \end{figure} 
 
 \newpage
 \section{Reprezentacija podataka DNA lancima}
-\section{Osnove kriptografije i DES kriptosustav}
+Reprezentacija podataka DNA lancima se vrši na idući način:
+\texttt{ 
+ \begin{enumerate}
+ \item Ulaz: Tekst $T$
+ \item Tekst $T$ $\to$ ASCII $T_A$ (Decimalni ili Hex)
+ \item ASCII $T_A \to$ 8-bitni binarni prikaz $T_B$ 
+ \item Svaka $2$ bita zamijeni pripadnom dušićnom bazom prema \ref{tab:rep}
+\end{enumerate}
+}
+\begin{table}[!ht]
+\centering
+\begin{tabular}{|c|c|}
+\hline 
+$\mathbf{x \in \{0,1\}^2}$ & \textbf{Dušićna baza} \\ 
+\hline 
+00 & A \\ 
+\hline 
+01 & C \\ 
+\hline 
+10 & G \\ 
+\hline 
+11 & T \\ 
+\hline 
+\end{tabular}
+\caption{Reprezentacija uređenog para bitova sa dušićnim bazama}
+\label{tab:rep}
+\end{table} 
+\begin{exa}
+Reprezentirajmo "DNA" sa DNA lancem:
+\begin{table}[!ht]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline 
+Tekst & ASCII kod & Binarni prikaz & DNA prikaz \\ 
+\hline 
+D & 44 & 01 00 01 00& CACA \\ 
+\hline 
+N & 4E & 01 00 11 10 & CATG \\ 
+\hline 
+A & 41 & 01 00 00 01 & CAAC \\ 
+\hline 
+\end{tabular} 
+\caption{Reprezentacija riječi "DNA" DNA lancem }
+\label{tab:prim}
+\end{table}\\
+Iz \ref{tab:prim} slijedi:
+$"DNA"=(CACACATGCAAC)_{DNA}$
+\end{exa}
+Naravno, vidimo da bi ovakvu "šifru" bilo iznimno lako probiti pa reprezentaciju podataka nećemo razmatrati kao potencijalni kriptosustav jer bi njegova sigurnost bila izuzetno mala.
+\section{Osnove kriptografije}
+Kriptografija je znanstvena disciplina koja proučava metode koje u nesigurnom komunikacijskom kanalu  čuvaju integritet i sigurnost podataka i poruka te skrivaju njihov sadržaj od treće osobe, a tako da dane poruke može pročitati samo onaj kome su namijenjene. Razmatrat ćemo komunikaciju između dvoje sudionika: \textit{pošiljatelja (Alice)} i \textit{primatelja (Bob)}. Alice želi preko nesigurnog komunikacijskog kanala poslati poruku, tako da  treća osoba (Oscar ili Eva) ne može saznati sadržaj poruke. Poruku zovemo \textit{otvoreni tekst}. Kako bi sakrila sadržaj poruke, Alice transformira otvoreni tekst uporabom \textit{ključa}. Cijeli postupak transformacije sa ključem nazivamo \textit{šifriranje}, a rezultat šifriranja \textit{šifrat}. Alice šalje Bobu šifrat preko nesigurnog komunikacijskog kanala. Treća osoba pokuašava ukrasti šifrat te saznati njegov sadržaj, no ako je Alice koristila "dobro" šifriranje, treća osoba to neće bit u mogućnosti napraviti. Kada poruka dođe do Boba, on će, u slučaju da ima odgovarajući ključ, šifrat ponovno transformirati u otvoreni tekst, što zovemo \textit{dešifriranjem}. \textit{Kriptoanaliza (dekriptiranje)} je znanstvena disciplina koja proučava metode za čitanje skrivenih poruka bez poznavanja ključa. Kriptologija je znanstvena diciplina koja objedinjuje i kriptografiju i kriptoanalizu. Često za šifriranje odnosno dešifriranje koristimo određene postupke - \textit{kriptografske algoritme (šifre)}. Ti postupci su zapravo određene funkcije - funkcija \textit{enkripcije} općenito otvorenom tekstu (njegovim sastavnim jedinicama) pridružuje osnovne sastavnice šifrata, dok funkcija \textit{dekripcije} opet sastavnim jedinicama šifrata pridružuje sastavne jedinice otvorenog teksta. \textit{Prostor ključeva} je skup čiji su elementi svi mogući ključevi. \textit{Kriptosustav} objedinjuje kriptografski algoritam,   šifrate, ključeve te sve moguće otvorene tekstove.
+Sada navodimo formalnu definiciju kriptosustava:
+\begin{defn}
+Kriptosustav je uređena petorka $(\mathcal{P}, \mathcal{C}, \mathcal{K}, \mathcal{E}, \mathcal{D})$ gdje su redom:
+\begin{itemize}
+	\item $\mathcal{P}$ konačan skup čije elemente nazivamo \textit{simbolima otvorenog teksta}
+	\item $\mathcal{C}$ konačan skup čije elemente nazivamo \textit{simbolima šifrata}
+	\item $\mathcal{K}$ je konačan skup čije elemente nazivamo \textit{ključevi}
+	\item $\mathcal{E}=\{e :e \text{  je funkcija definirana sa e }:\mathcal{P} \to \mathcal{C} \}$ i $\mathcal{D}=\{d: d\text{ je funkcija definirana sa } d: \mathcal{C} \to \mathcal{P}\}$ su skupovi funkcija za koje vrijedi:
+	\[(\forall K \in \mathcal{K})(\exists e_K \in \mathcal{E})(\exists d_K \in \mathcal{D}) : d_K(e_K(x))=x, \forall x \in \mathcal{P} \]
+	
+\end{itemize}
+\end{defn}
+\begin{rem}
+U primjeni se često radi jednostavnosti kaže da je $\mathcal{P}$ konačan skup osnovnih elemenata otvorenog teksta, a $\mathcal{C}$ skup osnovnih elemenata šifrata. U zadnjoj točki definicije, radi jednostavnosti, navodi da je $x$ otvoreni tekst (odnosno $x \in \mathcal{P}^k$, za neki $k \in \N$). Naravno, to je zbog toga što se prirodno može uvesti "proširenje" funkcije $e_K$ i to na sljedeći način: \\ 
+za $\vec{x}=(x_1,...,x_n) \in \mathcal{P}^n$ definira se da je \[e_K(\vec{x})=e_K(x_1)e_K(x_2)...e_K(x_n)\]
+Analogno bi se "proširila" funkcija $d_K$. 
+\end{rem}
+Od načina (tipa operacija) šifriranja razlikujemo \textit{supstitucijske šifre} (svaki element otvorenog teksta se zamijenjuje nekim drugim tekstom, npr. "DNA" $\to$ "GRD"), \textit{transpozicijske šifre} u kojoj se permutiraju slova otvorenog teksta (npr. "DNA" $\to$ "NDA"). Postoje i kriptosustavi koji koriste i jednu i drugu metodu. Otvoreni tekst možemo pak podijeliti na blokove pa razlikujemo \textit{blokovne šifre} i  \textit{protočne šifre}	gdje šifriramo element po element otvorenog teksta. Prema javnosti ključeva razlikuejmo \textit{simetrične kriptosustave} i \textit{kriptosustave s javnim ključem}. U simetričnim kriptosustavima se ključ za dešifriranje može saznati iz ključa za šifriranje, pa je taj ključ \textit{tajan}, zbog čega ove kriptosustave nazivamo i \textit{kriptosustavi s tajnim ključem}. U drugom navedenom postoje dva ključa i ključ za dešifriranje se ne može izvesti iz ključa za šifriranje u nekom razumnom vremenu. U daljnjim razmatranjima pretpostavljat ćemo takozvano Kerckhoffsovo načelo:
+\begin{center}
+	\textit{Kriptosustav bi trebao biti siguran čak i ako se sve zna o njemu osim ključa.}
+\end{center}
+Pa ćemo pretpostaviti da napadač na kriptosustav zna koji alat za šifriranje koristimo, posjeduje šifrat i njemu odgovarajući otvoreni tekst, pretpostavljamo da ima mogućnost odabira otvorenog teksta i njemu pripadajućeg šifrata pa čak i da ima alat za dešifriranje na temelju kojeg iz danog šifrata može dobiti otvoreni tekst (cilj mu je saznati ključ za dešifriranje).
+Više o kriptografiji se može naći u \cite{duje}
+\section{DES kriptosustav}
+\subsection{Povijest DES-a}
+\subsection{Algoritam}
+\subsection{Kratki pregled kriptoanalize DES-a}
+\subsection{Provaljivanje DES-a DNA izračunavanjem}
 \section{Enkripcija i dekripcija podataka}
 
 \newpage
