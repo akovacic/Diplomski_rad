@@ -375,10 +375,82 @@ Od načina (tipa operacija) šifriranja razlikujemo \textit{supstitucijske šifr
 \end{center}
 Pa ćemo pretpostaviti da napadač na kriptosustav zna koji alat za šifriranje koristimo, posjeduje šifrat i njemu odgovarajući otvoreni tekst, pretpostavljamo da ima mogućnost odabira otvorenog teksta i njemu pripadajućeg šifrata pa čak i da ima alat za dešifriranje na temelju kojeg iz danog šifrata može dobiti otvoreni tekst (cilj mu je saznati ključ za dešifriranje).
 Više o kriptografiji se može naći u \cite{duje}
-\section{DES kriptosustav}
-\subsection{Povijest DES-a}
-\subsection{Algoritam}
-\subsection{Kratki pregled kriptoanalize DES-a}
+\section{DES kriptosustav}	
+\subsection{Kratki prgled DES kriptosustava}
+"Krajem 60-tih i početkom 70-tih godina 20. stoljeća, razvojem financijskih transakcija, kriptografija postaje zanimljiva sve većem broju potencijalnih korisnika. Dotad je glavna primjena kriptografije bila u vojne i diplomatske svrhe, pa je bilo normalno da svaka država (ili čak svaka zainteresirana državna organizacija) koristi svoju šifru za koju je vjerovala da je najbolja. No, tada se pojavila potreba za šifrom koju će moći koristiti korisnici širom svijeta, i u koju će svi oni moći imati povjerenje - dakle, pojavila se potreba uvođenja standarda u kriptografiji.\\
+Godine 1972. američki National Bureau of Standards (NBS) inicirao je program za zaštitu računalnih i komunikacijskih podataka. Jedan je od ciljeva bio razvijanje jednog standardnog kriptosustava. Godine 1973. NSB je raspisao javni natječaj za takav kriptosustav. Taj kriptosustav je trebao zadovoljiti sljedeće uvjete:
+\begin{itemize}
+\item visoki stupanj sigurnosti
+\item potpuna specifikacija i lako razumijevanje algoritma
+\item sigurnost leži u ključu, a ne u tajnosti algoritma
+\item dostupnost svim korisnicima
+\item prilagodljivost uporabi u različitim primjenama
+\item ekonomičnost implementacije u elektoničkim uređajima
+\item efikasnost
+\item mogućnost provjere
+\item mogućnost izvoza (zbog američkih zakona)
+\end{itemize}
+
+Na tom natječaju niti jedan prijedlog nije zadovoljavao sve ove zahtjeve. Međutim, na ponovljeni natječaj iduće godine pristigao je prijedlog algoritma koji je razvio IBM-ov tim kriptografa. Algoritam je zasnovan na tzv. Feistelovoj šifri. Gotovo svi simetrični blokovni algoritmi koji su danas u uporabi koriste ideju koju je uveo Horst Feistel 1973. godine. Jedna od glavnih ideja je alternirana uporaba supstitucija i transpozicija kroz više iteracija (tzv. rundi).
+Predloženi algoritam je nakon nekih preinaka, u kojima je sudjelovala i National Security Agency (NSA), prihvaćen kao standard 1976. godine i dobio je ime Data Encryption Standard (DES)."\footnote{\cite[s. ~?]{duje}}\\
+Pogledajmo sada kako se kriptira DES algoritmom:
+Pretpostavljamo da je duljina otvorenog teksta $x$ kojeg DES šifrira duljine 64 bita. DES koristi ključ $K=k_1...k_{56}$ duljine 56 bita.
+Neka je $x=x_1...x_{64}$ otvoreni tekst. Najprije permutiramo $x$ fiksnom \textit{inicijalnom permutacijom} IP te dobivamo $x_0=IP(x)$ - IP $i$-ti bit od $x$ zamijenjuje sa $IP(i)$-tim bitom od $x$. Inicijalna permutacija IP je prikazana na slici \ref{fig:IP}.
+
+\begin{figure}[h!t]
+\centering \includegraphics[scale=1]{IP.jpg}
+\caption{Inicijalna permutacija}
+\label{fig:IP}
+\end{figure}
+
+Zatim napišemo $x_0$ u obliku konkatenacije dva \textit{stringa bitova} koji su duljine 32 bita svaki: $x_0=L_0R_0$ 
+Nakon toga računamo $L_i$ i $R_i$, gdje je:
+\[L_i=R_{i-1}\]
+\[R_i=L_{i-1} \oplus f(R_{i-1}, K_i)\]
+Gdje su $K_1,...,K_{16}$ \textit{riječi bitova} duljine 48, dobiveni permutiranjem nekih bitova iz $K$. $\oplus$ je operacija \textit{ekskluzivno ili} opisana slikom \ref{fig:XOR}
+
+\begin{figure}[h]
+\centering \includegraphics[scale=0.8]{XOR.png}
+\caption{Operacija \textit{ekskluzivno ili}}
+\label{fig:XOR}
+\end{figure}
+Sada ćemo opisati dijelovanje funkcije $f:\{0,1\}^{32} \times \{0,1\}^{48} \to \{0,1\}^{32}$. Pretpostavimo da su argumenti funkcije riječ $A$ duljine 32 i $J$ duljine 48.
+Prvo niz $A$ proširimo do riječi bitova duljine 48 primjenjujući funkciju $E:\{0,1\}^{32} \to \{0,1\}^{48}$ danu slikom \ref{fig:fjaE} koja $i$-tom bitu, pridruži $E(i)$-ti bit riječi $A$ koji se nalazi na $i$-tom mjestu tablice čitajući s lijeva na desno. Očigledno je da se 16 bitova riječi $A$ "ponavlja".
+\begin{figure}[h]
+\centering \includegraphics[scale=1]{E.jpg}
+\caption{Preslikavanje \textit{E}}
+\label{fig:fjaE}
+\end{figure}
+Uzmemo da je $B=E(A)\oplus J$ te prikažemo $B$ kao konkatenaciju osam riječi sastavljenih od bitova koje su duljine šest, odnosno: $B=B_0B_1B_2B_3B_4B_5B_6B_7B_8$. U sljedećem koraku algoritma koristimo $S-kutije$ (\textit{supstitucijske kutije}) $S_1, ..., S_8$ (prikazane na slici \ref{fig:sbox}), od kojih je svaki $S_i \in \{0,...,15\}^{4\times 16}$ matrica sa 4 retka i 16 stupaca čiji su elementi iz skupa $\{0,...,15\}$. Neka je svaki $B_j=b_1^{(j)}...b_6^{(j)}$. Sada računamo $S_j(B_j)$ prema sljedećem opisu:\\$r_j=b_1^{(j)}b_6^{(j)}$ binarni zapis $r_j$-tog retka od $S_j$, a $c_j=b_2^{(j)}b_3^{(j)}b_4^{(j)}b_5^{(j)}$ binarni zapis $c_j$-tog stupca matrice $S_j$. Definiramo: $C_j=S_j(B_j)=S_j(r_j, c_j), j=1,...,8$ zapisano kao riječ (broj) sastavljenu od 4 bita. Sada riječ $C=C_1C_2C_3C_4C_5C_6C_7C_8$ sastavljenu od 32 bita permutiramo pomoću fiksne \textit{završne permutacije} $P$ prikazane na slici \ref{fig:permP}. U konačnici, vrijedi da je $f(A,J)=P(C)$.	
+\begin{figure}[h]
+\centering \includegraphics[scale=1]{P.jpg}
+\caption{Završna permutacija}
+\label{fig:permP}
+\end{figure}
+
+Sada opisujemo računanje $K_1,...,K_{16}$ iz $K=k_1...k_{64}$. Bitovi, čiji je indeks $l*8, l=1,...,8$ služe za testiranje pariteta, definirani su tako da svakih osam bitova (jedan bajt), čitajući s lijeva na desno, sadrži neparan broj jedinica. Navedene (paritetne) bitove ignoriramo kod računanja tablice ključeva, a preostale bitove permutiramo  pomoću fiksne permutacije $PC1$ dane slikom \ref{fig:PC1}. Neka je sada $PC1(K)=C_0D_0$, tako da je $d(C_0)=d(D_0)=28$. Sada za svaki $i \in \{1,...,16\}$ računamo:
+\[C_i=\begin{cases}^1\overleftarrow{C_{i-1}} &\mbox{ako } i=1,2,9,16 \\  ^2\overleftarrow{C_{i-1}} &\mbox{inače } \end{cases}\]
+\[D_i=\begin{cases}^1\overleftarrow{D_{i-1}} &\mbox{ako } i=1,2,9,16 \\  ^2\overleftarrow{D_{i-1}} &\mbox{inače } \end{cases}\]
+\[K_i=PC2(C_iD_i)\]
+Gdje je $PC2$ fiksna permutacija opisana slikom \ref{fig:PC2}, a operator $^j\overleftarrow{A}$ predstavlja ciklički pomak ulijevo za  $j$ mjesta nad riječi $A$ sasatavljenoj od bitova.
+\begin{figure}[h]
+\centering \includegraphics[scale=1]{PC1.jpg}
+\caption{Fiksna permutacija $PC1$}
+\label{fig:PC1}
+\end{figure}
+
+\begin{figure}[h]
+\centering \includegraphics[scale=1]{PC2.jpg}
+\caption{Fiksna permutacija $PC2$}
+\label{fig:PC2}
+\end{figure}
+
+\begin{figure}[h]
+\centering \includegraphics[scale=0.6]{S-box.jpg}
+\caption{$S$-kutije}
+\label{fig:sbox}
+\end{figure}
+ \newpage
 \subsection{Provaljivanje DES-a DNA izračunavanjem}
 \section{Enkripcija i dekripcija podataka}
 
