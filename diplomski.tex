@@ -445,6 +445,28 @@ Gdje je $PC2$ fiksna permutacija opisana slikom \ref{fig:PC2}, a operator $^j\ov
 \label{fig:PC2}
 \end{figure}
 
+Nakon tog cijelog postupka primjenimo \textit{inverznu permutaciju} $IP^{-1}$ na $R_{16}L_{16}$, a onda je šifrat $y$ dan sa:
+\[y=IP^{-1}(R_{16}L_{16})\]
+Primjetimo da smo sa inverznom permutacijom dijelovali na riječ $R_{16}L_{16}$,a ne $L_{16}$ i $R_{16}$ (obrnuti poredak). Permutacija $IP^{-1}$ je prikazana slikom \ref{fig:invIP}.
+Postupak za deđifriranje je analogan:\\
+Krećemo od šifrata $y$: na njega najprije primjenimo permutaciju IP sa slike \ref{fig:IP}, $y_0=IP(y)=IP(IP^{-1}(R_{16}L_{16}))=R_{16}L{16}$.  A sada imamo:
+\[R_{15}=L_{16}\]
+A iz 
+\[R_{16}=L_{15} \oplus f(R_{15}, K_{16})\]
+Slijedi
+\[L_{15}=R_{16} \oplus f(R_{15}, K_{16})\]
+Općenito, za sve $i=1,...,16$ dobivamo da vrijedi:
+\[R_{16-i}=L_{16-i+1}\]
+\[L_{16-i}=R_{16-i+1} \oplus f(R_{16-i}, K_{16-i+1})\]
+Iz čega dobivamo niz $R_{14}L_{14},R_{13}L_{13},...R_{0}L_{0}$. A zatim zamjenom poretka od $R_{0}L_{0}$ i primjenom na to $IP^{-1}$ dobivamo:
+$IP^{-1}(L_0R_0)=IP^{-1}(IP(x))=x$
+Pa smo dobili traženi otvoreni tekst.
+\begin{figure}[h]
+\centering \includegraphics[scale=0.7]{invIP.jpg}
+\caption{Inverzna permutacija $IP^{-1}$}
+\label{fig:invIP}
+\end{figure}
+
 \begin{figure}[h]
 \centering \includegraphics[scale=0.6]{S-box.jpg}
 \caption{$S$-kutije}
