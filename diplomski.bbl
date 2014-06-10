@@ -1,9 +1,18 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{Adleman}
 L.~M. Adleman.
 \newblock Molecular computation of solutions to combinatorial problems.
 \newblock {\em Science}, 266(11):1021--1024, Nov. 1994.
+
+\bibitem{DESDNA}
+L.~M. Adleman, P.~W.~K. Rothemund, and S.~Roweis.
+\newblock {On Applying Molecular Computation To The Data Encryption Standard}.
+\newblock {\em Journal of Computational Biology}, 6(1):53--63, 1999.
+
+\bibitem{Boneh_breakingdes}
+D.~Boneh, C.~Dunworth, and R.~Lipton.
+\newblock Breaking \textsc{DES} using a molecular computer (extended abstract).
 
 \bibitem{borda2011fundamentals}
 M.~Borda.

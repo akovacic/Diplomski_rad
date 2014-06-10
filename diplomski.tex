@@ -271,6 +271,7 @@ Još je preostalo dokazati da algoritam radi:
 \end{proof}
 \chapter{DNA kriptografija}
 \section{Osnovni biološki koncepti deoksiribonukleinske kiseline}
+\label{sec:DNA}
 \textbf{Deoksiribonukleinska kiselina} (DNA) sastavljena je od dva duga lanca nukleotida (polinukleotidni lanci) koji su omotani jedan oko drugoga, odnosno ima strukturu \textit{dvostruke uzvojnice }(engleski \textbf{double helix}) (slika \ref{fig:DNA}). \textbf{Nukleotid} je osnovna građevna jedinica DNA, a gradi ju jedna od četiri dušićne baze: \textit{adenina (A), gvanina (G), timina (T) i citozina (C)}, šećera pentoze te fosfatne skupine. Sa $1' - 5'$ označavamo ugljikove atome u molekuli šećera, a na slici \ref{fig:Nukleotid} se može vidjeti atomska struktura nukleotida. Vidimo da ako se na $2'$ veže hidroksilna skupina - govorimo o \textbf{ribonukleinskoj kiselini}, u kojoj se timin zamjenjuje \textit{uracinom (U)}, inače, ako se na $2'$ veže vodik, govorimo o DNA (pripadna pentoza je deoksiriboza). Veza između dva nukleotida je kovalentna, a nastaje tako da se hidroksilna skupina na $3'$ ugljikovom atomu pentoze veže s fosfatnom skupinom drugog nukleotida koja se nalazi na $5'$ ugljikovom atomu pripadne pentoze. Pripadna dva lanca koja sastavljaju jednu molekulu DNA su \textit{antiparalelni} što znači da moraju biti suprotne orijentacije - jedan lanac dvostruke uzvojnice mora završavati s 5' ugljikovim atomom kao krajem, a druga zavravati s 3' ugljikovim atomom kao kraje (slika \ref{fig:antipar}). Pri povezivanju pripadnih dušićnih baza uvijek se adenin povezuje s timinom, a gvanin s citozinom. Sada kada smo osbjasnili neke osnovne principe DNA molekule, komentirat ćemo neka tehnološka postignuća koja su biokemijski analogoni operacija DNA stroja navedenih u poglavlju \ref{sec:DNAizr}.
 \textit{DNA sintetizator} je stroj koji kemijski sintetizira DNA lance. Umjetne jednolančane DNA (signle stranded DNA) koje ćemo kasnije označavati sa \textit{ssDNA} nazivamo oligonukleotide. Dvostruke uzvojnice ćemo nadalje označavati sa \textit{dsDNA}. U određenim uvjetima, komplementarne ssDNA mogu oformiti dsDNA, a taj proces se zove \textit{hibridizacija}. (Navesti ostale biokemijske operacije koje se mogu upotrebljavati).
 
@@ -434,13 +435,13 @@ Sada opisujemo računanje $K_1,...,K_{16}$ iz $K=k_1...k_{64}$. Bitovi, čiji je
 \[K_i=PC2(C_iD_i)\]
 Gdje je $PC2$ fiksna permutacija opisana slikom \ref{fig:PC2}, a operator $^j\overleftarrow{A}$ predstavlja ciklički pomak ulijevo za  $j$ mjesta nad riječi $A$ sasatavljenoj od bitova.
 \begin{figure}[h]
-\centering \includegraphics[scale=1]{PC1.jpg}
+\centering \includegraphics[scale=0.8]{PC1.jpg}
 \caption{Fiksna permutacija $PC1$}
 \label{fig:PC1}
 \end{figure}
 
 \begin{figure}[h]
-\centering \includegraphics[scale=1]{PC2.jpg}
+\centering \includegraphics[scale=0.8]{PC2.jpg}
 \caption{Fiksna permutacija $PC2$}
 \label{fig:PC2}
 \end{figure}
@@ -460,7 +461,7 @@ Općenito, za sve $i=1,...,16$ dobivamo da vrijedi:
 \[L_{16-i}=R_{16-i+1} \oplus f(R_{16-i}, K_{16-i+1})\]
 Iz čega dobivamo niz $R_{14}L_{14},R_{13}L_{13},...R_{0}L_{0}$. A zatim zamjenom poretka od $R_{0}L_{0}$ i primjenom na to $IP^{-1}$ dobivamo:
 $IP^{-1}(L_0R_0)=IP^{-1}(IP(x))=x$
-Pa smo dobili traženi otvoreni tekst.
+Pa smo dobili traženi otvoreni tekst. O implementaciji DES-a na DNA računalu se može naći u \cite{DESDNA}, u ovom radu, fokusirat ćemo se više na provaljivanje DES kriptosustava opisanom u idućem poglavlju.
 \begin{figure}[h]
 \centering \includegraphics[scale=0.7]{invIP.jpg}
 \caption{Inverzna permutacija $IP^{-1}$}
@@ -468,17 +469,19 @@ Pa smo dobili traženi otvoreni tekst.
 \end{figure}
 
 \begin{figure}[h]
-\centering \includegraphics[scale=0.6]{S-box.jpg}
+\centering \includegraphics[scale=0.52]{S-box.jpg}
 \caption{$S$-kutije}
 \label{fig:sbox}
 \end{figure}
  \newpage
 \subsection{Provaljivanje DES-a DNA izračunavanjem}
+U poglavlju \ref{sec:DNAizr} smo naveli opisnu definiciju DNA računala koju je predložio Leonard Adleman, a u poglavlju \ref{sec:DNA} su navedene osnovne činjenice i neke od biokemijskih operacija koje se koriste u genetičkom inženjeringu. U ovom poglavlju ćemo koristiti operacije navedene upravo u \ref{sec:DNA} te nećemo te operacije striktno definirati u definiciji navedenoj u poglavlju \ref{sec:DNAizr} premda bi se mogle. Naime, ta definicija je služila kao osnovni matematički koncept kojeg je predložio Adleman, a koji se kasnije postupno proširivao. Kako su se proširivala istraživanja o DNA i genetičkom inženjeringu, tako bi se i dana definicija mogla izmjenjivati. Opisat ćemo oznake i biokemijske operacije koje ćemo koristiti:
+ 
 \section{Enkripcija i dekripcija podataka}
 
 \newpage
 \nocite{*}
 \bibliographystyle{abbrv}
-\bibliography{borda2011fundamentals,literatura,CNTYan,lipton}
+\bibliography{borda2011fundamentals,literatura,CNTYan,lipton,DESDNA}
 \end{spacing}
 \end{document}
