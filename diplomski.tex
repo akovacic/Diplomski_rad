@@ -461,7 +461,7 @@ Općenito, za sve $i=1,...,16$ dobivamo da vrijedi:
 \[L_{16-i}=R_{16-i+1} \oplus f(R_{16-i}, K_{16-i+1})\]
 Iz čega dobivamo niz $R_{14}L_{14},R_{13}L_{13},...R_{0}L_{0}$. A zatim zamjenom poretka od $R_{0}L_{0}$ i primjenom na to $IP^{-1}$ dobivamo:
 $IP^{-1}(L_0R_0)=IP^{-1}(IP(x))=x$
-Pa smo dobili traženi otvoreni tekst. O implementaciji DES-a na DNA računalu se može naći u \cite{DESDNA}, u ovom radu, fokusirat ćemo se više na provaljivanje DES kriptosustava opisanom u idućem poglavlju.
+Pa smo dobili traženi otvoreni tekst. Primjer šifriranja otvorenog teksta pomoću DES kriptosustava može se naći na \cite{DESexa}. O implementaciji DES-a na DNA računalu se može naći u \cite{DESDNA}, u ovom radu, fokusirat ćemo se više na provaljivanje DES kriptosustava opisanom u idućem poglavlju.
 \begin{figure}[h]
 \centering \includegraphics[scale=0.7]{invIP.jpg}
 \caption{Inverzna permutacija $IP^{-1}$}
@@ -475,8 +475,17 @@ Pa smo dobili traženi otvoreni tekst. O implementaciji DES-a na DNA računalu s
 \end{figure}
  \newpage
 \subsection{Provaljivanje DES-a DNA izračunavanjem}
-U poglavlju \ref{sec:DNAizr} smo naveli opisnu definiciju DNA računala koju je predložio Leonard Adleman, a u poglavlju \ref{sec:DNA} su navedene osnovne činjenice i neke od biokemijskih operacija koje se koriste u genetičkom inženjeringu. U ovom poglavlju ćemo koristiti operacije navedene upravo u \ref{sec:DNA} te nećemo te operacije striktno definirati u definiciji navedenoj u poglavlju \ref{sec:DNAizr} premda bi se mogle. Naime, ta definicija je služila kao osnovni matematički koncept kojeg je predložio Adleman, a koji se kasnije postupno proširivao. Kako su se proširivala istraživanja o DNA i genetičkom inženjeringu, tako bi se i dana definicija mogla izmjenjivati. Opisat ćemo oznake i biokemijske operacije koje ćemo koristiti:
- 
+U poglavlju \ref{sec:DNAizr} smo naveli opisnu definiciju DNA računala koju je predložio Leonard Adleman, a u poglavlju \ref{sec:DNA} su navedene osnovne činjenice i neke od biokemijskih operacija koje se koriste u genetičkom inženjeringu. U ovom poglavlju ćemo koristiti operacije navedene upravo u \ref{sec:DNA} te nećemo te operacije striktno definirati u definiciji navedenoj u poglavlju \ref{sec:DNAizr} premda bi se mogle. Naime, ta definicija je služila kao osnovni matematički koncept kojeg je predložio Adleman, a koji se kasnije postupno proširivao. Kako su se proširivala istraživanja o DNA i genetičkom inženjeringu, tako bi se i dana definicija mogla izmjenjivati. Opisat ćemo oznake i biokemijske operacije koje ćemo koristiti.
+Neka je $x$ proizvoljna riječ alfabeta $\Sigma =\{\mathtt{A,C,G,T}\}$. Biološki gledano, $x$ nije još DNA lanac jer nema orijentaciju. Nadalje, uvodimo Watson-Crickov komplement (biološki komplement u poglavlju \ref{sec:DNAizr}). To je preslikavanje opisano sa ($\mathtt{A \to T, T \to A, G \to C, C \to W}$). Watson-Crickov komplement označavat ćemo sa $\overline{x}$. Sa $x^R$ ćemo označavati riječ koja je sastavljena od istih simbola kao i riječ $x$ samo u obrnutom poretku. Sa $\mathtt{\uparrow} x$ ćemo označavati  jednolančani DNA čija je orijentacija $\mathtt{5' \to 3'}$, a sastavljena  je od niza simbola od kojih se sastoji $x$. Sa $\downarrow x$ ćemo označavati lanac orijentacije $3'->5'$ sa nizom simbola koji čine Watskon-Crickov komplement niza $x$. U konačnici, sa $\mathtt{\updownarrow x}$ označavamo dvolančanu strukturu nastalu spajanjem $\mathtt{\uparrow x}$ i $\mathtt{\downarrow x}$. Kako bi svatili sve oznake napravit ćemo jedan primjer:
+\begin{exa}
+Neka je $x=\mathtt{TGCCGCAG}$ riječ alfabeta $\Sigma=\mathtt{\{A,C,G,T\}}$, tada je:
+\[\overline{x}= \mathtt{ACGGCGTC}\]
+\[x^R=\mathtt{GACGCCGT}\]
+\[\uparrow x=\mathtt{5'-TGCCGCAG-3'}\]
+\[\downarrow x=\mathtt{3'-ACGGCGTC-5'}=	\uparrow \overline{x}^R\]
+\[\updownarrow x=\mathtt{{5'-TGCCGCAG-3' \atop 3'-ACGGCGTC-5'}}\]
+\end{exa}
+
 \section{Enkripcija i dekripcija podataka}
 
 \newpage

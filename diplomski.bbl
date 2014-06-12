@@ -10,9 +10,9 @@ L.~M. Adleman, P.~W.~K. Rothemund, and S.~Roweis.
 \newblock {On Applying Molecular Computation To The Data Encryption Standard}.
 \newblock {\em Journal of Computational Biology}, 6(1):53--63, 1999.
 
-\bibitem{Boneh_breakingdes}
-D.~Boneh, C.~Dunworth, and R.~Lipton.
-\newblock Breaking \textsc{DES} using a molecular computer (extended abstract).
+\bibitem{DESbreak}
+D.~Boneh, C.~Dunworth, and R.~J. Lipton.
+\newblock Breaking des using a molecular computer, 1995.
 
 \bibitem{borda2011fundamentals}
 M.~Borda.
@@ -23,6 +23,13 @@ M.~Borda.
 A.~Dujella and M.~Maretić.
 \newblock {\em Kriptografija}.
 \newblock Element, 1st edition, 2007.
+
+\bibitem{DESexa}
+J.~O. Grabbe.
+\newblock The des algorithm illustrated.
+\newblock
+  \url{http://page.math.tu-berlin.de/~kant/teaching/hess/krypto-ws2006/des.htm}.
+\newblock [Online; pristup 11. lipnja 2014.].
 
 \bibitem{HromkovicAHP}
 J.~Hromkovic and W.~M. Oliva.
