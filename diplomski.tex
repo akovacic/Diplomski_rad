@@ -65,10 +65,11 @@
 
 % Naredna frontmatter generira naslovnu stranicu, stranicu za potpise povjerenstva, eventualnu posvetu i sadrzaj
 % Moze se iskomentirati ukoliko nije u pitanju konacna verzija
+\begin{spacing}{1.5}
 \frontmatter
 
 % Tekst diplomskog ...
-\begin{spacing}{1.5}
+
 % Diplomski rad treba poceti s uvodnim poglavljem  
 \begin{intro}
 
@@ -485,7 +486,39 @@ Neka je $x=\mathtt{TGCCGCAG}$ riječ alfabeta $\Sigma=\mathtt{\{A,C,G,T\}}$, tad
 \[\downarrow x=\mathtt{3'-ACGGCGTC-5'}=	\uparrow \overline{x}^R\]
 \[\updownarrow x=\mathtt{{5'-TGCCGCAG-3' \atop 3'-ACGGCGTC-5'}}\]
 \end{exa}
-
+Ovakve oznake će postati jasnije kada ćemo opisivati razne operacije  na DNA lancima, tako formula:
+\[\mathtt{\uparrow x + \downarrow x=\updownarrow x}\]
+opisuje operaciju spajanja dva jednolančana DNA lanca u jedan dvolančani (hibridizacija). Pod hibridizacijom (ili postupkom taljenja i hlađenja) je moguća i sljedeća reakcija:
+\[\mathtt{\uparrow xy + \downarrow yz = \uparrow x \updownarrow y \downarrow z}\].\\
+Od operacija koje ćemo koristiti ćemo koristiti operaciju izdvajanja onih DNA lanaca koji kao podriječ sadrže riječ $\mathtt{x}$. To se biokemijski ostvaruje na sljedeći način:\\
+U epruvetu se dodaje dovoljan broj kopija od $\mathtt{\downarrow x}$ koje su zaljepljene na određenu površinu (staklenu) te djeluju poput magneta. Zatim se postupkom hibridizacije događa na primjer:
+\begin{equation}
+\label{eq:DNAExt}
+\mathtt{\uparrow vxw + \downarrow x = \uparrow v \updownarrow x \uparrow w}
+\end{equation}
+Nakon toga se na tom "magnetnom" staklu nalaze sve riječi koje poprimaju oblik sličan onome s desne strane jednakosti u jednadžbi \ref{eq:DNAExt} (no nalaze se i oligonukleotide $\mathtt{\downarrow x}$ jer neće sve biti iskorištene -- stavlja se veći broj kopija od potrebnog). Naime osim spajanja koje je prikazano u \ref{eq:DNAExt} moguća su i razna spajanja različitoga oblika (na primjer gdje se oligonukleotida $\mathtt{\uparrow x}$ može biti vezana na početku nekog DNA lanca koji poprima dvolančanu strukturu). U slučaju kad će to biti potrebno istaknuti, na ovu operaciju ćemo se referencirati kao na ekstrakciju koja koristi niz $\mathtt{\downarrow x}$. Kasnije se $\mathtt{\downarrow x}$ odvaja od orginalnih lanaca pomoću enzima DNA helikaze.\\[0.5cm]
+Za razliku od običnog proširivanja opisanog u poglavlju \ref{sec:DNAizr} ovdje ćemo koristiti biokemijsku operaciju proširivanja pomoću polimerazne lančane reakcije (PCR - \textbf{p}olymerase \textbf{c}hain \textbf{r}eaction). Da bi PCR mogao djelovati, moraju se zadovoljiti sljedeći uvjeti:
+\begin{itemize}
+\item svaki lanac mora biti oblika $\mathtt{\updownarrow aBc}$, gdje su $\mathtt{a}$ i $\mathtt{c}$ proizvoljne riječi, a $\mathtt{B}$ fiksirana, unaprijed dogovorena
+\item $\mathtt{a}$ i $\mathtt{c}$ se ne smiju pojaviti kao podriječi od $\mathtt{B}$
+\end{itemize}
+Ako prvi uvjet nije ispunjen, to znači da u epruveti nema takvih riječi. Drugi uvijet će se osigurati duljinom DNA oligonukleotida tako da će biti moguće kreirati točno takve lance -- $\mathtt{a}$ i $\mathtt{b}$ će u riješavanju našega problema biti takve duljine da će njihova vjerojatnost pojavljivanja u $\mathtt{B}$ biti jednaka 0, a to će se omogućiti i reprezentacijom bitova.\\[0.5cm]
+Sljedeća biokemijska reakcija koju spominjemo je označavanje -- na određeni DNA lanac, dodajemo novu oligonukleotidu $\mathtt{z}$, a opisano je sljedećim koracima:\\
+Uvjet svaki lanac je oblika $\mathtt{\uparrow Xy}$, gdje je $\mathtt{X}$ proizvoljan, a $\mathtt{y}$ fiksiran:
+\begin{equation}
+\label{eq:Tag1}
+\mathtt{\uparrow Xy + \downarrow yz=\uparrow X \updownarrow y \downarrow z}
+\end{equation}
+Zatim se dodaje enzim DNA polimeraza koji će konvertirati paricajlni dvolančani lanac iz desne strane jednakosti u \ref{eq:Tag1} u potpuni. Najprije se "čitaju" jednolančane porcije s desne strane jednakosti od \ref{eq:Tag1} i kreiraju njihovi Watson-Ckrickovi komplementi, za svaku nukleotidu u jednom trenutku, odnosno događaju se pojedinačno sljedeće reakcije:
+\begin{equation}
+\label{eq:Tag2}
+\mathtt{\uparrow X \updownarrow y \downarrow z + \downarrow X = \updownarrow Xy \downarrow z}
+\end{equation}
+\begin{equation}
+\label{eq:Tag3}
+\mathtt{\updownarrow Xy \downarrow z + \uparrow z = \updownarrow Xyz}
+\end{equation}
+Zatim se opet pomoću DNA helikaze dobiva $\mathtt{\uparrow Xyz}$.
 \section{Enkripcija i dekripcija podataka}
 
 \newpage

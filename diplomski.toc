@@ -12,5 +12,5 @@
 \contentsline {section}{\numberline {2.4}DES kriptosustav}{22}{section.2.4}
 \contentsline {subsection}{Kratki prgled DES kriptosustava}{22}{section*.4}
 \contentsline {subsection}{Provaljivanje DES-a DNA izra\IeC {\v c}unavanjem}{30}{section*.5}
-\contentsline {section}{\numberline {2.5}Enkripcija i dekripcija podataka}{31}{section.2.5}
-\contentsline {chapter}{Bibliografija}{32}{chapter*.6}
+\contentsline {section}{\numberline {2.5}Enkripcija i dekripcija podataka}{33}{section.2.5}
+\contentsline {chapter}{Bibliografija}{34}{chapter*.6}
