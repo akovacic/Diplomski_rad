@@ -476,6 +476,7 @@ Pa smo dobili traženi otvoreni tekst. Primjer šifriranja otvorenog teksta pomo
 \end{figure}
  \newpage
 \subsection{Provaljivanje DES-a DNA izračunavanjem}
+\subsubsection{Uvod i oznake}
 U poglavlju \ref{sec:DNAizr} smo naveli opisnu definiciju DNA računala koju je predložio Leonard Adleman, a u poglavlju \ref{sec:DNA} su navedene osnovne činjenice i neke od biokemijskih operacija koje se koriste u genetičkom inženjeringu. U ovom poglavlju ćemo koristiti operacije navedene upravo u \ref{sec:DNA} te nećemo te operacije striktno definirati u definiciji navedenoj u poglavlju \ref{sec:DNAizr} premda bi se mogle. Naime, ta definicija je služila kao osnovni matematički koncept kojeg je predložio Adleman, a koji se kasnije postupno proširivao. Kako su se proširivala istraživanja o DNA i genetičkom inženjeringu, tako bi se i dana definicija mogla izmjenjivati. Opisat ćemo oznake i biokemijske operacije koje ćemo koristiti.
 Neka je $x$ proizvoljna riječ alfabeta $\Sigma =\{\mathtt{A,C,G,T}\}$. Biološki gledano, $x$ nije još DNA lanac jer nema orijentaciju. Nadalje, uvodimo Watson-Crickov komplement (biološki komplement u poglavlju \ref{sec:DNAizr}). To je preslikavanje opisano sa ($\mathtt{A \to T, T \to A, G \to C, C \to W}$). Watson-Crickov komplement označavat ćemo sa $\overline{x}$. Sa $x^R$ ćemo označavati riječ koja je sastavljena od istih simbola kao i riječ $x$ samo u obrnutom poretku. Sa $\mathtt{\uparrow} x$ ćemo označavati  jednolančani DNA čija je orijentacija $\mathtt{5' \to 3'}$, a sastavljena  je od niza simbola od kojih se sastoji $x$. Sa $\downarrow x$ ćemo označavati lanac orijentacije $3'->5'$ sa nizom simbola koji čine Watskon-Crickov komplement niza $x$. U konačnici, sa $\mathtt{\updownarrow x}$ označavamo dvolančanu strukturu nastalu spajanjem $\mathtt{\uparrow x}$ i $\mathtt{\downarrow x}$. Kako bi svatili sve oznake napravit ćemo jedan primjer:
 \begin{exa}
@@ -486,6 +487,7 @@ Neka je $x=\mathtt{TGCCGCAG}$ riječ alfabeta $\Sigma=\mathtt{\{A,C,G,T\}}$, tad
 \[\downarrow x=\mathtt{3'-ACGGCGTC-5'}=	\uparrow \overline{x}^R\]
 \[\updownarrow x=\mathtt{{5'-TGCCGCAG-3' \atop 3'-ACGGCGTC-5'}}\]
 \end{exa}
+\subsubsection{Opće biokemijske operacije koje koristimo}
 Ovakve oznake će postati jasnije kada ćemo opisivati razne operacije  na DNA lancima, tako formula:
 \[\mathtt{\uparrow x + \downarrow x=\updownarrow x}\]
 opisuje operaciju spajanja dva jednolančana DNA lanca u jedan dvolančani (hibridizacija). Pod hibridizacijom (ili postupkom taljenja i hlađenja) je moguća i sljedeća reakcija:
@@ -497,19 +499,19 @@ U epruvetu se dodaje dovoljan broj kopija od $\mathtt{\downarrow x}$ koje su zal
 \mathtt{\uparrow vxw + \downarrow x = \uparrow v \updownarrow x \uparrow w}
 \end{equation}
 Nakon toga se na tom "magnetnom" staklu nalaze sve riječi koje poprimaju oblik sličan onome s desne strane jednakosti u jednadžbi \ref{eq:DNAExt} (no nalaze se i oligonukleotide $\mathtt{\downarrow x}$ jer neće sve biti iskorištene -- stavlja se veći broj kopija od potrebnog). Naime osim spajanja koje je prikazano u \ref{eq:DNAExt} moguća su i razna spajanja različitoga oblika (na primjer gdje se oligonukleotida $\mathtt{\uparrow x}$ može biti vezana na početku nekog DNA lanca koji poprima dvolančanu strukturu). U slučaju kad će to biti potrebno istaknuti, na ovu operaciju ćemo se referencirati kao na ekstrakciju koja koristi niz $\mathtt{\downarrow x}$. Kasnije se $\mathtt{\downarrow x}$ odvaja od orginalnih lanaca pomoću enzima DNA helikaze.\\[0.5cm]
-Za razliku od običnog proširivanja opisanog u poglavlju \ref{sec:DNAizr} ovdje ćemo koristiti biokemijsku operaciju proširivanja pomoću polimerazne lančane reakcije (PCR - \textbf{p}olymerase \textbf{c}hain \textbf{r}eaction). Da bi PCR mogao djelovati, moraju se zadovoljiti sljedeći uvjeti:
+Za razliku od običnog proširivanja opisanog u poglavlju \ref{sec:DNAizr} ovdje ćemo koristiti biokemijsku operaciju replikacije pomoću polimerazne lančane reakcije (PCR - \textbf{p}olymerase \textbf{c}hain \textbf{r}eaction). Da bi PCR mogao djelovati, moraju se zadovoljiti sljedeći uvjeti:
 \begin{itemize}
 \item svaki lanac mora biti oblika $\mathtt{\updownarrow aBc}$, gdje su $\mathtt{a}$ i $\mathtt{c}$ proizvoljne riječi, a $\mathtt{B}$ fiksirana, unaprijed dogovorena
 \item $\mathtt{a}$ i $\mathtt{c}$ se ne smiju pojaviti kao podriječi od $\mathtt{B}$
 \end{itemize}
-Ako prvi uvjet nije ispunjen, to znači da u epruveti nema takvih riječi. Drugi uvijet će se osigurati duljinom DNA oligonukleotida tako da će biti moguće kreirati točno takve lance -- $\mathtt{a}$ i $\mathtt{b}$ će u riješavanju našega problema biti takve duljine da će njihova vjerojatnost pojavljivanja u $\mathtt{B}$ biti jednaka 0, a to će se omogućiti i reprezentacijom bitova.\\[0.5cm]
+Ako prvi uvjet nije ispunjen, to znači da u epruveti nema takvih riječi. Drugi uvijet će se osigurati duljinom DNA oligonukleotida tako da će biti moguće kreirati točno takve lance -- $\mathtt{a}$ i $\mathtt{b}$ će u riješavanju našega problema biti takve duljine da će njihova vjerojatnost pojavljivanja u $\mathtt{B}$ biti jednaka 0, a to će se omogućiti i reprezentacijom bitova. Podriječi $\mathtt{a}$ i $\mathtt{b}$ zovemo početnice (\textit{eng. primers}).\\[0.5cm]
 Sljedeća biokemijska reakcija koju spominjemo je označavanje -- na određeni DNA lanac, dodajemo novu oligonukleotidu $\mathtt{z}$, a opisano je sljedećim koracima:\\
 Uvjet svaki lanac je oblika $\mathtt{\uparrow Xy}$, gdje je $\mathtt{X}$ proizvoljan, a $\mathtt{y}$ fiksiran:
 \begin{equation}
 \label{eq:Tag1}
 \mathtt{\uparrow Xy + \downarrow yz=\uparrow X \updownarrow y \downarrow z}
 \end{equation}
-Zatim se dodaje enzim DNA polimeraza koji će konvertirati paricajlni dvolančani lanac iz desne strane jednakosti u \ref{eq:Tag1} u potpuni. Najprije se "čitaju" jednolančane porcije s desne strane jednakosti od \ref{eq:Tag1} i kreiraju njihovi Watson-Ckrickovi komplementi, za svaku nukleotidu u jednom trenutku, odnosno događaju se pojedinačno sljedeće reakcije:
+Zatim se dodaje enzim DNA polimeraza koji će konvertirati paricajlni dvolančani lanac iz desne strane jednakosti u \ref{eq:Tag1} u potpuni. Najprije se "čitaju" jednolančane porcije s desne strane jednakosti od \ref{eq:Tag1} i kreiraju njihovi Watson-Ckrickovi komplementi, za svaku nukleotidu u jednom trenutku. Odnosno događaju se pojedinačno sljedeće reakcije:
 \begin{equation}
 \label{eq:Tag2}
 \mathtt{\uparrow X \updownarrow y \downarrow z + \downarrow X = \updownarrow Xy \downarrow z}
@@ -519,6 +521,19 @@ Zatim se dodaje enzim DNA polimeraza koji će konvertirati paricajlni dvolančan
 \mathtt{\updownarrow Xy \downarrow z + \uparrow z = \updownarrow Xyz}
 \end{equation}
 Zatim se opet pomoću DNA helikaze dobiva $\mathtt{\uparrow Xyz}$.
+\subsubsection{Reprezentacija riječi sastavljenih od alfabeta $\{0,1\}$}
+Neka je $x=x_1x_2...x_n$ proizvoljna riječ alfabeta $\{0,1\}$ duljine $n$. Ideja je svakom bitu pridružiti jedinstveni $30$-mer -- oligonukleotida duljine $30$. Kasnije ćemo vidjeti da osim jedinstvenog $30$-mera svaki bit mora imati jedinstvenu reprezentaciju.
+\begin{enumerate}
+\item $B_i (0)$ označava oligonukleotidu koja reprezentira da je $i$-ti bit riječi $x$ jednak 0
+\item $B_i(1)$ označava oligonukleotidu koja reprezentira da je $i$-ti bit riječi $x$ jednak 1
+\item Za $i \in \{0,1...,n\}$ neka je $S_i$ $30$-mer koji označava separator između susjednih bitova
+\end{enumerate}   
+U konačnici, DNA lanac koji reprezentira binarni string $x$ je:
+\[\updownarrow S_0 B_1(x_1)S_1B_2(x_2)S_2...S_{n-1}B_n(x_n)S_n\]
+Svi $B_i$-ovi i $S_i$-ovi su međusobno različiti, , štoviše kasnije ćemo vidjeti da će biti nužno da svaka dva bita nemaju zajedničke podriječi čija je duljina veća ili jednaka $15$. To se može postići tako da riječi $B_i(b)$ i $S_i$ budu izabrane na slučajan način, budući da podriječi dvije slučajno izabrane riječi ima sklonost biti što kraća. Upravo smo iz toga razloga uzeli $30$-mere kao riječi koje će predstavljati bitove, s druge strane biokemijskim reakcijama u laboratoriju će trebati duže da se odviju nad $30$-merima nego nad nekim kraćim oligonukleotidama. Adleman je tako za svoj eksperiment opisan u \cite{Adleman} koristio $20$-mere, no njegov problem je imao manje podataka koje je morao reprezentirati. Uočimo da će svaki bit biti reprezenitran sa dva stringa iz skupa $\mathbb{Y}=\{(y_1,...,y_15): y_i \in \mathtt{\{A,C,G,T\}\}}$, pa je vjerojatnost da dvije riječi imaju istu podriječ duljine $15$ jednaka $p=\left(\frac{1}{4^{15}}\right)^2=\frac{1}{1152921504606846976}\approx 8.6736 \cdot 10^{-19}\approx 0$. Stringovi $S_0$ i $S_n$ će u replikaciji s PCR-om služiti kao početnice. Uvodimo još oznaku $R_i(x)$ koja će označavati sljedeću riječ:
+\[R_i(x)=B_i(x_1)S_iB_{i+1}(x_2)S_{i+1}...S_{i+n-2}B_{i+n-1}(x_n)S_{i+n-1}\]
+\subsubsection{Operacije nad riječima bitova}
+
 \section{Enkripcija i dekripcija podataka}
 
 \newpage

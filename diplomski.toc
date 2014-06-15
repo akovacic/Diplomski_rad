@@ -12,5 +12,8 @@
 \contentsline {section}{\numberline {2.4}DES kriptosustav}{22}{section.2.4}
 \contentsline {subsection}{Kratki prgled DES kriptosustava}{22}{section*.4}
 \contentsline {subsection}{Provaljivanje DES-a DNA izra\IeC {\v c}unavanjem}{30}{section*.5}
-\contentsline {section}{\numberline {2.5}Enkripcija i dekripcija podataka}{33}{section.2.5}
-\contentsline {chapter}{Bibliografija}{34}{chapter*.6}
+\contentsline {subsubsection}{Uvod i oznake}{30}{section*.6}
+\contentsline {subsubsection}{Op\IeC {\'c}e biokemijske operacije koje koristimo}{31}{section*.7}
+\contentsline {subsubsection}{Reprezentacija rije\IeC {\v c}i sastavljenih od alfabeta $\{0,1\}$}{33}{section*.8}
+\contentsline {section}{\numberline {2.5}Enkripcija i dekripcija podataka}{34}{section.2.5}
+\contentsline {chapter}{Bibliografija}{35}{chapter*.9}
