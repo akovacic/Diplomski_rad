@@ -1,4 +1,4 @@
-% Predlozak za pisanje diplomskog rada na PMF-MO
+	% Predlozak za pisanje diplomskog rada na PMF-MO
 % Opcenita uputstva za LaTeX se mogu npr. naci na 
 % http://web.math.hr/nastava/rp3, http://web.math.hr/nastava/s4-prof/latex.pdf
 % NE PREPORUCA se "Ne baš tako kratak uvod u TEX", buduci se radi o vrlo starom prirucniku
@@ -487,31 +487,54 @@ Neka je $x=\mathtt{TGCCGCAG}$ riječ alfabeta $\Sigma=\mathtt{\{A,C,G,T\}}$, tad
 \[\downarrow x=\mathtt{3'-ACGGCGTC-5'}=	\uparrow \overline{x}^R\]
 \[\updownarrow x=\mathtt{{5'-TGCCGCAG-3' \atop 3'-ACGGCGTC-5'}}\]
 \end{exa}
-\subsubsection{Opće biokemijske operacije koje koristimo}
-Ovakve oznake će postati jasnije kada ćemo opisivati razne operacije  na DNA lancima, tako formula:
+\subsubsection{Reprezentacija riječi sastavljenih od alfabeta $\{0,1\}$}
+\label{subsub:repBit}
+Neka je $x=x_1x_2...x_n$ proizvoljna riječ alfabeta $\{0,1\}$ duljine $n$. Ideja je svakom bitu pridružiti jedinstveni $30$-mer -- oligonukleotida duljine $30$. Kasnije ćemo vidjeti da osim jedinstvenog $30$-mera svaki bit mora imati jedinstvenu reprezentaciju.
+\begin{enumerate}
+\item $B_i (0)$ označava oligonukleotidu koja reprezentira da je $i$-ti bit riječi $x$ jednak 0
+\item $B_i(1)$ označava oligonukleotidu koja reprezentira da je $i$-ti bit riječi $x$ jednak 1
+\item Za $i \in \{0,1...,n\}$ neka je $S_i$ $30$-mer koji označava separator između susjednih bitova
+\end{enumerate}   
+U konačnici, DNA lanac koji reprezentira binarni string $x$ je:
+\[\updownarrow S_0 B_1(x_1)S_1B_2(x_2)S_2...S_{n-1}B_n(x_n)S_n\]
+Svi $B_i$-ovi i $S_i$-ovi su međusobno različiti, , štoviše kasnije ćemo vidjeti da će biti nužno da svaka dva bita nemaju zajedničke podriječi čija je duljina veća ili jednaka $15$. To se može postići tako da riječi $B_i(b)$ i $S_i$ budu izabrane na slučajan način, budući da zajednička podriječ dvije slučajno izabrane riječi ima tendenciju biti što kraća. Upravo smo iz toga razloga uzeli $30$-mere kao riječi koje će predstavljati bitove, s druge strane biokemijskim reakcijama u laboratoriju će trebati duže da se odviju nad $30$-merima nego nad nekim kraćim oligonukleotidama. Adleman je tako za svoj eksperiment opisan u \cite{Adleman} koristio $20$-mere, no njegov problem je imao manje podataka koje je morao reprezentirati. Uočimo da će svaki bit biti reprezenitran sa dva stringa iz skupa $\mathbb{Y}=\{(y_1,...,y_15): y_i \in \mathtt{\{A,C,G,T\}\}}$, pa je vjerojatnost da dvije riječi imaju istu podriječ duljine $15$ jednaka $p=\left(\frac{1}{4^{15}}\right)^2=\frac{1}{1152921504606846976}\approx 8.6736 \cdot 10^{-19}\approx 0$. Stringovi $S_0$ i $S_n$ će u replikaciji s PCR-om služiti kao početnice. Uvodimo još oznaku $R_i(x)$ koja će označavati sljedeću riječ:
+\[R_i(x)=B_i(x_1)S_iB_{i+1}(x_2)S_{i+1}...S_{i+n-2}B_{i+n-1}(x_n)S_{i+n-1}\]
+\subsubsection{Opće biokemijske operacije}
+\paragraph{Hibridizacija (taljenje i hlađenje)}
+Postoje dvije biokemijske reakcije, čiji je rezultat isti, a kojima se postiže spajanje dva komplementarna lanca. Jedna se zove hibridizacija, a druga je metoda taljenja i hlađenja. Osnovni rezultat tih operacija je prikazan donjom jednadžbom:
 \[\mathtt{\uparrow x + \downarrow x=\updownarrow x}\]
-opisuje operaciju spajanja dva jednolančana DNA lanca u jedan dvolančani (hibridizacija). Pod hibridizacijom (ili postupkom taljenja i hlađenja) je moguća i sljedeća reakcija:
-\[\mathtt{\uparrow xy + \downarrow yz = \uparrow x \updownarrow y \downarrow z}\].\\
-Od operacija koje ćemo koristiti ćemo koristiti operaciju izdvajanja onih DNA lanaca koji kao podriječ sadrže riječ $\mathtt{x}$. To se biokemijski ostvaruje na sljedeći način:\\
-U epruvetu se dodaje dovoljan broj kopija od $\mathtt{\downarrow x}$ koje su zaljepljene na određenu površinu (staklenu) te djeluju poput magneta. Zatim se postupkom hibridizacije događa na primjer:
+Ona opisuje operaciju spajanja dva jednolančana DNA lanca u jedan dvolančani. Pod hibridizacijom (ili postupkom taljenja i hlađenja) je moguća i sljedeća reakcija:
+\[\mathtt{\uparrow xy + \downarrow yz = \uparrow x \updownarrow y \downarrow z}\].
+\paragraph{Ekstrakcija ili izdvajanje}
+Drugu operaciju koju ćemo koristiti naziva se ekstrakcija. Služi za  izdvajanje onih DNA lanaca koji kao podriječ sadrže riječ $\mathtt{x}$. To se biokemijski ostvaruje na sljedeći način:\\
+U epruvetu se dodaje dovoljan broj kopija od $\mathtt{\downarrow x}$ koje se nalaze na određenoj površini premazanoj gelom koji u sebi sadržio biotin-streptavidin (na primjer na staklu ili Petrijevoj zdjelici) te djeluju poput magneta. Zatim se postupkom hibridizacije događa na primjer:
 \begin{equation}
 \label{eq:DNAExt}
 \mathtt{\uparrow vxw + \downarrow x = \uparrow v \updownarrow x \uparrow w}
 \end{equation}
-Nakon toga se na tom "magnetnom" staklu nalaze sve riječi koje poprimaju oblik sličan onome s desne strane jednakosti u jednadžbi \ref{eq:DNAExt} (no nalaze se i oligonukleotide $\mathtt{\downarrow x}$ jer neće sve biti iskorištene -- stavlja se veći broj kopija od potrebnog). Naime osim spajanja koje je prikazano u \ref{eq:DNAExt} moguća su i razna spajanja različitoga oblika (na primjer gdje se oligonukleotida $\mathtt{\uparrow x}$ može biti vezana na početku nekog DNA lanca koji poprima dvolančanu strukturu). U slučaju kad će to biti potrebno istaknuti, na ovu operaciju ćemo se referencirati kao na ekstrakciju koja koristi niz $\mathtt{\downarrow x}$. Kasnije se $\mathtt{\downarrow x}$ odvaja od orginalnih lanaca pomoću enzima DNA helikaze.\\[0.5cm]
-Za razliku od običnog proširivanja opisanog u poglavlju \ref{sec:DNAizr} ovdje ćemo koristiti biokemijsku operaciju replikacije pomoću polimerazne lančane reakcije (PCR - \textbf{p}olymerase \textbf{c}hain \textbf{r}eaction). Da bi PCR mogao djelovati, moraju se zadovoljiti sljedeći uvjeti:
+Nakon toga se na tom gelu nalaze sve riječi koje poprimaju oblik sličan onome s desne strane jednakosti u jednadžbi \ref{eq:DNAExt} (no nalaze se i oligonukleotide $\mathtt{\downarrow x}$ jer neće sve biti iskorištene -- stavlja se veći broj kopija od potrebnog). Naime osim spajanja koje je prikazano u \ref{eq:DNAExt} moguća su i razna spajanja različitoga oblika (na primjer gdje se oligonukleotida $\mathtt{\uparrow x}$ može biti vezana na početku nekog DNA lanca koji poprima dvolančanu strukturu). U slučaju kad će to biti potrebno istaknuti, na ovu operaciju ćemo se referencirati kao na ekstrakciju koja koristi niz $\mathtt{\downarrow x}$. Kasnije se $\mathtt{\uparrow v \updownarrow x \uparrow w}$ izdvaja pomoću tehnike koja se zove gel elektroforeza, a nakon toga se $\mathtt{\downarrow x}$ odvaja od orginalnih lanaca pomoću enzima DNA helikaze. U našoj primjeni, mi ćemo tu operaciju označavati sa:
+\[Extract(T, x_i=1)\]
+gdje je $T$ proizvoljna epruveta koja sadrži DNA lance. Ovom operacijom izdvajamo sve one DNA lance koji kao podriječ sadrže $B_i(1)$ (na $i$-tom mjestu binarne riječi nalazi se 1). Naravno osim jednostrukog bita, možemo izdvojiti cijele podriječi, na primjer:
+\[Extract(T, x_ix_{i+1}=01)\] 
+će izdovjiti sve one binarne riječi koje na $i$-tom i $i+1$-om mjestu imaju redom 0 i 1, a za to će se koristiti DNA lanac $R_i(01)=B_i(0)S_{i}B_{i+1}(1)S_{i+1}$. Uočimo da je to zapravo operacija:
+\[Extract(T, x_i=0 \wedge x_{i+1}=1)\]
+pa smo napravili "i" operaciju -- ipak to je moguće napraviti samo kad se radi o sujsednim bitovima -- inače, moramo napraviti dvije uzastopne operacije izdvajanja. Na gel kojim premazujemo staklenu površniu osim premaza streptavidin-biodina koji sadrži na primjer sekvencu $R_i(101)$, možemo na istu staklenu površinu i koristiti premaz streptavidin-biodina koji sadrži niz $R_i(001)$. Time će se izvršiti operacija:
+\[Extract(T, x_ix_{i+1}x_{i+2}=101 \vee x_ix_{i+1}x_{i+2}=001)\] 
+Iz tehničkih, biokemijskih, razloga moguće je samo izvoditi ovakvu simultanu "ili" operaciju kada su binarne riječi koje su argumenti od $R_i$ jednake duljine.
+\paragraph{Replikacija} Za razliku od običnog proširivanja opisanog u poglavlju \ref{sec:DNAizr} ovdje ćemo koristiti biokemijsku operaciju replikacije pomoću polimerazne lančane reakcije (PCR - \textbf{p}olymerase \textbf{c}hain \textbf{r}eaction). Da bi PCR mogao djelovati, moraju se zadovoljiti sljedeći uvjeti:
 \begin{itemize}
-\item svaki lanac mora biti oblika $\mathtt{\updownarrow aBc}$, gdje su $\mathtt{a}$ i $\mathtt{c}$ proizvoljne riječi, a $\mathtt{B}$ fiksirana, unaprijed dogovorena
+\item svaki lanac mora biti oblika $\mathtt{\updownarrow aBc}$, gdje su $\mathtt{a}$ i $\mathtt{c}$ fiksne riječi, a $\mathtt{B}$ proizvoljna
 \item $\mathtt{a}$ i $\mathtt{c}$ se ne smiju pojaviti kao podriječi od $\mathtt{B}$
 \end{itemize}
-Ako prvi uvjet nije ispunjen, to znači da u epruveti nema takvih riječi. Drugi uvijet će se osigurati duljinom DNA oligonukleotida tako da će biti moguće kreirati točno takve lance -- $\mathtt{a}$ i $\mathtt{b}$ će u riješavanju našega problema biti takve duljine da će njihova vjerojatnost pojavljivanja u $\mathtt{B}$ biti jednaka 0, a to će se omogućiti i reprezentacijom bitova. Podriječi $\mathtt{a}$ i $\mathtt{b}$ zovemo početnice (\textit{eng. primers}).\\[0.5cm]
-Sljedeća biokemijska reakcija koju spominjemo je označavanje -- na određeni DNA lanac, dodajemo novu oligonukleotidu $\mathtt{z}$, a opisano je sljedećim koracima:\\
+Ako prvi uvjet nije ispunjen, to znači da u epruveti nema takvih riječi. Drugi uvijet će se osigurati duljinom DNA oligonukleotida tako da će biti moguće kreirati točno takve lance -- $\mathtt{a}$ i $\mathtt{b}$ će u riješavanju našega problema biti takve duljine da će njihova vjerojatnost pojavljivanja u $\mathtt{B}$ biti jednaka 0, a tose omogućuje i reprezentacijom bitova opisanoj u \ref{subsub:repBit}. Podriječi $\mathtt{a}$ i $\mathtt{b}$ zovemo početnice (\textit{eng. primers}). Ova operacija omogućuje sintetičku proizvodnju kopije proizvoljne riječi $B$ (uočimo da je efekt jako sličan onom efektu operacije proširivanja opisane u poglavlju \ref{sec:DNAizr}).
+
+\paragraph{Označavanje} Na određeni DNA lanac, dodajemo novu oligonukleotidu $\mathtt{z}$, a postpuak je opisan sljedećim koracima:\\
 Uvjet svaki lanac je oblika $\mathtt{\uparrow Xy}$, gdje je $\mathtt{X}$ proizvoljan, a $\mathtt{y}$ fiksiran:
 \begin{equation}
 \label{eq:Tag1}
 \mathtt{\uparrow Xy + \downarrow yz=\uparrow X \updownarrow y \downarrow z}
 \end{equation}
-Zatim se dodaje enzim DNA polimeraza koji će konvertirati paricajlni dvolančani lanac iz desne strane jednakosti u \ref{eq:Tag1} u potpuni. Najprije se "čitaju" jednolančane porcije s desne strane jednakosti od \ref{eq:Tag1} i kreiraju njihovi Watson-Ckrickovi komplementi, za svaku nukleotidu u jednom trenutku. Odnosno događaju se pojedinačno sljedeće reakcije:
+Zatim se dodaje enzim DNA polimeraza koji će konvertirati paricajlni dvolančani lanac iz desne strane jednakosti jednadžbe \ref{eq:Tag1} u potpuni. Najprije se "čitaju" jednolančane porcije s desne strane jednakosti od \ref{eq:Tag1} i kreiraju njihovi Watson-Ckrickovi komplementi, za svaku nukleotidu u jednom trenutku. Odnosno događaju se pojedinačno sljedeće reakcije:
 \begin{equation}
 \label{eq:Tag2}
 \mathtt{\uparrow X \updownarrow y \downarrow z + \downarrow X = \updownarrow Xy \downarrow z}
@@ -521,19 +544,9 @@ Zatim se dodaje enzim DNA polimeraza koji će konvertirati paricajlni dvolančan
 \mathtt{\updownarrow Xy \downarrow z + \uparrow z = \updownarrow Xyz}
 \end{equation}
 Zatim se opet pomoću DNA helikaze dobiva $\mathtt{\uparrow Xyz}$.
-\subsubsection{Reprezentacija riječi sastavljenih od alfabeta $\{0,1\}$}
-Neka je $x=x_1x_2...x_n$ proizvoljna riječ alfabeta $\{0,1\}$ duljine $n$. Ideja je svakom bitu pridružiti jedinstveni $30$-mer -- oligonukleotida duljine $30$. Kasnije ćemo vidjeti da osim jedinstvenog $30$-mera svaki bit mora imati jedinstvenu reprezentaciju.
-\begin{enumerate}
-\item $B_i (0)$ označava oligonukleotidu koja reprezentira da je $i$-ti bit riječi $x$ jednak 0
-\item $B_i(1)$ označava oligonukleotidu koja reprezentira da je $i$-ti bit riječi $x$ jednak 1
-\item Za $i \in \{0,1...,n\}$ neka je $S_i$ $30$-mer koji označava separator između susjednih bitova
-\end{enumerate}   
-U konačnici, DNA lanac koji reprezentira binarni string $x$ je:
-\[\updownarrow S_0 B_1(x_1)S_1B_2(x_2)S_2...S_{n-1}B_n(x_n)S_n\]
-Svi $B_i$-ovi i $S_i$-ovi su međusobno različiti, , štoviše kasnije ćemo vidjeti da će biti nužno da svaka dva bita nemaju zajedničke podriječi čija je duljina veća ili jednaka $15$. To se može postići tako da riječi $B_i(b)$ i $S_i$ budu izabrane na slučajan način, budući da podriječi dvije slučajno izabrane riječi ima sklonost biti što kraća. Upravo smo iz toga razloga uzeli $30$-mere kao riječi koje će predstavljati bitove, s druge strane biokemijskim reakcijama u laboratoriju će trebati duže da se odviju nad $30$-merima nego nad nekim kraćim oligonukleotidama. Adleman je tako za svoj eksperiment opisan u \cite{Adleman} koristio $20$-mere, no njegov problem je imao manje podataka koje je morao reprezentirati. Uočimo da će svaki bit biti reprezenitran sa dva stringa iz skupa $\mathbb{Y}=\{(y_1,...,y_15): y_i \in \mathtt{\{A,C,G,T\}\}}$, pa je vjerojatnost da dvije riječi imaju istu podriječ duljine $15$ jednaka $p=\left(\frac{1}{4^{15}}\right)^2=\frac{1}{1152921504606846976}\approx 8.6736 \cdot 10^{-19}\approx 0$. Stringovi $S_0$ i $S_n$ će u replikaciji s PCR-om služiti kao početnice. Uvodimo još oznaku $R_i(x)$ koja će označavati sljedeću riječ:
-\[R_i(x)=B_i(x_1)S_iB_{i+1}(x_2)S_{i+1}...S_{i+n-2}B_{i+n-1}(x_n)S_{i+n-1}\]
-\subsubsection{Operacije nad riječima bitova}
 
+\subsubsection{Plan napada na DES kriptosustav i algoritam}
+Označimo s $DES(M,k)$ ekripciju otvorenog teksta $M$ koristeći ključ $k$ u DES kriptosustavu.
 \section{Enkripcija i dekripcija podataka}
 
 \newpage

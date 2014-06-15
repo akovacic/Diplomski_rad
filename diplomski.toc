@@ -13,7 +13,12 @@
 \contentsline {subsection}{Kratki prgled DES kriptosustava}{22}{section*.4}
 \contentsline {subsection}{Provaljivanje DES-a DNA izra\IeC {\v c}unavanjem}{30}{section*.5}
 \contentsline {subsubsection}{Uvod i oznake}{30}{section*.6}
-\contentsline {subsubsection}{Op\IeC {\'c}e biokemijske operacije koje koristimo}{31}{section*.7}
-\contentsline {subsubsection}{Reprezentacija rije\IeC {\v c}i sastavljenih od alfabeta $\{0,1\}$}{33}{section*.8}
-\contentsline {section}{\numberline {2.5}Enkripcija i dekripcija podataka}{34}{section.2.5}
-\contentsline {chapter}{Bibliografija}{35}{chapter*.9}
+\contentsline {subsubsection}{Reprezentacija rije\IeC {\v c}i sastavljenih od alfabeta $\{0,1\}$}{31}{section*.7}
+\contentsline {subsubsection}{Op\IeC {\'c}e biokemijske operacije}{32}{section*.8}
+\contentsline {paragraph}{Hibridizacija (taljenje i hla\IeC {\dj }enje)}{32}{section*.9}
+\contentsline {paragraph}{Ekstrakcija ili izdvajanje}{32}{section*.10}
+\contentsline {paragraph}{Replikacija}{34}{section*.11}
+\contentsline {paragraph}{Ozna\IeC {\v c}avanje}{34}{section*.12}
+\contentsline {subsubsection}{Plan napada na DES kriptosustav i algoritam}{35}{section*.13}
+\contentsline {section}{\numberline {2.5}Enkripcija i dekripcija podataka}{35}{section.2.5}
+\contentsline {chapter}{Bibliografija}{36}{chapter*.14}
