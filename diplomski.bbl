@@ -14,6 +14,11 @@ L.~M. Adleman, P.~W.~K. Rothemund, and S.~Roweis.
 D.~Boneh, C.~Dunworth, and R.~J. Lipton.
 \newblock Breaking \textsc{DES} using a molecular computer, 1995.
 
+\bibitem{DNAerr}
+D.~Boneh and R.~J. Lipton.
+\newblock Making \textsc{DNA} computers error resistant.
+\newblock pages 102--110. American Mathematical Society, 1995.
+
 \bibitem{borda2011fundamentals}
 M.~Borda.
 \newblock {\em Fundamentals in Information Theory and Coding}.
@@ -45,6 +50,12 @@ J.~Hromkovic and W.~M. Oliva.
 R.~J. Lipton.
 \newblock {DNA solution of hard computational problems}.
 \newblock {\em Science}, 268(5210):542--545, Apr. 1995.
+
+\bibitem{DNAKripto}
+S.~Pramanik and S.~Setua.
+\newblock \textsc{DNA} cryptography.
+\newblock In {\em 2012 7th International Conference on Electrical Computer
+  Engineering (ICECE)}, pages 551--554, Dec 2012.
 
 \bibitem{Sipser}
 M.~Sipser.

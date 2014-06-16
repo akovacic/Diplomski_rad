@@ -586,12 +586,57 @@ Gdje je $k \in \{0,1\}^{56}$
 Gdje je $I$ riječ bitova koja odgovara izlaznim vrijednostima pojedinih unutarnjih prijelaza u DES sklopovlju. 
 \end{enumerate} 
 Ovaj algoritam, kada bi se ukupno raspisale sve operacije, koristi 916 koraka i to da se neki koraci izdvajanja izvedu paralelno, a o detaljnoj analizi toga, kao i o daljnjoj optimizaciji algoritma se može naći u \cite{DESbreak}.
-
+\newpage
 \section{Enkripcija i dekripcija podataka}
 \label{sec:EDDNA}
 Funkciju enkripcije i dekripcije ćemo sada opisati:
-Neka je $M$ otvoreni tekst koji Alice želi kriptirati i poslati preko nesigurnog komunikacijskog kanala. Alice će najprije pretvoriti $M$ u pripadni $ASCII$ kod, a potom će taj $ASCII$ kod prevesti u binarni otvoreni tekst $M'$. Neka je $m'=d(M')$ duljina binarnog otvorenog teksta $M'$. Označimo s $k_A$ proizvoljan, slučajno izabrani, jednolančani DNA koji će nam poslužiti kao ključ, a koji je duljine $10m'$. Alice kriptira po sljedećem algoritmu (napisanom u programskom jeziku python):
+Neka je $M$ otvoreni tekst koji Alice želi kriptirati i poslati preko nesigurnog komunikacijskog kanala. Alice će najprije pretvoriti $M$ u pripadni $ASCII$ kod, a potom će taj $ASCII$ kod prevesti u binarni otvoreni tekst $M'$. Neka je $m'=d(M')$ duljina binarnog otvorenog teksta $M'$. Označimo s $k_A$ proizvoljan, slučajno izabrani, jednolančani DNA koji će nam poslužiti kao ključ, a koji je duljine $10m'$. Alice kriptira po sljedećem algoritmu:
+\begin{enumerate}
+	\item $M$ pretvorimo u ASCII $M_A$, a onda $M_A$ u binarni prikaz $M'$ otvorenog teksta $M$
+	\item Alice izabire slučajan $d(M')*10$-mer (ssDNA) i koristi ga kao ključ $k_A$
+	\item Čitaj $M'$ s lijeva na desno, a čitaj $\overline{k_A}^R$ s  desna na lijevo u blokovima od $10$ dušićnih baza (blokove čitaj s lijeva na desno)
+	
+	\begin{itemize}
+		\item m=0
+		\item Dok ne pročitaš sve bitove:
+		\begin{itemize}		
+			\item Ako je bit jednak $1$\\
+		  uzmi dani blok i nadodaj na njega m; \\
+			Pošalji blok Bobu\\		  
+		   m:=m+1;
+			\item Inače (ako je bit jednak $0$)\\
+		ignoriraj blok i prijeđi na idući
+		\end{itemize}	
+	\end{itemize}
+\end{enumerate}
+Kada Bob primi sve blokove, on dekriptira šifrat po idućem postupku:
+\begin{enumerate}
+	\item Pročitaj broj zalijepljen na kraj dušićnih baza (označimo ga s $i$) i obriši ga iz bloka
+	\item kreiraj Watson-Krickov komplement danog bloka i nađi mjesto gdje se nalazi krećući od indeksa $(d(M')-i-1)\cdot 10$ čitajući blok po blok s desna na lijevo
+	\item Svaki blok kojeg Bob nađe zamijenjuje s $1$, a one blokove iz ključa koje Alice nije poslala označi s $0$
+	\item Dani binarni string Bob preokreće i nalazi mu ASCII vrijednost, a za ASCII vrijednost mu nađe ekvivalentan otvoreni tekst u prirodnom jeziku 
+\end{enumerate}
+Slijedi implementacija u programskom jeziku Pythonu.
+ \lstset{language=Python,
+           basicstyle=\ttfamily,
+           keywordstyle=\color{blue}\ttfamily,
+           stringstyle=\color{red}\ttfamily,
+           commentstyle=\color{green}\ttfamily,
+          breaklines=true
+          }
 \lstinputlisting[language=Python]{enkripcija.py}
+Na slici \ref{fig:prim} se može vidjeti primjer enkriptcije i dekripcije pomoću navedene implementacije u Pythonu.
+\begin{figure}[h]
+\centering \includegraphics[scale=0.5]{primjer.jpg}
+\caption{Primjer enkripcije i dekripcije riječi "DNA"}
+\label{fig:prim}
+\end{figure}
+
+Implementacija pomoću DNA računala je zapravo jako jednostavna. Za dani otvoreni binarni tekst, Alice samo treba kreirati određene Watson-Crickove komplemente slučajno izabranog ključa, odabrati pripadajuće blokove, te ih poslati Bobu preko nesigurnog komunikacijskog kanala. Bob zatim u epruvetu koja sadrži $\uparrow k_A$, ulije dobivene blokove te pokrene proces hibridizacije. Time dobije određeni DNA lanac koji je na određenim mjestima dolančani, a na određenim jednolančani. Tamo gdje je dvolančani (vidi preko mikroskopa), stavlja bit $1$, a jednolančani bit $0$ te čita dani binarni string s desna na lijevo kreirajući njemu ekvivalentan otvoren tekst u prirodnom jeziku. O različitim načinima kriptiranja pomoću DNA računala može se naći u \cite{borda2011fundamentals}. 
+Sigurnost ovog kriptosustava može se povećati uzimanjem ključa koji će biti veće duljine (na primjer da se umjesto za svaki bit uzme $10$-mer, možemo uzeti $40$-mer), i ona ovisi samo o danom ključu (jednokratnoj bilježnici). Nadalje, što je duži tekst koji se šifrira, time će se povećavati i kompleksnost kriptosustava. Tako, na primjer, za kriptiranje riječi $DNA$ čija binarna reprezentacija ima $21$ bit, prostor ključeva sadrži $4^{21\cdot 10}=4^{210}$ različitih ključeva koji mogu šifrirati danu riječ. 
+\section{Prednosti i mane DNA računala i DNA kriptografije}
+Glavna prednost DNA računala je izrazito veliki kapacitet i gustoća memorije zbog koje se stvari mogu lakše izračunavati i gdje se napadi na kriptosustvae s tehnikom grube sile vrlo lako probijaju. Opet rješavanje nekih $NP$ teških problema se također riješavaju istom tehnikom. Druga prednost je masivna paralelnost DNA računala zbog  toga što se jedna operacija obavlja nad skupom riječi, a ne na samo jednoj riječi (broj procesora varira - to ja kao da broj procesora konstantno varira ovisno o broju podataka u programu). S druge strane DNA računalo može raditi grešku u izračunavanju, odnosno u izvođenju biokemijskih reakcija, o tome kako utjecati na te greške se može naći u \cite{DNAerr}. Daljnja mana je ta što je DNA računalo za sada samo teoretski model izračunavanja jer da bi se moglo konstrukirati i fizički ostvariti trebaju se preći još mnoge tehnološke prepreke kao i fizička ograničenja. DNA računalo dobro računa sa, kako se čini, relativno kompliciranim operacijama (npr. $Replikacija, Ekstrakcija$), no pri izračunavanju jednostavnih operacija kao što je "ekskluzivno ili", potrebno je izvesti $4$ koraka u postupku. Daljnja mana je ta što su operacije na DNA računalu spore u odnosnu na operacije koje se obavljaju na elektromehaničkim računalima. One postaju sporije što je više parova $G$ i $C$ u nekoj dvolančanoj DNA zbog trostrukih kovalentnih veza koje se teže razbijaju i teže uspostavljaju između tih dviju dušićnih baza te što je veća duljina samih DNA lanaca u epruveti. Ipak, kako područja genetike i medicine jako brzo napreduju, postoji mogućnost otkrića kako da se te operacije ubrzaju primjenom nekih katalizatora ili električne energije. 
+
 \newpage
 \nocite{*}
 \bibliographystyle{abbrv}
