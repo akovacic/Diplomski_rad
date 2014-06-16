@@ -12,12 +12,17 @@ L.~M. Adleman, P.~W.~K. Rothemund, and S.~Roweis.
 
 \bibitem{DESbreak}
 D.~Boneh, C.~Dunworth, and R.~J. Lipton.
-\newblock Breaking des using a molecular computer, 1995.
+\newblock Breaking \textsc{DES} using a molecular computer, 1995.
 
 \bibitem{borda2011fundamentals}
 M.~Borda.
 \newblock {\em Fundamentals in Information Theory and Coding}.
 \newblock Springer, 2011.
+
+\bibitem{Church}
+G.~M. Church, Y.~Gao, and S.~Kosuri.
+\newblock {Next-Generation Digital Information Storage in DNA}.
+\newblock {\em Science}, 337(6102):1628, Sept. 2012.
 
 \bibitem{duje}
 A.~Dujella and M.~Maretić.

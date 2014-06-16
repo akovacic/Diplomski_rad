@@ -22,9 +22,11 @@
 % hiperlinkovi 
 \usepackage[pdftex]{hyperref} % ukoliko se koristi XeLaTeX onda je \usepackage[xetex]{hyperref}
 
+\usepackage{listings}
+
 \DisemulatePackage{setspace}
 \usepackage{setspace}
-
+\usepackage[]{algorithm2e}
 % Odabir familije fontova:
 % koristenjem XeLaTeX-a mogu se koristiti svi fontovi instalirani na racunalu, npr
 % \defaultfontfeatures{Mapping=tex-text}
@@ -302,6 +304,7 @@ Još je preostalo dokazati da algoritam radi:
 \end{figure} 
 
 \newpage
+\begin{comment}
 \section{Reprezentacija podataka DNA lancima}
 Reprezentacija podataka DNA lancima se vrši na idući način:
 \texttt{ 
@@ -352,6 +355,7 @@ Iz \ref{tab:prim} slijedi:
 $"DNA"=(CACACATGCAAC)_{DNA}$
 \end{exa}
 Naravno, vidimo da bi ovakvu "šifru" bilo iznimno lako probiti pa reprezentaciju podataka nećemo razmatrati kao potencijalni kriptosustav jer bi njegova sigurnost bila izuzetno mala.
+\end{comment}
 \section{Osnove kriptografije}
 \label{sec:kripto}
 Kriptografija je znanstvena disciplina koja proučava metode koje u nesigurnom komunikacijskom kanalu  čuvaju integritet i sigurnost podataka i poruka te skrivaju njihov sadržaj od treće osobe, a tako da dane poruke može pročitati samo onaj kome su namijenjene. Razmatrat ćemo komunikaciju između dvoje sudionika: \textit{pošiljatelja (Alice)} i \textit{primatelja (Bob)}. Alice želi preko nesigurnog komunikacijskog kanala poslati poruku, tako da  treća osoba (Oscar ili Eva) ne može saznati sadržaj poruke. Poruku zovemo \textit{otvoreni tekst}. Kako bi sakrila sadržaj poruke, Alice transformira otvoreni tekst uporabom \textit{ključa}. Cijeli postupak transformacije sa ključem nazivamo \textit{šifriranje}, a rezultat šifriranja \textit{šifrat}. Alice šalje Bobu šifrat preko nesigurnog komunikacijskog kanala. Treća osoba pokuašava ukrasti šifrat te saznati njegov sadržaj, no ako je Alice koristila "dobro" šifriranje, treća osoba to neće bit u mogućnosti napraviti. Kada poruka dođe do Boba, on će, u slučaju da ima odgovarajući ključ, šifrat ponovno transformirati u otvoreni tekst, što zovemo \textit{dešifriranjem}. \textit{Kriptoanaliza (dekriptiranje)} je znanstvena disciplina koja proučava metode za čitanje skrivenih poruka bez poznavanja ključa. Kriptologija je znanstvena diciplina koja objedinjuje i kriptografiju i kriptoanalizu. Često za šifriranje odnosno dešifriranje koristimo određene postupke - \textit{kriptografske algoritme (šifre)}. Ti postupci su zapravo određene funkcije - funkcija \textit{enkripcije} općenito otvorenom tekstu (njegovim sastavnim jedinicama) pridružuje osnovne sastavnice šifrata, dok funkcija \textit{dekripcije} opet sastavnim jedinicama šifrata pridružuje sastavne jedinice otvorenog teksta. \textit{Prostor ključeva} je skup čiji su elementi svi mogući ključevi. \textit{Kriptosustav} objedinjuje kriptografski algoritam,   šifrate, ključeve te sve moguće otvorene tekstove.
@@ -376,7 +380,10 @@ Od načina (tipa operacija) šifriranja razlikujemo \textit{supstitucijske šifr
 \begin{center}
 	\textit{Kriptosustav bi trebao biti siguran čak i ako se sve zna o njemu osim ključa.}
 \end{center}
-Pa ćemo pretpostaviti da napadač na kriptosustav zna koji alat za šifriranje koristimo, posjeduje šifrat i njemu odgovarajući otvoreni tekst, pretpostavljamo da ima mogućnost odabira otvorenog teksta i njemu pripadajućeg šifrata pa čak i da ima alat za dešifriranje na temelju kojeg iz danog šifrata može dobiti otvoreni tekst (cilj mu je saznati ključ za dešifriranje).
+Pa ćemo pretpostaviti da napadač na kriptosustav zna koji alat za šifriranje koristimo, posjeduje šifrat i njemu odgovarajući otvoreni tekst, pretpostavljamo da ima mogućnost odabira otvorenog teksta i njemu pripadajućeg šifrata pa čak i da ima alat za dešifriranje na temelju kojeg iz danog šifrata može dobiti otvoreni tekst (cilj mu je saznati ključ za dešifriranje). Prirodno pitanje koje se postavlja jest: postoji li savršeno sigurni kriptosustav. O pojmu savšrene sigurnosti govorio je kriptograf Claude Shannon, prema njegovoj definiciji je kriptosustav savršeno siguran ukoliko šifrat nedaje nikakvu informaciju o otvorenom tekstu, preciznije: neka je $x$ fiksirani otvoreni tekst iz prostora otvorenih tekstova koji se pojavljuje s vjerojatnošću $\mathbb{P}(x)$, tada je uvjetna vjerojatnost $\mathbb{P}(x|y)$ da je $x$ otvoreni tekst, ako znamo da je $y$ šifrat, jednaka $\mathbb{P}(x)$, odnosno:
+\[\mathbb{P}(x|y)=\mathbb{P}(x), \quad \forall	 y \in \mathcal{C}\] 
+gdje je $\mathcal{C}$ prostor svih šifrata.\\ 
+Kada se govori o savršeno sigurnom kriptografskom sustavu, često nailazimo na pojam jednostruke bilježnice (\textit{eng. \textbf{o}ne-\textbf{t}ime \textbf{p}ad}). Kriptosustavi koji koriste koncept jednostruke bilježnice zaprvo koriste kriptografske ključeve koji vrlo često budu izabrani na slučajan način te se upotrebljavaju kako bi se šifrirao točno jedan otvoreni tekst, a nakon toga se više ne koriste. Takav koncept se upravo koristi u DNA kriptografiji, čiju ćemo primjenu vidjeti u poglvalju \ref{sec:EDDNA}.
 Više o kriptografiji se može naći u \cite{duje}
 \section{DES kriptosustav}	
 \subsection{Kratki prgled DES kriptosustava}
@@ -547,13 +554,47 @@ Zatim se dodaje enzim DNA polimeraza koji će konvertirati paricajlni dvolančan
 Zatim se opet pomoću DNA helikaze dobiva $\mathtt{\uparrow Xyz}$.
 
 \subsubsection{Plan napada na DES kriptosustav i algoritam}
-Označimo s $DES(M,k)$ šifrat dobiven enkripcijom otvorenog teksta $M$ koristeći ključ $k$ u DES kriptosustavu. U poglavlju \ref{sec:kripto} smo napomenuli da napadač na dani kriptosustav obično ima odabrani otvoreni tekst i njemu pripadajući šifrat. U tu svrhu pretpostavit ćemo da je parametar $M_0$ neki fiksan $64$-bitni otvoreni tekst, a $k$ ključ kojeg pokušavamo naći. Poznato je da otvorenom tekstu $M_0$ pripada šifrat $E_0$. Tada za dani $M_0$ uvodimo funkciju $f:\{0,1\}^{56} \to \{0,1\}^{64}$ koja za neki ključ $k$ proizvoljan, tekstu $M_0$ pridružuje šifrat $DES(M_0,k)$, odnosno $f(K)=DES(M_0,k)$. Jedno svojstvo DES kriptosustava jest da će ključ $k_0$ biti upravo jedinstven. Naša je zadaća naći $k_0$ takav da je $f(k_0)=E_0$, odnosno naći inverz funkcije $f$ ako su nam poznati otvoreni tekst i njegov pripadni šifrat. Ono što ćemo napraviti jest konsturiranje svih parova $[k, f(k)]$ za svih $2^{56}$ mogućih ključeva.\\
+Označimo s $DES(M,k)$ šifrat dobiven enkripcijom otvorenog teksta $M$ koristeći ključ $k$ u DES kriptosustavu. U poglavlju \ref{sec:kripto} smo napomenuli da napadač na dani kriptosustav obično ima odabrani otvoreni tekst i njemu pripadajući šifrat. U tu svrhu pretpostavit ćemo da je parametar $M_0$ neki fiksan $64$-bitni otvoreni tekst, a $k$ ključ kojeg pokušavamo naći. Poznato je da otvorenom tekstu $M_0$ pripada šifrat $E_0$. Tada za dani $M_0$ uvodimo funkciju $f:\{0,1\}^{56} \to \{0,1\}^{64}$ koja za neki ključ $k$ proizvoljan, tekstu $M_0$ pridružuje šifrat $DES(M_0,k)$, odnosno $f(K)=DES(M_0,k)$. Jedno svojstvo DES kriptosustava jest da će ključ $k_0$ biti upravo jedinstven. Naša je zadaća naći $k_0$ takav da je $f(k_0)=E_0$, odnosno naći inverz funkcije $f$ ako su nam poznati otvoreni tekst i njegov pripadni šifrat. Ono što ćemo napraviti jest konsturiranje svih parova $[k, f(k)]$ za svih $2^{56}$ mogućih ključeva. Pošto su permutacije u $DES$ kriptosustavu fiksirane, a neke od njih samo skraćuju ili nadodaju još bitova na točno određeni način, za naše primjene te permutacijske kutije ne igraju značajnu ulogu i mogu biti ignorirane. Naime, nema potrebe da  fizički permutiramo bitove u DNA lancima, već samo možemo pratiti (na primjer na papiru) bitove DNA lanca koji kodiraju bitove u izračunavanju. Za računanje operacije $\oplus$ i $S$-kutija radimo sljedeće:
+Pretpostavimo da želimo izračunati XOR ($\oplus$) $i$-tog i $j$-tog bita u epruveti $T$. To ćemo učitniti dodajući vrijednost $x_i \oplus x_j$ na DNA lanac koji reprezentira riječ $x$. Prvi korak u tome je razdvajanje epruvete $T$ na dva riješenja $T_0, T_1$ gdje vrijedi:
+$T_0=\{x \in T| x_i \oplus x_j=0 \}$, a $T_0=\{x \in T| x_i \oplus x_j=1 \}$. Definiramo međurješenje na idući način:
+\[T^{11}=Extract(T, x_i=1 \vee x_j=1)\]
+\[T^{1}=Extract(T^{11}, x_i=0 \vee x_j=0)\]
+\[T^{0}=T\backslash T^{1}\]
+Jedna $S$-kutija zaravo odgovara preslikavanju: $g: \{0,1\}^6 \to \{0,1\}^4$. Pretpostavimo sada da su bitovi koje želimo preslikati (na koje dijeluje $S$-kutija) počinju na poziciji $i$, a završavaju na poziciji $i+5$, svakom DNA lancu $x$ želimo prilijepiti $4$-bitnu riječ  $g(x)$. To se radi tako da se rješenje $T$ razdvaja na 16 različitih riješenja $T_0,...,T_{15}$ ovisno prema vrijednosti koja se dodjeljuje. Tada ćemo svakom pojedinačnom rješenju $T_j$ nadodati $4$-bitnu riječ $j$. Na primjer, pretpostavimo da funkcija $g$ preslikava $6$-bitne riječi $a$ i $b$ u $0$, i ne postoji riječ $c \in \{(x_1,...,x_6)| x_i \in \{0,1\}\}\backslash \{a,b\}$ takva da je $f(c)=0$. Tada je:
+\[T_0 \leftarrow Extract(T, x_i...x_{i+5}=a \vee x_i...x_{i+5}=b)\]
+Preostale operacije ekstrakcije se rade na sličan način. Ovo pokazuje da se pojedinačna $S$-kutija može izračunati u $16$ operacija ekstrahiranja i jednako toliko operacija označavanja.	Operacija izdvajanja zahtjeva pripremu od $2^6=64$ različitih premaza biotin-streptavidinom. Ti premazi se pak mogu pripremiti na način kojim će biti kreirana \textit{inicijalna otopina}  za rješavanje problema, a oni će se kasnije koristiti u svih $16$ rundi izračunavanja pa je to dovoljno pripremiti jednom na početku cijelog procesa. Sada kada smo kreirali uvodni dio, krećemo na detaljan opis algoritma za probijanje DES kriptosustava. U tu svrhu pogledajmo donji graf na slici \ref{fig:graf}.
+\begin{figure}[h]
+\centering \includegraphics[scale=0.5]{graf.png}
+\caption{Inicijalni graf}
+\label{fig:graf}
+\end{figure}
+
+Svaki put u tom grafu od čvora $S_0$ do čvora $S_{56}$ predstavlja jedan mogući ključ u DES kriptosustavu. Ta percepcija nam treba kako bi jasno shvatili korake algoritma. Važno je naglasiti da ako znamo otvoreni tekst $M_0$ preslikavanje funkcije $f$ koja preslikava ključ u šifrat se zapravo može spremiti u tablicu, a zahvaljujući izuzetnim kapacitetima DNA što se tiče memorije (na primjer 5.5 petabita podataka - što je oko 700 terabajta - je spremljeno u jedan gram DNA)\footnote{\cite{Church}}, $f(k)$ možemo spremiti bez većih problema na DNA, a njen izračun se računa samo na temelju bitova iz $k$ (jer je prva komponenta u $DES(M_0,k)$ konstanta).
+\begin{enumerate}
+\item Istaknuli smo da za svaki vrh $V$ postoje $15$-meri $V^l$ i $V^r$ takvi da je $V=V^lV^r$ i da ne postoji vrh $U \neq V$ takav da je $U=V^lV^r$ ili $U=V^rV^l$.
+\item  Ulaz: Za svaki vrh $v$ kreiraj epruvetu koja sadrži jednolančane DNA $\uparrow V^lV^r$. Za svaki usmjereni vrh $(u,v)$ epruvetu sastavljenu  od jednolančanih DNA $U^rV^l$. Kako bi kreirali potpune dvolančane strukture DNA, kreiraj dvije epruvete od kojih će jedna sadržavati $\uparrow S_0 ^l$, a druga $\downarrow S_{56}^r$
+\item Pomiješaj sve epruvete u jednu te započni postupak hibridizacij
+\item Ekstrahiraj sve DNA lance koji sadrže riječ $S_0$
+\item Ekstrahiraj sve DNA lance koji sadrže riječ $S_{56}$\\
+Time smo dobili sljedeće:
+\[\updownarrow S_0R_1(k)\]
+Gdje je $k \in \{0,1\}^{56}$
+\item Izračunaj prijelaze DES sklopovlja za sve ključeve, a pojedini ključ označi rezultatom DES prijelaza. Na primjer, ako prvi prijelaz DES sklopovlja, s obzirom na fiksnu poruku $M_0$ nalaže da se napravi $XOR$ na $2$ i $5$ bitu ključa $k$, tada će ključ nakon izračuna $k_2 \oplus k_5$ biti označen sa $B_{57}(k_2 \oplus k_5)S_{57}$, odnosno dobit ćemo:
+\[\updownarrow S_0R_1(k)B_{57}(k_2 \oplus k_5)S_{57}\] 
+\item Računamo jedan po jedan prijelaz u DES sklopovlju, a za svaki prijelaz, njegov izlaz dodajmo na kraj svakog DNA lanca, nakon toga svi lanci u riješenju izgledaju kao:
+\[\updownarrow S_0R_1(k)R_{57}(I)R_r(DES(M_0,k))\]
+Gdje je $I$ riječ bitova koja odgovara izlaznim vrijednostima pojedinih unutarnjih prijelaza u DES sklopovlju. 
+\end{enumerate} 
+Ovaj algoritam, kada bi se ukupno raspisale sve operacije, koristi 916 koraka i to da se neki koraci izdvajanja izvedu paralelno, a o detaljnoj analizi toga, kao i o daljnjoj optimizaciji algoritma se može naći u \cite{DESbreak}.
 
 \section{Enkripcija i dekripcija podataka}
-
+\label{sec:EDDNA}
+Funkciju enkripcije i dekripcije ćemo sada opisati:
+Neka je $M$ otvoreni tekst koji Alice želi kriptirati i poslati preko nesigurnog komunikacijskog kanala. Alice će najprije pretvoriti $M$ u pripadni $ASCII$ kod, a potom će taj $ASCII$ kod prevesti u binarni otvoreni tekst $M'$. Neka je $m'=d(M')$ duljina binarnog otvorenog teksta $M'$. Označimo s $k_A$ proizvoljan, slučajno izabrani, jednolančani DNA koji će nam poslužiti kao ključ, a koji je duljine $10m'$. Alice kriptira po sljedećem algoritmu (napisanom u programskom jeziku python):
+\lstinputlisting[language=Python]{enkripcija.py}
 \newpage
 \nocite{*}
 \bibliographystyle{abbrv}
-\bibliography{borda2011fundamentals,literatura,CNTYan,lipton,DESDNA}
+\bibliography{borda2011fundamentals,literatura,CNTYan,lipton,DESDNA,Church}
 \end{spacing}
 \end{document}

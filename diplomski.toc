@@ -7,12 +7,11 @@
 \contentsline {subsection}{Problem Hamiltonovog puta}{10}{section*.3}
 \contentsline {chapter}{\chapternumberline {2}DNA kriptografija}{16}{chapter.2}
 \contentsline {section}{\numberline {2.1}Osnovni biolo\IeC {\v s}ki koncepti deoksiribonukleinske kiseline}{16}{section.2.1}
-\contentsline {section}{\numberline {2.2}Reprezentacija podataka DNA lancima}{19}{section.2.2}
-\contentsline {section}{\numberline {2.3}Osnove kriptografije}{20}{section.2.3}
-\contentsline {section}{\numberline {2.4}DES kriptosustav}{22}{section.2.4}
+\contentsline {section}{\numberline {2.2}Osnove kriptografije}{19}{section.2.2}
+\contentsline {section}{\numberline {2.3}DES kriptosustav}{22}{section.2.3}
 \contentsline {subsection}{Kratki prgled DES kriptosustava}{22}{section*.4}
-\contentsline {subsection}{Provaljivanje DES-a DNA izra\IeC {\v c}unavanjem}{30}{section*.5}
-\contentsline {subsubsection}{Uvod i oznake}{30}{section*.6}
+\contentsline {subsection}{Provaljivanje DES-a DNA izra\IeC {\v c}unavanjem}{29}{section*.5}
+\contentsline {subsubsection}{Uvod i oznake}{29}{section*.6}
 \contentsline {subsubsection}{Reprezentacija rije\IeC {\v c}i sastavljenih od alfabeta $\{0,1\}$}{31}{section*.7}
 \contentsline {subsubsection}{Op\IeC {\'c}e biokemijske operacije}{32}{section*.8}
 \contentsline {paragraph}{Hibridizacija (taljenje i hla\IeC {\dj }enje)}{32}{section*.9}
@@ -20,5 +19,5 @@
 \contentsline {paragraph}{Replikacija}{34}{section*.11}
 \contentsline {paragraph}{Ozna\IeC {\v c}avanje}{34}{section*.12}
 \contentsline {subsubsection}{Plan napada na DES kriptosustav i algoritam}{35}{section*.13}
-\contentsline {section}{\numberline {2.5}Enkripcija i dekripcija podataka}{35}{section.2.5}
-\contentsline {chapter}{Bibliografija}{36}{chapter*.14}
+\contentsline {section}{\numberline {2.4}Enkripcija i dekripcija podataka}{38}{section.2.4}
+\contentsline {chapter}{Bibliografija}{40}{chapter*.14}
