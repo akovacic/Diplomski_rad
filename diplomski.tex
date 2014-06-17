@@ -78,7 +78,7 @@
 U današnje vrijeme svjedoci smo nagloga porasta razmjene podataka. Naglim napretkom današnjih računala, javila se potreba za povećanjem sigurnosti, odnosno zaštite podataka, koji putuju preko komunikacijskog kanala. Današnji kriptosustavi omogućuju siguran prijenos takvih podataka, a ključ njihovog razbijanja zapravo leži u faktoriziranju nekog \textit{velikog} broja (na primjer \textsc{RSA} kriptosustav). Na današnjim računalima, takav problem nije lako riješiv - pa su ti sustavi još uvijek sigurni. Razvojem novih teoretskih modela računala - koji se pokušavaju i u praksi realizirati - uočeno je da problem faktorizacije neće biti više takav problem. Primjer jednog takvog računala je kvantno računalo za kojeg postoji algoritam (\textit{Shorov algoritam}) koji faktorizira broj u polinomnom vremenu.
 Time se javila potreba za osmišljanjem  novih teoretskih modela računala - odnosno kriptosustava - koji bi bili otporni na kvantno izračunavanje - ne bi se mogli probiti uporabom kvantnog računala u nekom razumnom vremenu. Takve kriptosustave ćemo zvati \textit{kvantno rezistentnima}.
 Tema ovog diplomskog rada biti će DNA kriptografija. Kratko rečeno, radi se o teoretskom modelu kriptografskog sustava koji pomoću DNA izračunavanja šifrira podatke. Prednost takvog sustava jest upravo što je kvantno rezistentan.\\[0.2cm]
-U ovom radu najprije ćemo se ukratko upoznati s pojmom DNA računala, odnosno DNA izračunavanja, složenosti DNA računala te algoritmom za enkripciju, odnosno dekripciju podataka pomoću DNA računala.
+U ovom radu najprije ćemo se ukratko upoznati s pojmom DNA računala, odnosno DNA izračunavanja, složenosti DNA računala, osnovnim biološkim konceptima DNA, probijanje DES kriptosustava pomoću DNA računala te algoritmom za enkripciju, odnosno dekripciju podataka pomoću DNA.
 \end{intro}
 \chapter{DNA računalo}
 \section{DNA izračunljivost}
@@ -276,7 +276,7 @@ Još je preostalo dokazati da algoritam radi:
 \section{Osnovni biološki koncepti deoksiribonukleinske kiseline}
 \label{sec:DNA}
 \textbf{Deoksiribonukleinska kiselina} (DNA) sastavljena je od dva duga lanca nukleotida (polinukleotidni lanci) koji su omotani jedan oko drugoga, odnosno ima strukturu \textit{dvostruke uzvojnice }(engleski \textbf{double helix}) (slika \ref{fig:DNA}). \textbf{Nukleotid} je osnovna građevna jedinica DNA, a gradi ju jedna od četiri dušićne baze: \textit{adenina (A), gvanina (G), timina (T) i citozina (C)}, šećera pentoze te fosfatne skupine. Sa $1' - 5'$ označavamo ugljikove atome u molekuli šećera, a na slici \ref{fig:Nukleotid} se može vidjeti atomska struktura nukleotida. Vidimo da ako se na $2'$ veže hidroksilna skupina - govorimo o \textbf{ribonukleinskoj kiselini}, u kojoj se timin zamjenjuje \textit{uracinom (U)}, inače, ako se na $2'$ veže vodik, govorimo o DNA (pripadna pentoza je deoksiriboza). Veza između dva nukleotida je kovalentna, a nastaje tako da se hidroksilna skupina na $3'$ ugljikovom atomu pentoze veže s fosfatnom skupinom drugog nukleotida koja se nalazi na $5'$ ugljikovom atomu pripadne pentoze. Pripadna dva lanca koja sastavljaju jednu molekulu DNA su \textit{antiparalelni} što znači da moraju biti suprotne orijentacije - jedan lanac dvostruke uzvojnice mora završavati s 5' ugljikovim atomom kao krajem, a druga zavravati s 3' ugljikovim atomom kao kraje (slika \ref{fig:antipar}). Pri povezivanju pripadnih dušićnih baza uvijek se adenin povezuje s timinom, a gvanin s citozinom. Sada kada smo osbjasnili neke osnovne principe DNA molekule, komentirat ćemo neka tehnološka postignuća koja su biokemijski analogoni operacija DNA stroja navedenih u poglavlju \ref{sec:DNAizr}.
-\textit{DNA sintetizator} je stroj koji kemijski sintetizira DNA lance. Umjetne jednolančane DNA (signle stranded DNA) koje ćemo kasnije označavati sa \textit{ssDNA} nazivamo oligonukleotide. Dvostruke uzvojnice ćemo nadalje označavati sa \textit{dsDNA}. U određenim uvjetima, komplementarne ssDNA mogu oformiti dsDNA, a taj proces se zove \textit{hibridizacija}. (Navesti ostale biokemijske operacije koje se mogu upotrebljavati).
+\textit{DNA sintetizator} je stroj koji kemijski sintetizira DNA lance. Umjetne jednolančane DNA (signle stranded DNA) koje ćemo kasnije označavati sa \textit{ssDNA} nazivamo oligonukleotide. Dvostruke uzvojnice ćemo nadalje označavati sa \textit{dsDNA}. U određenim uvjetima, komplementarne ssDNA mogu oformiti dsDNA, a taj proces se zove \textit{hibridizacija}. Ostale kemijske operacije koje ćemo upotrebljavati ćemo opisati u poglavlju \ref{subsec:DESbreak}.
 
 \begin{figure}[h!t]
 \centering \includegraphics[scale=0.8]{DNA.png}
@@ -372,7 +372,7 @@ Kriptosustav je uređena petorka $(\mathcal{P}, \mathcal{C}, \mathcal{K}, \mathc
 \end{itemize}
 \end{defn}
 \begin{rem}
-U primjeni se često radi jednostavnosti kaže da je $\mathcal{P}$ konačan skup osnovnih elemenata otvorenog teksta, a $\mathcal{C}$ skup osnovnih elemenata šifrata. U zadnjoj točki definicije, radi jednostavnosti, navodi da je $x$ otvoreni tekst (odnosno $x \in \mathcal{P}^k$, za neki $k \in \N$). Naravno, to je zbog toga što se prirodno može uvesti "proširenje" funkcije $e_K$ i to na sljedeći način: \\ 
+U primjeni se često radi jednostavnosti kaže da je $\mathcal{P}$ konačan skup osnovnih elemenata otvorenog teksta, a $\mathcal{C}$ skup osnovnih elemenata šifrata. U zadnjoj točki definicije, radi jednostavnosti, navodi se da je $x$ otvoreni tekst (odnosno $x \in \mathcal{P}^k$, za neki $k \in \N$). Naravno, to je zbog toga što se prirodno može uvesti "proširenje" funkcije $e_K$ i to na sljedeći način: \\ 
 za $\vec{x}=(x_1,...,x_n) \in \mathcal{P}^n$ definira se da je \[e_K(\vec{x})=e_K(x_1)e_K(x_2)...e_K(x_n)\]
 Analogno bi se "proširila" funkcija $d_K$. 
 \end{rem}
@@ -625,7 +625,25 @@ Slijedi implementacija u programskom jeziku Pythonu.
           breaklines=true
           }
 \lstinputlisting[language=Python]{enkripcija.py}
-Na slici \ref{fig:prim} se može vidjeti primjer enkriptcije i dekripcije pomoću navedene implementacije u Pythonu.
+\begin{exa}
+Alice želi kriptirati tekst $M="DNA"$. Njegova ASCII vrijednost je $44\, 4E\,41$ Što se nakon pretvaranja u binarnu riječ reprezentira kao: $1000100\,1001110\,1000001$. Duljina otvorenog teksta: $d(M')=21$. Alice na slučajan način izabire ključ duljine $210$ (za svaki bit po jedan 10-mer) sastavljen od simbola iz skupa $\{A,C,G,T\}$.\\
+$k_A=
+ \mathtt{TGTCAACTTC CATCTGATGA}$
+$\mathtt{CCTAGTCAGT TCGCGTGTGA}$
+$\mathtt{CAGCCGGTGA AAAGATCAGA}$\\
+$\mathtt{TCTGACTAAT GCCGAACCCG}$
+$\mathtt{CTTTTGTTGG TTAGTCGCGA}$
+$\mathtt{GCGCTAAGGA GGGACATACC}$\\
+$\mathtt{GGGCTCAACA CCAGTTCGAG}$
+$\mathtt{TTGACTGAAG CTAGGGCGCT}$
+$\mathtt{ACTATCTATC CAAGTGACTA}$\\
+$\mathtt{CATGTCTAGG CCATTCCGAA}$
+$\mathtt{GTCGTTTAAC}$ \\
+Nakon toga Alice šifrira: prvi bit koji pročita je 1: uzme $\mathtt{GTCGTTTAAC}$, napravi Watson-Crickov komplement danog bloka, nadoda $0$ i dobije: $\mathtt{CAGCAAATTG0}$, iduća tri bloka ignorira (jer su idući bitovi koje je pročitala bili $0$, a zatim iz bloka $\mathtt{ACTATCTATC}$ dobije šifrat: $\mathtt{TGATAGATAG1}$. Potpuni šifrat dan je sa idućom listom blokova:
+\[\mathtt{['CAGCAAATTG0', 'TGATAGATAG1', 'GGTCAAGCTC2', 'CGCGATTCCT3',}\] \[\mathtt{'AATCAGCGCT4', 'GAAAACAACC5', 'AGACTGATTA6', 'ACAGTTGAAG7']}\]
+Bob je primio blok $\mathtt{TGATAGATAG1}$ i dešifrira ga tako da prvi blok ključa ignorira (1 je zaljepljen na kraj šifrata), uzima Watson-Crickov komplement bloka $\mathtt{ACTATCTATC}$, te traži idući blok (čitajući s desna na lijevo koji se poklapa s njim). Pretpostavimo da je Bob već dekriptirao prije $0$-ti blok. Sada slaže bitovnu riječ tako da svaki blok koji je ignorirao zamjeni s jednom nulom, a koji nije ignorirao zamjeni s 1: pa dobiva ${\color{red}1} {\color{blue}0001}$, gdje je s crvenom bojom označen bit dobiven nakon prve runde dekriptiranja, a plavom bojom je označena riječ dobivena drugom rundom dekriptiranja. Na taj način Bob dobiva binarni prikaz otvorenog teksta, kojeg lagano pretvori u riječ prirodnog jezika.
+\end{exa}
+Na slici \ref{fig:prim} se može vidjeti primjena enkripcije i dekripcije pomoću navedene implementacije u Pythonu.  
 \begin{figure}[h]
 \centering \includegraphics[scale=0.5]{primjer.jpg}
 \caption{Primjer enkripcije i dekripcije riječi "DNA"}
@@ -641,5 +659,16 @@ Glavna prednost DNA računala je izrazito veliki kapacitet i gustoća memorije z
 \nocite{*}
 \bibliographystyle{abbrv}
 \bibliography{borda2011fundamentals,literatura,CNTYan,lipton,DESDNA,Church}
+\pagestyle{empty}
+\begin{sazetak}
+DNA kriptografija predstavlja noviji model kriptiranja u teoriji računarstva, a koji upotrebljava koncept jednokratne bilježnice. Zbog iznimno guste raspodjele u memoriji DNA lanaca te složenim biokemijskim operacijama koje se mogu nad DNA lancima izvršiti paralelno (koncept masivnog paralelizma), nudi noviji pristup u teorijskom izračunavanju. Za razliku od RSA kriptosustava, DNA kriptografija je kvantno rezistentna te nudi sigurnost koja se oslanja na duljinu i jednokratnu upotrebljivost kriptografskog ključa. U ovom radu je predstavljen jedan način kriptiranja pomoću DNA lanaca. Osim toga, prikazan je matematički koncept DNA računala te kratka analiza njegove složenosti te primjena istoga na dva problema: problem nalaženja Hamiltonova puta, te korištenje DNA računala u svrhu napada na DES kriptosustav.
+\end{sazetak}
+
+\begin{summary}
+DNA cryptography, which uses the concept of a one-time pad, is a newer model of encryption in the computer science. Due to the extremely dense distribution in memory of DNA chains, and complex biochemical operations that can be performed over the DNA strands in parallel (the concept of massive parallelism), it provides greater approach to the theoretical calculation. Unlike RSA cryptosystem, DNA cryptography is quantum resistant and offers security that relies on length and one-usability of cryptographic keys. This paper discusses a method of encryption using DNA chains. In addition, it presents a mathematical concept of DNA computers and a brief analysis of its complexity and the use of the same to solve two problems: the problem of finding Hamiltonian path, and the use of DNA computers in order to attack the DES cryptosystem.
+\end{summary}
+\begin{cv}
+Antonio Kovačić rođen je 23. siječnja 1991. godine u Banja Luci, Bosna i Hercegovina. Od 1992. godine, nakon što je počeo Domovinski rat, odrasta u Zagrebu uz oca, majku, sestru i tri brata. Svoje obrazovanje započinje u Osnovnoj školi Tituša Brezovačkog, a nastavlja u Nadbiskupskoj klasičnoj gimnaziji u Zagrebu koju završava 2009. godine. Nakon završetka srednješkolskog obrazovanja upisuje se na preddiplomski studij matematike na Matematičkom odsjeku Prirodoslovno-matematičkog fakulteta Sveučilišta u Zagrebu. Godine 2012. upisuje diplomski studij računarstva i matematike na istom fakultetu. Tijekom visokoškolskog obrazovanja učlanjuje se u mješoviti zbor svete Barbare "Panis angelicus" u sklopu kojeg osvaja brojne nagrade na natjecanjima, te sujdeluje na raznim kulturno-umjetničkim događanjima, kako unutar Republike Hrvatske, tako i van nje. Potaknut članovima zbora, te na osobnu želju, na zadnjoj godini studija upisuje se u Glazbenu školu Vatroslava Lisinskog u Zagrebu na Odjel solo pjevanja u klasi Mr. art. Bojana Pogrmilovića. U teoriji računarstva interes pokazuje na području izračunljivosti, složenosti algoritama i kriptografije, a posebnu pažnju usmjerava na saznanja o DNA računalu te njegovoj primjeni.
+\end{cv}
 \end{spacing}
 \end{document}
