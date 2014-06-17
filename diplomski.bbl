@@ -12,12 +12,19 @@ L.~M. Adleman, P.~W.~K. Rothemund, and S.~Roweis.
 
 \bibitem{DESbreak}
 D.~Boneh, C.~Dunworth, and R.~J. Lipton.
-\newblock Breaking \textsc{DES} using a molecular computer, 1995.
+\newblock Breaking {DES} using a molecular computer.
+\newblock In E.~B. B. R.~J. Lipton, editor, {\em {DNA} based computers},
+  volume~27 of {\em DIMACS: Series in Discrete Mathematics and Theoretical
+  Computer Science}, pages 37--65. American Mathematical Society, Providence,
+  RI, 1996.
 
 \bibitem{DNAerr}
-D.~Boneh and R.~J. Lipton.
-\newblock Making \textsc{DNA} computers error resistant.
-\newblock pages 102--110. American Mathematical Society, 1995.
+D.~Boneh, C.~Dunworth, R.~J. Lipton, and J.~Sgall.
+\newblock Making {DNA} computers error resistant.
+\newblock In L.~Landweber and E.~Baum, editors, {\em {DNA} Based Computers
+  {II}}, volume~44 of {\em DIMACS: Series in Discrete Mathematics and
+  Theoretical Computer Science}, pages 163--170. American Mathematical Society,
+  Providence, RI, 1999.
 
 \bibitem{borda2011fundamentals}
 M.~Borda.
@@ -32,7 +39,7 @@ G.~M. Church, Y.~Gao, and S.~Kosuri.
 \bibitem{duje}
 A.~Dujella and M.~Maretić.
 \newblock {\em Kriptografija}.
-\newblock Element, 1st edition, 2007.
+\newblock Element, 2007.
 
 \bibitem{DESexa}
 J.~O. Grabbe.
@@ -65,7 +72,7 @@ M.~Sipser.
 \bibitem{Vukovic}
 M.~Vukovi\'c.
 \newblock {\em Matematička logika}.
-\newblock Element, 1st edition, 2009.
+\newblock Element, 2009.
 
 \bibitem{yan2012computational}
 S.~Yan.

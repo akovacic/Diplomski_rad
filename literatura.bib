@@ -40,7 +40,6 @@
  title = {Matematička logika},
  year = {2009},
  isbn = {978-953-197-519-3},
- edition = {1st},
  publisher = {Element}
 } 
 
@@ -49,17 +48,21 @@
  title = {Kriptografija},
  year = {2007},
  isbn = {978-953-197-565-0},
- edition = {1st},
  publisher = {Element}
 } 
 
-@misc{DESbreak,
-    author = {Dan Boneh and Christopher Dunworth and Richard J. Lipton},
-    title = {Breaking \textsc{DES} Using a Molecular Computer},
-    year = {1995},
-    url={http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.34.3677&rep=rep1&type=pdf}
+@InProceedings{DESbreak,
+  author =	"D. Boneh and C. Dunworth and R. J. Lipton",
+  title =	"Breaking {DES} Using a Molecular Computer",
+  booktitle =	"{DNA} based computers",
+  editor =	"E. B. Baum R. J. Lipton",
+  publisher =	"American Mathematical Society, Providence, RI",
+  volume =	"27",
+  series =	"DIMACS: Series in Discrete Mathematics and Theoretical
+		 Computer Science",
+  year = 	"1996",
+  pages =	"37--65",
 }
-
 @misc{DESexa,
 	author={James Orlin Grabbe},
 	title={The \textsc{DES} Algorithm Illustrated},
@@ -76,11 +79,38 @@ month={Dec},
 pages={551-554}, 
 keywords={DNA;biocomputing;computational complexity;cryptography;molecular biophysics;DNA computing;DNA cryptography;DNA hybridization technique;DNA molecular structure;biomolecular laboratory;computational complexity;cryptographic purposes;deoxyribonucleic acid;information density;massive parallelism concept;one-time-pad scheme;parallel cryptography technique;time complexity minimization;DNA Cryptography;Hybridization;Single-stranded DNA;double-stranded-DNA}, 
 doi={10.1109/ICECE.2012.6471609}}
-@INPROCEEDINGS{DNAerr,
-    author = {Dan Boneh and Richard J. Lipton},
-    title = {Making \textsc{DNA} Computers Error Resistant},
-    booktitle = {},
-    year = {1995},
-    pages = {102--110},
-    publisher = {American Mathematical Society}
+
+@InProceedings{DNAerr,
+  author =	"D. Boneh and C. Dunworth and R. J. Lipton and J.
+		 Sgall",
+  title =	"Making {DNA} computers error resistant",
+  booktitle =	"{DNA} Based Computers {II}",
+  series =	"DIMACS: Series in Discrete Mathematics and Theoretical
+		 Computer Science",
+  volume =	"44",
+  editor =	"L. Landweber and E. Baum",
+  publisher =	"American Mathematical Society, Providence, RI",
+  year = 	"1999",
+  pages="163--170",
+  abstract =	"{\textbf{Abstract:} We describe methods for making
+		 volume decreasing algorithms more resistant to certain
+		 types of errors. Such error recovery techniques are
+		 crucial if {DNA} computers ever become practical. Our
+		 first approach relies on applying {PCR} at various
+		 stages of the computation. We analyze its performance
+		 and show that it increases the survival-probability of
+		 various strands to acceptable proportions. Our second
+		 approach relies on changing the method by which
+		 information is encoded on {DNA} strands. This encoding
+		 is likely to reduce false negative errors during the
+		 bead separation procedure. }",
+  annotate =	"Introduces two methods to deal with common sources of
+		 errors: \parbox{\linewidth}{ \begin{itemize} \item PCR
+		 after each selection step is shown to increase good
+		 strands' survival probability (for volume-decreasing
+		 algorithms such as Adleman's or Lipton's). \item Double
+		 encoding improves the probability that correct strands
+		 are extracted. \end{itemize} } Note that
+		 \cite{KaplanEA96,Smith} suggest PCR may be a major
+		 source of errors itself!"
 }

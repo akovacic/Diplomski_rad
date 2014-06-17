@@ -54,5 +54,5 @@ for i in range(len(sifrat)):
 	else: myIndPrev=myInd;
 	myInd=invKljuc.find(WatsonCrick(sifrat[i]), p*10)/10
 	bini=bini+''.join('0' for i in range(myInd-myIndPrev -1))+'1'
-print "Dekriptirani sifrat: " + rijecBin
+print "Dekriptirani sifrat: " + bini
 print "Provjera: otvoreni tekst==sifrat: " + str(bini==rijecBin)

@@ -75,7 +75,7 @@
 % Diplomski rad treba poceti s uvodnim poglavljem  
 \begin{intro}
 
-U današnje vrijeme svjedoci smo nagloga porasta razmjene podataka. Naglim napretkom današnjih računala, javila se potreba za povećanjem sigurnosti, odnosno zaštite podataka, koji putuju preko komunikacijskog kanala. Današnji kriptosustavi omogućuju siguran prijenos takvih podataka, a ključ njihovog razbijanja zapravo leži u faktoriziranju nekog \textit{velikog} broja (na primjer \textsc{RSA} kriptosustav). Na današnjim računalima, takav problem nije lako riješiv - pa su ti sustavi još uvijek sigurni. Razvojem novih teoretskih modela računala - koji se pokušavaju i u praksi realizirati - uočeno je da problem faktorizacije neće biti više takav problem. Primjer jednog takvog računala je kvantno računalo za kojeg postoji algoritam (\textit{Shorov algoritam}) koji faktorizira broj u polinomnom vremenu.
+U današnje vrijeme svjedoci smo nagloga porasta razmjene podataka. Naglim napretkom današnjih računala, javila se potreba za povećanjem sigurnosti, odnosno zaštite podataka, koji putuju preko nesigurnog komunikacijskog kanala. Današnji kriptosustavi omogućuju siguran prijenos takvih podataka, a ključ njihovog razbijanja zapravo leži u faktoriziranju nekog \textit{velikog} broja (na primjer \textsc{RSA} kriptosustav). Na današnjim računalima, takav problem nije lako riješiv - pa su ti sustavi još uvijek sigurni. Razvojem novih teoretskih modela računala - koji se pokušavaju i u praksi realizirati - uočeno je da problem faktorizacije neće biti više takav problem. Primjer jednog takvog računala je kvantno računalo za kojeg postoji algoritam (\textit{Shorov algoritam}) koji faktorizira broj u polinomnom vremenu.
 Time se javila potreba za osmišljanjem  novih teoretskih modela računala - odnosno kriptosustava - koji bi bili otporni na kvantno izračunavanje - ne bi se mogli probiti uporabom kvantnog računala u nekom razumnom vremenu. Takve kriptosustave ćemo zvati \textit{kvantno rezistentnima}.
 Tema ovog diplomskog rada biti će DNA kriptografija. Kratko rečeno, radi se o teoretskom modelu kriptografskog sustava koji pomoću DNA izračunavanja šifrira podatke. Prednost takvog sustava jest upravo što je kvantno rezistentan.\\[0.2cm]
 U ovom radu najprije ćemo se ukratko upoznati s pojmom DNA računala, odnosno DNA izračunavanja, složenosti DNA računala, osnovnim biološkim konceptima DNA, probijanje DES kriptosustava pomoću DNA računala te algoritmom za enkripciju, odnosno dekripciju podataka pomoću DNA.
@@ -89,7 +89,7 @@ DNA stroj, kao ni DNA izračunavanje nećemo striktno definirati već će defini
 Neka je $n \in \mathbb{N}$ proizvoljan te $A$ proizvoljan alfabet, proizvoljni element $w \in A^n$ zovemo \textbf{riječ alfabeta A}. Neka su $s_1,..., s_n \in A$, riječ $w=(s_1,...,s_n)$ alfabeta A još zapisujemo kao $w=s_1s_2...s_n$. Smatramo da postoji riječ alfabeta A, koju ćemo označavati s $\varepsilon$, koja se ne sastoji ni od jednog simbola i zovemo je \textbf{prazna riječ}. Po dogovoru smatramo da je $A^0=\{\varepsilon\}$. Skup svih riječi alfabeta $A$ označavamo sa $A^*$. Neka su $a=a_1...a_m$, te, $b=b_1...b_k \in A^*$, kažemo da je riječ $c \in A^*$ nastala \textbf{konkatenacijom} riječi $a$ i $b$ ako vrijedi $c=ab=a_1...a_mb_1...b_k$. Kažemo da je riječ $c \in A^*$ podriječ riječi $a \in A^*$, ako postoje riječi $b, d \in A^*$ tako da je $a=bcd$. \textbf{Duljina riječi} se definira kao funkcija $d:A^*\to \mathbb{N}$ sa:
 \begin{align*}
 	d(\varepsilon) :&= 0 \\
-	d(wa) :&= d(w)+1
+	d(wa) :&= d(w)+1, \quad a \in A
 \end{align*}
 \end{defn}
 \begin{defn}
@@ -100,7 +100,7 @@ Neka je S proizvoljan konačan skup, a $m:S \to \mathbb{N}$ proizvoljna funkcija
  \textbf{DNA lanac} je proizvoljna riječ alfabeta \{A (adenin), G (gvanin), T(timin), C (citozin)\}. DNA stroj se sastoji od konstantnog broja konačnih skupova koje nazivamo \textbf{epruvete}, a čiji su elementi DNA lanci. Za proizvoljnu epruvetu K DNA stroja definiramo multiskup $MulS(K)$ kao multiskup svih riječi koje predstavljaju DNA lance sadržane u epruveti K. U DNA stroju su definirane slijedeće instrukcije:
     \begin{itemize}
         \item Kopiraj($K_1$,$K_2$) $\to$ uz pretpostavku da je $K_2$ = $\emptyset$ , kopira MulS($K_1$) u MulS($K_2$) time više $K_2$ nije prazan
-        \item Spoji($K_1$, $K_2$, $K$) $\to$ uz pretpostavku da $K$=$\emptyset$: \[MulS(K)=MulS(K_1)\bigcup MulS(K_2) \]
+        \item Spoji($K_1$, $K_2$, $K$) $\to$ uz pretpostavku da $K$=$\emptyset$: \[MulS(K)=MulS(K_1)\cup MulS(K_2) \]
         \item Uoči($K$) $\to$ ispituje je li $MulS(K)\neq\emptyset$, ako je rezultat operacije je $\top$, inače $\bot$. Također se može pročitati sadržaj epruvete $MulS(K)$.
         \item Odvoji(K,w) $\to$ za skup $K$ i riječ $w$ (iz $MulS(K)$) izbacuje sve riječi iz $K$ koje kao podriječ ne sadrže riječ $w$
         \item Izvadi(K,w) $\to$ $K\backslash Odvoji(K,w)\to $izbacuje sve riječi iz $K$ koje sadrže $w$
@@ -124,7 +124,7 @@ Kažemo da je funkcija $f:\N \to \N$ \textbf{DNA izračunljiva} ako postoji prog
 \end{defn}
 \begin{rem}
 Vidimo da se sve ove operacije izvršavaju nad jednom epruvetom u jednom koraku, odnosno multiskupom $MulS(K)$. Što je veća kardinalnost multiskupa $MulS(K)$, to se više operacija na riječima izvrši istovremeno, a u stvarnom svijetu sve te operacije imaju svoje "biokemijske analogone" - biokemijske reakcije. Takvo računalo zapravo možemo interpretirati kao superračunalo s izuzetno velikim brojem procesora. U pozadini svega toga se zapravo krije masivni paralelizam. Memoriju DNA računala zapravo predstavljaju epruvete. Jasno je odakle naziv epruvete.\\
-Uočimoo da je $MulS(K)$ definiran nad konačnim skupom pa je i on konačan - no vidimo da se on zapravo može proširiti nizom operacija \textit{Proširi} tako da je njegov kardinalitet izrazito velikog reda (nadeksponencijalnog) , ali u praksi se već sada zaključuje da to neće biti uvijek moguće - naime broj DNA lanaca u epruveti (laboratorijskoj) biti će ograničen volumenom te epruvete.\\
+Uočimo da je $MulS(K)$ definiran nad konačnim skupom pa je i on konačan - no vidimo da se on zapravo može proširiti nizom operacija \textit{Proširi} tako da je njegov kardinalitet izrazito velikog reda (nadeksponencijalnog) , ali u praksi se već sada zaključuje da to neće biti uvijek moguće - naime broj DNA lanaca u epruveti (laboratorijskoj) biti će ograničen volumenom te epruvete.\\
 Uočimo da operacija konkatenacije uključuje vjerojatnosni efekt - \textit{vjerojatnost nastajanja duljih riječi konkatenacijom je veća} - odnosno dvije riječi iz skupa $K$ koje će se konkatenirati neće biti izabrane na slučajan način - već tako da se pokuša dobiti riječ maksimalne duljine (maksimalna duljina je određena nekom konstantom). Iz toga očito možemo vidjeti da sam ishod DNA računanja nije sasvim siguran  - no u praksi se pokazuje (pri sintezi DNA lanaca) da je to moguće - u tu svrhu je i uvedena pretpostavka da će  se, ukoliko $MulS(K)$ sadrži velik broj kopija od svake riječi iz $K$, dobiti svaka moguća konkatenacija riječi iz $K$.
 \end{rem}
 \section{O složenosti DNA računala}
@@ -156,20 +156,20 @@ Neka su $f, g: \N \to \R^{+}$ dvije funkcije. Kažemo da je funkcija $g$ \textbf
 \[f(n)\leq cg(n)\]
 Činjenicu da je $g$ asimptotska međa od $f$ označavamo sa $f(n)=O(g(n)$. 
 \end{defn}
-Osnovne definicije (što je alfabet logike sudova, interpretacija, ispunjivost formule, konjunktivna, odnosno, disjunktivna normalna forma  i tako dalje) se mogu naći u \cite[s. ~12-25]{Vukovic}.\\
+Osnovne definicije (što je alfabet logike sudova, interpretacija, ispunjivost formule, konjunktivna, odnosno, disjunktivna normalna forma  i tako dalje) se mogu naći u \cite[str. ~12-25]{Vukovic}.\\
 Više o Turingovom stroju te nekim pojmovima na koje se pozivamo u idućim rezultatima se mogu naći u:
 \begin{itemize}
-\item Turing prepoznatiljivost, Turing odlučivost \cite[s. ~141-142]{Sipser}
-\item Vremenska složenost Turingovog stroja determinističkog se može naći u \cite[s. ~248]{Sipser}, a nedeterminističkog u \cite[s. ~255]{Sipser}
+\item Turing prepoznatiljivost, Turing odlučivost \cite[str. ~141-142]{Sipser}
+\item Vremenska složenost determinističkog Turingovog stroja se može naći u \cite[str. ~248]{Sipser}, a nedeterminističkog u \cite[str. ~255]{Sipser}
 \item Klase vremenske složenosti:
  \begin{itemize}
- 	\item $TIME(f(n))$ u \cite[s. ~251]{Sipser}
- 	\item $P$  u \cite[s. ~258]{Sipser}
- 	\item Vezano uz klasu $NP$ u \cite[s. ~265-267]{Sipser}
+ 	\item $TIME(f(n))$ u \cite[str. ~251]{Sipser}
+ 	\item $P$  u \cite[str. ~258]{Sipser}
+ 	\item Vezano uz klasu $NP$ u \cite[str. ~265-267]{Sipser}
  \end{itemize}
  
- 	\item Polinomna reducibilnost u \cite[s. ~272]{Sipser}
- 	\item NP-potpunost u \cite[s. ~276]{Sipser}
+ 	\item Polinomna reducibilnost u \cite[str. ~272]{Sipser}
+ 	\item NP-potpunost u \cite[str. ~276]{Sipser}
 \end{itemize}
 Označimo sa $SAT$ skup definiran na idući način:
 \[SAT=\{F: F \textrm{ je ispunjiva formula logike sudova }\}\]
@@ -181,7 +181,7 @@ Konjunktivnu normalnu formu koja u svakoj svojoj elementarnoj disjunkciji sadrž
 \begin{center}
 	Za proizvoljnu formulu $F$ koja je $k$-knf odrediti je li $F$ ispunjiva. 
 \end{center} 
-U \cite[s. ~276-283]{Sipser} se može vidjeti da je problem $SAT$ \textit{NP-potpun} problem, kao i $3-SAT$.
+U \cite[str. ~276-283]{Sipser} se može vidjeti da je problem $SAT$ \textit{NP-potpun} problem, kao i $3-SAT$.
 Sljedeći teorem govori zapravo o tome da DNA računala, u pogledu vremenske složenosti, imaju bolja svojstva nego deterministički Turnigovi strojevi:
 \begin{thm} (Lipton)
 Za svaku konjunktivnu normalnu formu $F$ u kojoj se pojavljuje $n$ propozicionalih varijabli i $m$ klauzula, u $\mathcal{O}(m+1)$ separacija i $\mathcal{O}(m)$ spajanja te jednim uočavanjem možemo odlučiti vrijedi li $F \in SAT$
@@ -190,7 +190,7 @@ Dokaz navedenog teorema se može naći u \cite{Lipton}.\\
 S pogleda odlučivosti jezika ipak nemamo takav rezultat, odnosno postoji slutnja koja kaže:
 \begin{conj} (Kvantna i biološka slutnja) Problem je odlučiv na DNA računalu ili kvantnom računalu ako i samo ako je Turing-odlučiv.
 \end{conj}
-Postavlja se prirodno pitanje kako izračunati složenost DNA računala. Odgovor je jednostavan: složenost DNA računala procijenjujemo brojem instrukcija koje DNA stroj izvrši, te s kardinalosti skupa $MulS(K)$. Zbog toga što kardinalnost skupa $MulS(K)$ može izrazito brzo rasti (samo jedna operacija \textit{Proširi(K)}, za pripadnu funkciju kratnosti $m$ multiskupa $MulS(K)$ vrijedi da je: $m_{nova}(x)=2\cdot m_{stara}(x)$, gdje je $m_{nova}(x)$ kratnost od $x$ nakon izvršenja operacije \textit{Proširi},a $m_{stara}(x)$ kratnost od $x$ prije izvršenja te iste operacije) prostorna složenost nekog programa za DNA stroj obično doseže nadeksponencijalnu veličinu (vidjet ćemo u idućem podpoglavlju takav slučaj). \\
+Postavlja se prirodno pitanje kako izračunati složenost DNA računala. Odgovor je jednostavan: složenost DNA računala procijenjujemo brojem instrukcija koje DNA stroj izvrši, te s kardinalosti skupa $MulS(K)$. Zbog toga što kardinalnost skupa $MulS(K)$ može izrazito brzo rasti (samo jedna operacija \textit{Proširi(K)}, za pripadnu funkciju kratnosti $m$ multiskupa $MulS(K)$ vrijedi da je: $m_{nova}(x)=2\cdot m_{stara}(x)$, gdje je $m_{nova}(x)$ kratnost od $x$ nakon izvršenja operacije \textit{Proširi}, a $m_{stara}(x)$ kratnost od $x$ prije izvršenja te iste operacije) prostorna složenost nekog programa za DNA stroj obično doseže nadeksponencijalnu veličinu (vidjet ćemo u idućem potpoglavlju takav slučaj). \\
 U sljedećem potpoglavlju ćemo procijeniti složenost jednog programa za DNA stroj.
 \subsection{Problem Hamiltonovog puta}
 \begin{defn}
@@ -216,7 +216,7 @@ Problem Hamiltonovog puta glasi:\\
 \begin{center}
 \textit{Postoji li u proizvoljnom konačnom grafu $G=(V,E)$ za vrhove $x,y \in V$  Hamiltonov put koji počinje s $x$, a završava s $y$.}
 \end{center}
-U \cite[s. ~286-291]{Sipser} se može vidjeti da je problem Hamiltonovog puta NP-potpun problem. U ovom poglavlju analiziramo \textit{Adlemanov algoritam} koji riješava problem u $\mathcal{O}(n \log (n))$ operacija. U kasnijim poglavljima ćemo obrazložiti reprezentaciju podataka pomoću DNA lanaca, za sada ćemo samo reći da su naši podaci reprezentirani lancima parne duljine $l$. Sada ćemo prezentirat Adlemanov algoriatam za traženje Hamiltonovog puta koji počinje s vrhom $v_{in}$, a završava s $v_{out}$ u usmjerenom označenom grafu $G=(V,E)$. Ali prije toga ćemo reći nešto o vezi bridova i vrhova. Ako su dani vrhovi $A$ i $B$ i reprezentirani riječima $H$ i $J$, tada je brid $(A,B)$ reprezentiran riječju koja je nastala konkatenacijom (u smislu operacije nad riječima) biološkog sufiksa riječi $H$ i biološkog prefiksa riječi $J$. Kako bi mogli razlikovati koji brid povezuje koje vrhove, uviđamo da svaki vrh mora imati jedinstveni prefiks i sufiks, a ne samo jedinstven prikaz jednom riječju. 
+U \cite[str. ~286-291]{Sipser} se može vidjeti da je problem Hamiltonovog puta NP-potpun problem. U ovom poglavlju analiziramo \textit{Adlemanov algoritam} koji rješava problem u $\mathcal{O}(n \log (n))$ operacija. U kasnijim poglavljima ćemo obrazložiti reprezentaciju podataka pomoću DNA lanaca, za sada ćemo samo reći da su naši podaci reprezentirani lancima parne duljine $l$. Sada ćemo prezentirat Adlemanov algoriatam za traženje Hamiltonovog puta koji počinje s vrhom $v_{in}$, a završava s $v_{out}$ u usmjerenom označenom grafu $G=(V,E)$. Ali prije toga ćemo reći nešto o vezi bridova i vrhova. Ako su dani vrhovi $A$ i $B$ reprezentirani riječima $H$ i $J$, tada je brid $(A,B)$ reprezentiran riječju koja je nastala konkatenacijom (u smislu operacije nad riječima) biološkog sufiksa riječi $H$ i biološkog prefiksa riječi $J$. Kako bi mogli razlikovati koji brid povezuje koje vrhove, uviđamo da svaki vrh mora imati jedinstveni prefiks i sufiks, a ne samo jedinstven prikaz jednom riječju. 
     Nakon što smo objasnili vezu između bridova i vrhova moramo najprije "pripremiti" epruvetu za algoritam. \[K=V\cup E\]
     U početku je upravo $MulS(K)=K$.\\
     \indent Adlemanov algoritam:
@@ -232,7 +232,7 @@ U \cite[s. ~286-291]{Sipser} se može vidjeti da je problem Hamiltonovog puta NP
     \end{enumerate}
 
 
-Nama zapravo bridovi u ovom algoritmu, na ovaj način konstruirani daju mogućnost povezivanja dva vrha koja su povezana nekim birdom (u smislu biokemije, igraju ulogu enzima inače se vrhovi ne bi mogli povezati). \\
+Nama zapravo bridovi u ovom algoritmu, konstruirani na ovaj način, daju mogućnost povezivanja dva vrha koja su povezana nekim birdom (u smislu biokemije, bridovi igraju ulogu komplementarnog lanca koji  spajanjem s neka druga dva lanca daje strukturu dvostruke uzvojnice objašnjene u poglavlju \ref{sec:DNA}). \\
 Brojimo korake algoritma:
 \begin{itemize}
 \item 2: $\lceil 2n \log _2 (n) \rceil$ koraka
@@ -275,8 +275,8 @@ Još je preostalo dokazati da algoritam radi:
 \chapter{DNA kriptografija}
 \section{Osnovni biološki koncepti deoksiribonukleinske kiseline}
 \label{sec:DNA}
-\textbf{Deoksiribonukleinska kiselina} (DNA) sastavljena je od dva duga lanca nukleotida (polinukleotidni lanci) koji su omotani jedan oko drugoga, odnosno ima strukturu \textit{dvostruke uzvojnice }(engleski \textbf{double helix}) (slika \ref{fig:DNA}). \textbf{Nukleotid} je osnovna građevna jedinica DNA, a gradi ju jedna od četiri dušićne baze: \textit{adenina (A), gvanina (G), timina (T) i citozina (C)}, šećera pentoze te fosfatne skupine. Sa $1' - 5'$ označavamo ugljikove atome u molekuli šećera, a na slici \ref{fig:Nukleotid} se može vidjeti atomska struktura nukleotida. Vidimo da ako se na $2'$ veže hidroksilna skupina - govorimo o \textbf{ribonukleinskoj kiselini}, u kojoj se timin zamjenjuje \textit{uracinom (U)}, inače, ako se na $2'$ veže vodik, govorimo o DNA (pripadna pentoza je deoksiriboza). Veza između dva nukleotida je kovalentna, a nastaje tako da se hidroksilna skupina na $3'$ ugljikovom atomu pentoze veže s fosfatnom skupinom drugog nukleotida koja se nalazi na $5'$ ugljikovom atomu pripadne pentoze. Pripadna dva lanca koja sastavljaju jednu molekulu DNA su \textit{antiparalelni} što znači da moraju biti suprotne orijentacije - jedan lanac dvostruke uzvojnice mora završavati s 5' ugljikovim atomom kao krajem, a druga zavravati s 3' ugljikovim atomom kao kraje (slika \ref{fig:antipar}). Pri povezivanju pripadnih dušićnih baza uvijek se adenin povezuje s timinom, a gvanin s citozinom. Sada kada smo osbjasnili neke osnovne principe DNA molekule, komentirat ćemo neka tehnološka postignuća koja su biokemijski analogoni operacija DNA stroja navedenih u poglavlju \ref{sec:DNAizr}.
-\textit{DNA sintetizator} je stroj koji kemijski sintetizira DNA lance. Umjetne jednolančane DNA (signle stranded DNA) koje ćemo kasnije označavati sa \textit{ssDNA} nazivamo oligonukleotide. Dvostruke uzvojnice ćemo nadalje označavati sa \textit{dsDNA}. U određenim uvjetima, komplementarne ssDNA mogu oformiti dsDNA, a taj proces se zove \textit{hibridizacija}. Ostale kemijske operacije koje ćemo upotrebljavati ćemo opisati u poglavlju \ref{subsec:DESbreak}.
+\textbf{Deoksiribonukleinska kiselina} (DNA) sastavljena je od dva duga lanca nukleotida (polinukleotidni lanci) koji su omotani jedan oko drugoga, odnosno ima strukturu \textit{dvostruke uzvojnice }(engleski \textbf{double helix}) (slika \ref{fig:DNA}). \textbf{Nukleotid} je osnovna građevna jedinica DNA, a izgrađena je od jedne od četiri dušićne baze: \textit{adenina (A), gvanina (G), timina (T) i citozina (C)}, šećera pentoze te fosfatne skupine. Sa $1' - 5'$ označavamo ugljikove atome u molekuli šećera, a na slici \ref{fig:Nukleotid} se može vidjeti atomska struktura nukleotida. Vidimo da ako se na $2'$ veže hidroksilna skupina - govorimo o \textbf{ribonukleinskoj kiselini}, u kojoj se timin zamjenjuje \textit{uracinom (U)}, inače, ako se na $2'$ veže vodik, govorimo o DNA (pripadna pentoza je deoksiriboza). Veza između dva nukleotida je kovalentna, a nastaje tako da se hidroksilna skupina na $3'$ ugljikovom atomu pentoze veže s fosfatnom skupinom drugog nukleotida koja se nalazi na $5'$ ugljikovom atomu pripadne pentoze. Pripadna dva lanca koja sastavljaju jednu molekulu DNA su \textit{antiparalelni} što znači da moraju biti suprotne orijentacije - jedan lanac dvostruke uzvojnice mora završavati s 5' ugljikovim atomom kao krajem, a drugi završavati s 3' ugljikovim atomom kao krajem (slika \ref{fig:antipar}). Pri povezivanju pripadnih dušićnih baza uvijek se adenin povezuje s timinom, a gvanin s citozinom. Sada kada smo objasnili neke osnovne principe DNA molekule, komentirat ćemo neka tehnološka postignuća koja su biokemijski analogoni operacija DNA stroja navedenih u poglavlju \ref{sec:DNAizr}.
+\textit{DNA sintetizator} je stroj koji kemijski sintetizira DNA lance. Umjetne jednolančane DNA (single stranded DNA) koje ćemo kasnije označavati sa \textit{ssDNA} nazivamo oligonukleotide. Dvostruke uzvojnice ćemo nadalje označavati sa \textit{dsDNA}. U određenim uvjetima, komplementarne ssDNA mogu oformiti dsDNA, a taj proces se zove \textit{hibridizacija}. Ostale kemijske operacije koje ćemo upotrebljavati ćemo opisati u poglavlju \ref{sec:DESbreak}.
 
 \begin{figure}[h!t]
 \centering \includegraphics[scale=0.8]{DNA.png}
@@ -358,7 +358,7 @@ Naravno, vidimo da bi ovakvu "šifru" bilo iznimno lako probiti pa reprezentacij
 \end{comment}
 \section{Osnove kriptografije}
 \label{sec:kripto}
-Kriptografija je znanstvena disciplina koja proučava metode koje u nesigurnom komunikacijskom kanalu  čuvaju integritet i sigurnost podataka i poruka te skrivaju njihov sadržaj od treće osobe, a tako da dane poruke može pročitati samo onaj kome su namijenjene. Razmatrat ćemo komunikaciju između dvoje sudionika: \textit{pošiljatelja (Alice)} i \textit{primatelja (Bob)}. Alice želi preko nesigurnog komunikacijskog kanala poslati poruku, tako da  treća osoba (Oscar ili Eva) ne može saznati sadržaj poruke. Poruku zovemo \textit{otvoreni tekst}. Kako bi sakrila sadržaj poruke, Alice transformira otvoreni tekst uporabom \textit{ključa}. Cijeli postupak transformacije sa ključem nazivamo \textit{šifriranje}, a rezultat šifriranja \textit{šifrat}. Alice šalje Bobu šifrat preko nesigurnog komunikacijskog kanala. Treća osoba pokuašava ukrasti šifrat te saznati njegov sadržaj, no ako je Alice koristila "dobro" šifriranje, treća osoba to neće bit u mogućnosti napraviti. Kada poruka dođe do Boba, on će, u slučaju da ima odgovarajući ključ, šifrat ponovno transformirati u otvoreni tekst, što zovemo \textit{dešifriranjem}. \textit{Kriptoanaliza (dekriptiranje)} je znanstvena disciplina koja proučava metode za čitanje skrivenih poruka bez poznavanja ključa. Kriptologija je znanstvena diciplina koja objedinjuje i kriptografiju i kriptoanalizu. Često za šifriranje odnosno dešifriranje koristimo određene postupke - \textit{kriptografske algoritme (šifre)}. Ti postupci su zapravo određene funkcije - funkcija \textit{enkripcije} općenito otvorenom tekstu (njegovim sastavnim jedinicama) pridružuje osnovne sastavnice šifrata, dok funkcija \textit{dekripcije} opet sastavnim jedinicama šifrata pridružuje sastavne jedinice otvorenog teksta. \textit{Prostor ključeva} je skup čiji su elementi svi mogući ključevi. \textit{Kriptosustav} objedinjuje kriptografski algoritam,   šifrate, ključeve te sve moguće otvorene tekstove.
+Kriptografija je znanstvena disciplina koja proučava metode koje u nesigurnom komunikacijskom kanalu  čuvaju integritet i sigurnost podataka i poruka te skrivaju njihov sadržaj od treće osobe, a tako da dane poruke može pročitati samo onaj kome su namijenjene. Razmatrat ćemo komunikaciju između dvoje sudionika: \textit{pošiljatelja (Alice)} i \textit{primatelja (Bob)}. Alice želi preko nesigurnog komunikacijskog kanala poslati poruku, tako da  treća osoba (Oscar ili Eva) ne može saznati sadržaj poruke. Poruku zovemo \textit{otvoreni tekst}. Kako bi sakrila sadržaj poruke, Alice transformira otvoreni tekst uporabom \textit{ključa}. Cijeli postupak transformacije sa ključem nazivamo \textit{šifriranje}, a rezultat šifriranja \textit{šifrat}. Alice šalje Bobu šifrat preko nesigurnog komunikacijskog kanala. Treća osoba pokuašava ukrasti šifrat te saznati njegov sadržaj, no ako je Alice koristila "dobro" šifriranje, treća osoba to neće biti u mogućnosti napraviti. Kada poruka dođe do Boba, on će, u slučaju da ima odgovarajući ključ, šifrat ponovno transformirati u otvoreni tekst, što zovemo \textit{dešifriranjem}. \textit{Kriptoanaliza (dekriptiranje)} je znanstvena disciplina koja proučava metode za čitanje skrivenih poruka bez poznavanja ključa. Kriptologija je znanstvena diciplina koja objedinjuje i kriptografiju i kriptoanalizu. Često za šifriranje odnosno dešifriranje koristimo određene postupke - \textit{kriptografske algoritme (šifre)}. Ti postupci su zapravo određene funkcije - funkcija \textit{enkripcije} općenito otvorenom tekstu (njegovim sastavnim jedinicama) pridružuje osnovne sastavnice šifrata, dok funkcija \textit{dekripcije} opet sastavnim jedinicama šifrata pridružuje sastavne jedinice otvorenog teksta. \textit{Prostor ključeva} je skup čiji su elementi svi mogući ključevi. \textit{Kriptosustav} objedinjuje kriptografski algoritam,   šifrate, ključeve te sve moguće otvorene tekstove.
 Sada navodimo formalnu definiciju kriptosustava:
 \begin{defn}
 Kriptosustav je uređena petorka $(\mathcal{P}, \mathcal{C}, \mathcal{K}, \mathcal{E}, \mathcal{D})$ gdje su redom:
@@ -376,14 +376,14 @@ U primjeni se često radi jednostavnosti kaže da je $\mathcal{P}$ konačan skup
 za $\vec{x}=(x_1,...,x_n) \in \mathcal{P}^n$ definira se da je \[e_K(\vec{x})=e_K(x_1)e_K(x_2)...e_K(x_n)\]
 Analogno bi se "proširila" funkcija $d_K$. 
 \end{rem}
-Od načina (tipa operacija) šifriranja razlikujemo \textit{supstitucijske šifre} (svaki element otvorenog teksta se zamijenjuje nekim drugim tekstom, npr. "DNA" $\to$ "GRD"), \textit{transpozicijske šifre} u kojoj se permutiraju slova otvorenog teksta (npr. "DNA" $\to$ "NDA"). Postoje i kriptosustavi koji koriste i jednu i drugu metodu. Otvoreni tekst možemo pak podijeliti na blokove pa razlikujemo \textit{blokovne šifre} i  \textit{protočne šifre}	gdje šifriramo element po element otvorenog teksta. Prema javnosti ključeva razlikuejmo \textit{simetrične kriptosustave} i \textit{kriptosustave s javnim ključem}. U simetričnim kriptosustavima se ključ za dešifriranje može saznati iz ključa za šifriranje, pa je taj ključ \textit{tajan}, zbog čega ove kriptosustave nazivamo i \textit{kriptosustavi s tajnim ključem}. U drugom navedenom postoje dva ključa i ključ za dešifriranje se ne može izvesti iz ključa za šifriranje u nekom razumnom vremenu. U daljnjim razmatranjima pretpostavljat ćemo takozvano Kerckhoffsovo načelo:
+Od načina (tipa operacija) šifriranja razlikujemo \textit{supstitucijske šifre} (svaki element otvorenog teksta se zamijenjuje nekim drugim tekstom, npr. "DNA" $\to$ "GRD"), \textit{transpozicijske šifre} u kojoj se permutiraju slova otvorenog teksta (npr. "DNA" $\to$ "NDA"). Postoje i kriptosustavi koji koriste i jednu i drugu metodu. Otvoreni tekst možemo pak podijeliti na blokove pa razlikujemo \textit{blokovne šifre} i  \textit{protočne šifre}	gdje šifriramo element po element otvorenog teksta. Prema javnosti ključeva razlikujemo \textit{simetrične kriptosustave} i \textit{kriptosustave s javnim ključem}. U simetričnim kriptosustavima se ključ za dešifriranje može saznati iz ključa za šifriranje, pa je taj ključ \textit{tajan}, zbog čega ove kriptosustave nazivamo i \textit{kriptosustavi s tajnim ključem}. U drugom navedenom postoje dva ključa i ključ za dešifriranje se ne može izvesti iz ključa za šifriranje u nekom razumnom vremenu. U daljnjim razmatranjima pretpostavljat ćemo takozvano Kerckhoffsovo načelo:
 \begin{center}
 	\textit{Kriptosustav bi trebao biti siguran čak i ako se sve zna o njemu osim ključa.}
 \end{center}
-Pa ćemo pretpostaviti da napadač na kriptosustav zna koji alat za šifriranje koristimo, posjeduje šifrat i njemu odgovarajući otvoreni tekst, pretpostavljamo da ima mogućnost odabira otvorenog teksta i njemu pripadajućeg šifrata pa čak i da ima alat za dešifriranje na temelju kojeg iz danog šifrata može dobiti otvoreni tekst (cilj mu je saznati ključ za dešifriranje). Prirodno pitanje koje se postavlja jest: postoji li savršeno sigurni kriptosustav. O pojmu savšrene sigurnosti govorio je kriptograf Claude Shannon, prema njegovoj definiciji je kriptosustav savršeno siguran ukoliko šifrat nedaje nikakvu informaciju o otvorenom tekstu, preciznije: neka je $x$ fiksirani otvoreni tekst iz prostora otvorenih tekstova koji se pojavljuje s vjerojatnošću $\mathbb{P}(x)$, tada je uvjetna vjerojatnost $\mathbb{P}(x|y)$ da je $x$ otvoreni tekst, ako znamo da je $y$ šifrat, jednaka $\mathbb{P}(x)$, odnosno:
+Pa ćemo pretpostaviti da napadač na kriptosustav zna koji alat za šifriranje koristimo, posjeduje šifrat i njemu odgovarajući otvoreni tekst, pretpostavljamo da ima mogućnost odabira otvorenog teksta i njemu pripadajućeg šifrata pa čak i da ima alat za dešifriranje na temelju kojeg iz danog šifrata može dobiti otvoreni tekst (cilj mu je saznati ključ za dešifriranje). Prirodno pitanje koje se postavlja jest: postoji li savršeno sigurni kriptosustav. O pojmu savšrene sigurnosti govorio je kriptograf Claude Shannon, prema njegovoj definiciji je kriptosustav savršeno siguran ukoliko šifrat ne daje nikakvu informaciju o otvorenom tekstu, preciznije: neka je $x$ fiksirani otvoreni tekst iz prostora otvorenih tekstova koji se pojavljuje s vjerojatnošću $\mathbb{P}(x)$, tada je uvjetna vjerojatnost $\mathbb{P}(x|y)$ da je $x$ otvoreni tekst, ako znamo da je $y$ šifrat, jednaka $\mathbb{P}(x)$, odnosno:
 \[\mathbb{P}(x|y)=\mathbb{P}(x), \quad \forall	 y \in \mathcal{C}\] 
 gdje je $\mathcal{C}$ prostor svih šifrata.\\ 
-Kada se govori o savršeno sigurnom kriptografskom sustavu, često nailazimo na pojam jednostruke bilježnice (\textit{eng. \textbf{o}ne-\textbf{t}ime \textbf{p}ad}). Kriptosustavi koji koriste koncept jednostruke bilježnice zaprvo koriste kriptografske ključeve koji vrlo često budu izabrani na slučajan način te se upotrebljavaju kako bi se šifrirao točno jedan otvoreni tekst, a nakon toga se više ne koriste. Takav koncept se upravo koristi u DNA kriptografiji, čiju ćemo primjenu vidjeti u poglvalju \ref{sec:EDDNA}.
+Kada se govori o savršeno sigurnom kriptografskom sustavu, često nailazimo na pojam jednostruke bilježnice (\textit{eng. \textbf{o}ne-\textbf{t}ime \textbf{p}ad}). Kriptosustavi koji koriste koncept jednostruke bilježnice zapravo koriste kriptografske ključeve koji vrlo često budu izabrani na slučajan način te se upotrebljavaju kako bi se šifrirao točno jedan otvoreni tekst, a nakon toga se više ne koriste. Takav koncept se upravo koristi u DNA kriptografiji, čiju ćemo primjenu vidjeti u poglavlju \ref{sec:EDDNA}.
 Više o kriptografiji se može naći u \cite{duje}
 \section{DES kriptosustav}	
 \subsection{Kratki prgled DES kriptosustava}
@@ -402,7 +402,7 @@ Godine 1972. američki National Bureau of Standards (NBS) inicirao je program za
 \end{itemize}
 
 Na tom natječaju niti jedan prijedlog nije zadovoljavao sve ove zahtjeve. Međutim, na ponovljeni natječaj iduće godine pristigao je prijedlog algoritma koji je razvio IBM-ov tim kriptografa. Algoritam je zasnovan na tzv. Feistelovoj šifri. Gotovo svi simetrični blokovni algoritmi koji su danas u uporabi koriste ideju koju je uveo Horst Feistel 1973. godine. Jedna od glavnih ideja je alternirana uporaba supstitucija i transpozicija kroz više iteracija (tzv. rundi).
-Predloženi algoritam je nakon nekih preinaka, u kojima je sudjelovala i National Security Agency (NSA), prihvaćen kao standard 1976. godine i dobio je ime Data Encryption Standard (DES)."\footnote{\cite[s. ~?]{duje}}\\
+Predloženi algoritam je nakon nekih preinaka, u kojima je sudjelovala i National Security Agency (NSA), prihvaćen kao standard 1976. godine i dobio je ime Data Encryption Standard (DES)."\footnote{\cite[str. ~56-57]{duje}}\\
 Pogledajmo sada kako se kriptira DES algoritmom:
 Pretpostavljamo da je duljina otvorenog teksta $x$ kojeg DES šifrira duljine 64 bita. DES koristi ključ $K=k_1...k_{56}$ duljine 56 bita.
 Neka je $x=x_1...x_{64}$ otvoreni tekst. Najprije permutiramo $x$ fiksnom \textit{inicijalnom permutacijom} IP te dobivamo $x_0=IP(x)$ - IP $i$-ti bit od $x$ zamijenjuje sa $IP(i)$-tim bitom od $x$. Inicijalna permutacija IP je prikazana na slici \ref{fig:IP}.
@@ -413,18 +413,18 @@ Neka je $x=x_1...x_{64}$ otvoreni tekst. Najprije permutiramo $x$ fiksnom \texti
 \label{fig:IP}
 \end{figure}
 
-Zatim napišemo $x_0$ u obliku konkatenacije dva \textit{stringa bitova} koji su duljine 32 bita svaki: $x_0=L_0R_0$ 
+Zatim napišemo $x_0$ u obliku konkatenacije 2 \textit{riječi bitova} koje su duljine 32 bita svaka: $x_0=L_0R_0$. 
 Nakon toga računamo $L_i$ i $R_i$, gdje je:
 \[L_i=R_{i-1}\]
 \[R_i=L_{i-1} \oplus f(R_{i-1}, K_i)\]
-Gdje su $K_1,...,K_{16}$ \textit{riječi bitova} duljine 48, dobiveni permutiranjem nekih bitova iz $K$. $\oplus$ je operacija \textit{ekskluzivno ili} opisana slikom \ref{fig:XOR}
+Ovdje su $K_1,...,K_{16}$ \textit{riječi bitova} duljine 48, dobivene permutiranjem nekih bitova iz $K$. $\oplus$ je operacija \textit{ekskluzivno ili} opisana slikom \ref{fig:XOR}
 
 \begin{figure}[h]
 \centering \includegraphics[scale=0.8]{XOR.png}
 \caption{Operacija \textit{ekskluzivno ili}}
 \label{fig:XOR}
 \end{figure}
-Sada ćemo opisati dijelovanje funkcije $f:\{0,1\}^{32} \times \{0,1\}^{48} \to \{0,1\}^{32}$. Pretpostavimo da su argumenti funkcije riječ $A$ duljine 32 i $J$ duljine 48.
+Sada ćemo opisati djelovanje funkcije $f:\{0,1\}^{32} \times \{0,1\}^{48} \to \{0,1\}^{32}$. Pretpostavimo da su argumenti funkcije riječ $A$ duljine 32 i $J$ duljine 48.
 Prvo niz $A$ proširimo do riječi bitova duljine 48 primjenjujući funkciju $E:\{0,1\}^{32} \to \{0,1\}^{48}$ danu slikom \ref{fig:fjaE} koja $i$-tom bitu, pridruži $E(i)$-ti bit riječi $A$ koji se nalazi na $i$-tom mjestu tablice čitajući s lijeva na desno. Očigledno je da se 16 bitova riječi $A$ "ponavlja".
 \begin{figure}[h]
 \centering \includegraphics[scale=1]{E.jpg}
@@ -438,11 +438,11 @@ Uzmemo da je $B=E(A)\oplus J$ te prikažemo $B$ kao konkatenaciju osam riječi s
 \label{fig:permP}
 \end{figure}
 
-Sada opisujemo računanje $K_1,...,K_{16}$ iz $K=k_1...k_{64}$. Bitovi, čiji je indeks $l*8, l=1,...,8$ služe za testiranje pariteta, definirani su tako da svakih osam bitova (jedan bajt), čitajući s lijeva na desno, sadrži neparan broj jedinica. Navedene (paritetne) bitove ignoriramo kod računanja tablice ključeva, a preostale bitove permutiramo  pomoću fiksne permutacije $PC1$ dane slikom \ref{fig:PC1}. Neka je sada $PC1(K)=C_0D_0$, tako da je $d(C_0)=d(D_0)=28$. Sada za svaki $i \in \{1,...,16\}$ računamo:
+Sada opisujemo računanje $K_1,...,K_{16}$ iz $K=k_1...k_{64}$. Bitovi, čiji je indeks $l\cdot 8, l=1,...,8$ služe za testiranje pariteta, definirani su tako da svakih osam bitova (jedan bajt), čitajući s lijeva na desno, sadrži neparan broj jedinica. Navedene (paritetne) bitove ignoriramo kod računanja tablice ključeva, a preostale bitove permutiramo  pomoću fiksne permutacije $PC1$ dane slikom \ref{fig:PC1}. Neka je sada $PC1(K)=C_0D_0$, tako da je $d(C_0)=d(D_0)=28$. Sada za svaki $i \in \{1,...,16\}$ računamo:
 \[C_i=\begin{cases}^1\overleftarrow{C_{i-1}} &\mbox{ako } i=1,2,9,16 \\  ^2\overleftarrow{C_{i-1}} &\mbox{inače } \end{cases}\]
 \[D_i=\begin{cases}^1\overleftarrow{D_{i-1}} &\mbox{ako } i=1,2,9,16 \\  ^2\overleftarrow{D_{i-1}} &\mbox{inače } \end{cases}\]
 \[K_i=PC2(C_iD_i)\]
-Gdje je $PC2$ fiksna permutacija opisana slikom \ref{fig:PC2}, a operator $^j\overleftarrow{A}$ predstavlja ciklički pomak ulijevo za  $j$ mjesta nad riječi $A$ sasatavljenoj od bitova.
+gdje je $PC2$ fiksna permutacija opisana slikom \ref{fig:PC2}, a operator $^j\overleftarrow{A}$ predstavlja ciklički pomak ulijevo za  $j$ mjesta nad riječi $A$ sastavljenoj od bitova.
 \begin{figure}[h]
 \centering \includegraphics[scale=0.8]{PC1.jpg}
 \caption{Fiksna permutacija $PC1$}
@@ -457,8 +457,8 @@ Gdje je $PC2$ fiksna permutacija opisana slikom \ref{fig:PC2}, a operator $^j\ov
 
 Nakon tog cijelog postupka primjenimo \textit{inverznu permutaciju} $IP^{-1}$ na $R_{16}L_{16}$, a onda je šifrat $y$ dan sa:
 \[y=IP^{-1}(R_{16}L_{16})\]
-Primjetimo da smo sa inverznom permutacijom dijelovali na riječ $R_{16}L_{16}$,a ne $L_{16}$ i $R_{16}$ (obrnuti poredak). Permutacija $IP^{-1}$ je prikazana slikom \ref{fig:invIP}.
-Postupak za deđifriranje je analogan:\\
+Primjetimo da smo s inverznom permutacijom djelovali na riječ $R_{16}L_{16}$,a ne $L_{16}$ i $R_{16}$ (obrnuti poredak). Permutacija $IP^{-1}$ je prikazana slikom \ref{fig:invIP}.
+Postupak za dešifriranje je analogan:\\
 Krećemo od šifrata $y$: na njega najprije primjenimo permutaciju IP sa slike \ref{fig:IP}, $y_0=IP(y)=IP(IP^{-1}(R_{16}L_{16}))=R_{16}L{16}$.  A sada imamo:
 \[R_{15}=L_{16}\]
 A iz 
@@ -469,8 +469,8 @@ Općenito, za sve $i=1,...,16$ dobivamo da vrijedi:
 \[R_{16-i}=L_{16-i+1}\]
 \[L_{16-i}=R_{16-i+1} \oplus f(R_{16-i}, K_{16-i+1})\]
 Iz čega dobivamo niz $R_{14}L_{14},R_{13}L_{13},...R_{0}L_{0}$. A zatim zamjenom poretka od $R_{0}L_{0}$ i primjenom na to $IP^{-1}$ dobivamo:
-$IP^{-1}(L_0R_0)=IP^{-1}(IP(x))=x$
-Pa smo dobili traženi otvoreni tekst. Primjer šifriranja otvorenog teksta pomoću DES kriptosustava može se naći na \cite{DESexa}. O implementaciji DES-a na DNA računalu se može naći u \cite{DESDNA}, u ovom radu, fokusirat ćemo se više na provaljivanje DES kriptosustava opisanom u idućem poglavlju.
+$IP^{-1}(L_0R_0)=IP^{-1}(IP(x))=x$. 
+Pa smo dobili traženi otvoreni tekst. Primjer šifriranja otvorenog teksta pomoću DES kriptosustava može se naći na \cite{DESexa}. O implementaciji DES-a na DNA računalu se može naći u \cite{DESDNA}, u ovom radu, fokusirat ćemo se više na provaljivanje DES kriptosustava opisano u idućem poglavlju.
 \begin{figure}[h]
 \centering \includegraphics[scale=0.7]{invIP.jpg}
 \caption{Inverzna permutacija $IP^{-1}$}
@@ -478,55 +478,56 @@ Pa smo dobili traženi otvoreni tekst. Primjer šifriranja otvorenog teksta pomo
 \end{figure}
 
 \begin{figure}[h]
-\centering \includegraphics[scale=0.52]{S-box.jpg}
+\centering \includegraphics[scale=0.7]{S-box.jpg}
 \caption{$S$-kutije}
 \label{fig:sbox}
 \end{figure}
  \newpage
-\subsection{Provaljivanje DES-a DNA izračunavanjem}
-\subsubsection{Uvod i oznake}
+\section{Provaljivanje DES-a DNA izračunavanjem}
+\label{sec:DESbreak}
+\subsection{Uvod i oznake}
 U poglavlju \ref{sec:DNAizr} smo naveli opisnu definiciju DNA računala koju je predložio Leonard Adleman, a u poglavlju \ref{sec:DNA} su navedene osnovne činjenice i neke od biokemijskih operacija koje se koriste u genetičkom inženjeringu. U ovom poglavlju ćemo koristiti operacije navedene upravo u \ref{sec:DNA} te nećemo te operacije striktno definirati u definiciji navedenoj u poglavlju \ref{sec:DNAizr} premda bi se mogle. Naime, ta definicija je služila kao osnovni matematički koncept kojeg je predložio Adleman, a koji se kasnije postupno proširivao. Kako su se proširivala istraživanja o DNA i genetičkom inženjeringu, tako bi se i dana definicija mogla izmjenjivati. Opisat ćemo oznake i biokemijske operacije koje ćemo koristiti.
-Neka je $x$ proizvoljna riječ alfabeta $\Sigma =\{\mathtt{A,C,G,T}\}$. Biološki gledano, $x$ nije još DNA lanac jer nema orijentaciju. Nadalje, uvodimo Watson-Crickov komplement (biološki komplement u poglavlju \ref{sec:DNAizr}). To je preslikavanje opisano sa ($\mathtt{A \to T, T \to A, G \to C, C \to W}$). Watson-Crickov komplement označavat ćemo sa $\overline{x}$. Sa $x^R$ ćemo označavati riječ koja je sastavljena od istih simbola kao i riječ $x$ samo u obrnutom poretku. Sa $\mathtt{\uparrow} x$ ćemo označavati  jednolančani DNA čija je orijentacija $\mathtt{5' \to 3'}$, a sastavljena  je od niza simbola od kojih se sastoji $x$. Sa $\downarrow x$ ćemo označavati lanac orijentacije $3'->5'$ sa nizom simbola koji čine Watskon-Crickov komplement niza $x$. U konačnici, sa $\mathtt{\updownarrow x}$ označavamo dvolančanu strukturu nastalu spajanjem $\mathtt{\uparrow x}$ i $\mathtt{\downarrow x}$. Kako bi svatili sve oznake napravit ćemo jedan primjer:
+Neka je $\mathtt{x}$ proizvoljna riječ alfabeta $\Sigma =\{\mathtt{A,C,G,T}\}$. Biološki gledano, $\mathtt{x}$ nije još DNA lanac jer nema orijentaciju. Nadalje, uvodimo Watson-Crickov komplement (biološki komplement u poglavlju \ref{sec:DNAizr}). To je preslikavanje opisano sa ($\mathtt{A \to T, T \to A, G \to C, C \to W}$). Watson-Crickov komplement označavat ćemo sa $\mathtt{\overline{x}}$. Sa $\mathtt{x^R}$ ćemo označavati riječ koja je sastavljena od istih simbola kao i riječ $\mathtt{x}$ samo u obrnutom poretku. Sa $\mathtt{\uparrow x}$ ćemo označavati  jednolančani DNA čija je orijentacija $\mathtt{5' \to 3'}$, a sastavljena  je od niza simbola od kojih se sastoji $\mathtt{x}$. Sa $\mathtt{\downarrow x}$ ćemo označavati lanac orijentacije $\mathtt{3'\to 5'}$ sa nizom simbola koji čine Watson-Crickov komplement niza $\mathtt{x}$. U konačnici, sa $\mathtt{\updownarrow x}$ označavamo dvolančanu strukturu nastalu spajanjem $\mathtt{\uparrow x}$ i $\mathtt{\downarrow x}$. Kako bi shvatili sve oznake napravit ćemo jedan primjer:
 \begin{exa}
-Neka je $x=\mathtt{TGCCGCAG}$ riječ alfabeta $\Sigma=\mathtt{\{A,C,G,T\}}$, tada je:
-\[\overline{x}= \mathtt{ACGGCGTC}\]
-\[x^R=\mathtt{GACGCCGT}\]
-\[\uparrow x=\mathtt{5'-TGCCGCAG-3'}\]
-\[\downarrow x=\mathtt{3'-ACGGCGTC-5'}=	\uparrow \overline{x}^R\]
-\[\updownarrow x=\mathtt{{5'-TGCCGCAG-3' \atop 3'-ACGGCGTC-5'}}\]
+Neka je $\mathtt{x=TGCCGCAG}$ riječ alfabeta $\mathtt{\Sigma=\{A,C,G,T\}}$, tada je:
+\[\mathtt{\overline{x}= ACGGCGTC}\]
+\[\mathtt{x^R=GACGCCGT}\]
+\[\mathtt{\uparrow x=5'-TGCCGCAG-3'}\]
+\[\mathtt{\downarrow x=3'-ACGGCGTC-5'=	\uparrow \overline{x}^R}\]
+\[\mathtt{\updownarrow x={5'-TGCCGCAG-3' \atop 3'-ACGGCGTC-5'}}\]
 \end{exa}
-\subsubsection{Reprezentacija riječi sastavljenih od alfabeta $\{0,1\}$}
+\subsection{Reprezentacija riječi sastavljenih od alfabeta $\{0,1\}$}
 \label{subsub:repBit}
-Neka je $x=x_1x_2...x_n$ proizvoljna riječ alfabeta $\{0,1\}$ duljine $n$. Ideja je svakom bitu pridružiti jedinstveni $30$-mer -- oligonukleotida duljine $30$. Kasnije ćemo vidjeti da osim jedinstvenog $30$-mera svaki bit mora imati jedinstvenu reprezentaciju.
+Neka je $x=x_1x_2...x_n$ proizvoljna riječ alfabeta $\{0,1\}$ duljine $n$. Ideja je jednom bitu i pripadnoj poziciji bita $i$ pridružiti jedinstveni $30$-mer -- oligonukleotida duljine $30$ (općenito $n$-mer bi bila oligonukleotida sastavljena od $n$ nukleotida). 
 \begin{enumerate}
 \item $B_i (0)$ označava oligonukleotidu koja reprezentira da je $i$-ti bit riječi $x$ jednak 0
 \item $B_i(1)$ označava oligonukleotidu koja reprezentira da je $i$-ti bit riječi $x$ jednak 1
 \item Za $i \in \{0,1...,n\}$ neka je $S_i$ $30$-mer koji označava separator između susjednih bitova
 \end{enumerate}   
-U konačnici, DNA lanac koji reprezentira binarni string $x$ je:
+U konačnici, DNA lanac koji reprezentira binarnu riječ $x$ je:
 \[\updownarrow S_0 B_1(x_1)S_1B_2(x_2)S_2...S_{n-1}B_n(x_n)S_n\]
-Svi $B_i$-ovi i $S_i$-ovi su međusobno različiti, , štoviše kasnije ćemo vidjeti da će biti nužno da svaka dva bita nemaju zajedničke podriječi čija je duljina veća ili jednaka $15$. To se može postići tako da riječi $B_i(b)$ i $S_i$ budu izabrane na slučajan način, budući da zajednička podriječ dvije slučajno izabrane riječi ima tendenciju biti što kraća. Upravo smo iz toga razloga uzeli $30$-mere kao riječi koje će predstavljati bitove, s druge strane biokemijskim reakcijama u laboratoriju će trebati duže da se odviju nad $30$-merima nego nad nekim kraćim oligonukleotidama. Adleman je tako za svoj eksperiment opisan u \cite{Adleman} koristio $20$-mere, no njegov problem je imao manje podataka koje je morao reprezentirati. Uočimo da će svaki bit biti reprezenitran sa dva stringa iz skupa $\mathbb{Y}=\{(y_1,...,y_15): y_i \in \mathtt{\{A,C,G,T\}\}}$, pa je vjerojatnost da dvije riječi imaju istu podriječ duljine $15$ jednaka $p=\left(\frac{1}{4^{15}}\right)^2=\frac{1}{1152921504606846976}\approx 8.6736 \cdot 10^{-19}\approx 0$. Stringovi $S_0$ i $S_n$ će u replikaciji s PCR-om služiti kao početnice. Uvodimo još oznaku $R_i(x)$ koja će označavati sljedeću riječ:
+Svi $B_i$-ovi i $S_i$-ovi su međusobno različiti. Štoviše, kasnije ćemo vidjeti da će biti nužno da svaka dva bita nemaju zajedničke podriječi čija je duljina veća ili jednaka $15$. To se može postići tako da riječi $B_i(b)$ i $S_i$ budu izabrane na slučajan način, budući da zajednička podriječ dvije slučajno izabrane riječi ima tendenciju biti što kraća. Upravo smo iz toga razloga uzeli $30$-mere kao riječi koje će predstavljati bitove. S druge strane, biokemijskim reakcijama u laboratoriju će trebati duže da se odviju nad $30$-merima nego nad nekim kraćim oligonukleotidama. Adleman je tako za svoj eksperiment opisan u \cite{Adleman} koristio $20$-mere, no njegov problem je imao manje podataka koje je morao reprezentirati. Uočimo da će svaki bit biti reprezenitran s dvije riječi iz skupa $\mathbb{Y}=\{(y_1,...,y_{15}): y_i \in \mathtt{\{A,C,G,T\}\}}$, pa je vjerojatnost pojavljivanja podriječi duljine $15$ unutar dvije različite riječi, odnosno unutar iste riječi na različitim pozicijama jednaka $p=\left(\frac{1}{4^{15}}\right)^2=\frac{1}{1152921504606846976}\approx 8.6736 \cdot 10^{-19}\approx 0$. Riječi $S_0$ i $S_n$ će u replikaciji s PCR-om  služiti kao početnice (operacija opisana u idućem potpoglavlju). Uvodimo još oznaku $R_i(x)$ koja će označavati sljedeću riječ:
 \[R_i(x)=B_i(x_1)S_iB_{i+1}(x_2)S_{i+1}...S_{i+n-2}B_{i+n-1}(x_n)S_{i+n-1}\]
-\subsubsection{Opće biokemijske operacije}
+\subsection{Opće biokemijske operacije}
 \paragraph{Hibridizacija (taljenje i hlađenje)}
-Postoje dvije biokemijske reakcije, čiji je rezultat isti, a kojima se postiže spajanje dva komplementarna lanca. Jedna se zove hibridizacija, a druga je metoda taljenja i hlađenja. Osnovni rezultat tih operacija je prikazan donjom jednadžbom:
+Postoje dvije biokemijske reakcije kojima se postiže spajanje dva komplementarna lanca (rezultat im je jednak). Jedna se zove hibridizacija, a druga je metoda taljenja i hlađenja. Osnovni rezultat tih operacija je prikazan donjom jednadžbom:
 \[\mathtt{\uparrow x + \downarrow x=\updownarrow x}\]
-Ona opisuje operaciju spajanja dva jednolančana DNA lanca u jedan dvolančani. Pod hibridizacijom (ili postupkom taljenja i hlađenja) je moguća i sljedeća reakcija:
+Ona opisuje operaciju spajanja dva jednolančana DNA lanca u jedan dvolančani (ima strukturu dvostruke uzvojnice). Pod hibridizacijom (ili postupkom taljenja i hlađenja) je moguća i sljedeća reakcija:
 \[\mathtt{\uparrow xy + \downarrow yz = \uparrow x \updownarrow y \downarrow z}\].
 \paragraph{Ekstrakcija ili izdvajanje}
-Drugu operaciju koju ćemo koristiti naziva se ekstrakcija. Služi za  izdvajanje onih DNA lanaca koji kao podriječ sadrže riječ $\mathtt{x}$. To se biokemijski ostvaruje na sljedeći način:\\
-U epruvetu se dodaje dovoljan broj kopija od $\mathtt{\downarrow x}$ koje se nalaze na određenoj površini premazanoj gelom koji u sebi sadržio biotin-streptavidin (na primjer na staklu ili Petrijevoj zdjelici) te djeluju poput magneta. Zatim se postupkom hibridizacije događa na primjer:
+Služi za  izdvajanje onih DNA lanaca koji kao podriječ sadrže riječ $\mathtt{x}$. To se biokemijski ostvaruje na sljedeći način:\\
+U epruvetu se dodaje dovoljan broj kopija od $\mathtt{\downarrow x}$ koje se nalaze na određenoj površini premazanoj gelom koji u sebi sadrži biotin-streptavidin (na primjer na staklu ili Petrijevoj zdjelici) te djeluju poput magneta. Zatim se postupkom hibridizacije događa na primjer:
 \begin{equation}
 \label{eq:DNAExt}
 \mathtt{\uparrow vxw + \downarrow x = \uparrow v \updownarrow x \uparrow w}
 \end{equation}
-Nakon toga se na tom gelu nalaze sve riječi koje poprimaju oblik sličan onome s desne strane jednakosti u jednadžbi \ref{eq:DNAExt} (no nalaze se i oligonukleotide $\mathtt{\downarrow x}$ jer neće sve biti iskorištene -- stavlja se veći broj kopija od potrebnog). Naime osim spajanja koje je prikazano u \ref{eq:DNAExt} moguća su i razna spajanja različitoga oblika (na primjer gdje se oligonukleotida $\mathtt{\uparrow x}$ može biti vezana na početku nekog DNA lanca koji poprima dvolančanu strukturu). U slučaju kad će to biti potrebno istaknuti, na ovu operaciju ćemo se referencirati kao na ekstrakciju koja koristi niz $\mathtt{\downarrow x}$. Kasnije se $\mathtt{\uparrow v \updownarrow x \uparrow w}$ izdvaja pomoću tehnike koja se zove gel elektroforeza, a nakon toga se $\mathtt{\downarrow x}$ odvaja od orginalnih lanaca pomoću enzima DNA helikaze. U našoj primjeni, mi ćemo tu operaciju označavati sa:
+Nakon toga se na tom gelu nalaze sve riječi koje poprimaju oblik sličan onome s desne strane jednakosti u jednadžbi \ref{eq:DNAExt} (no nalaze se i oligonukleotide $\mathtt{\downarrow x}$ jer neće sve biti iskorištene -- u gel se stavlja veći broj kopija od potrebnog). Naime osim spajanja koje je prikazano u \ref{eq:DNAExt} moguća su i razna spajanja različitoga oblika (na primjer gdje oligonukleotida $\mathtt{\uparrow x}$ može biti vezana na početku nekog DNA lanca koji poprima dvolančanu strukturu). U slučaju kad će to biti potrebno istaknuti, na ovu operaciju ćemo se referencirati kao na ekstrakciju koja koristi niz $\mathtt{\downarrow x}$. Kasnije se $\mathtt{\uparrow v \updownarrow x \uparrow w}$ izdvaja pomoću tehnike koja se zove gel elektroforeza, a nakon toga se $\mathtt{\downarrow x}$ odvaja od originalnih lanaca pomoću enzima DNA helikaze. U našoj primjeni, mi ćemo tu operaciju označavati sa:
 \[Extract(T, x_i=1)\]
 gdje je $T$ proizvoljna epruveta koja sadrži DNA lance. Ovom operacijom izdvajamo sve one DNA lance koji kao podriječ sadrže $B_i(1)$ (na $i$-tom mjestu binarne riječi nalazi se 1). Naravno osim jednostrukog bita, možemo izdvojiti cijele podriječi, na primjer:
 \[Extract(T, x_ix_{i+1}=01)\] 
-će izdovjiti sve one binarne riječi koje na $i$-tom i $i+1$-om mjestu imaju redom 0 i 1, a za to će se koristiti DNA lanac $R_i(01)=B_i(0)S_{i}B_{i+1}(1)S_{i+1}$. Uočimo da je to zapravo operacija:
+će izdvojiti sve one binarne riječi koje na $i$-tom i $i+1$-om mjestu imaju redom 0 i 1, a za to će se koristiti DNA lanac $R_i(01)=B_i(0)S_{i}B_{i+1}(1)S_{i+1}$. Uočimo da je to zapravo operacija:
 \[Extract(T, x_i=0 \wedge x_{i+1}=1)\]
-pa smo napravili "i" operaciju -- ipak to je moguće napraviti samo kad se radi o sujsednim bitovima -- inače, moramo napraviti dvije uzastopne operacije izdvajanja. Na gel kojim premazujemo staklenu površniu osim premaza streptavidin-biodina koji sadrži na primjer sekvencu $R_i(101)$, možemo na istu staklenu površinu i koristiti premaz streptavidin-biodina koji sadrži niz $R_i(001)$. Time će se izvršiti operacija:
+pa smo napravili "i" operaciju -- ipak to je moguće napraviti samo kad se radi o susjednim bitovima -- inače, moramo napraviti dvije uzastopne operacije izdvajanja. Na gel kojim premazujemo staklenu površniu osim premaza streptavidin-biodina koji sadrži na primjer sekvencu $R_i(101)$, možemo na istu staklenu površinu i koristiti premaz streptavidin-biodina koji sadrži niz $R_i(001)$. Time će se izvršiti operacija:
 \[Extract(T, x_ix_{i+1}x_{i+2}=101 \vee x_ix_{i+1}x_{i+2}=001)\] 
 Iz tehničkih, biokemijskih, razloga moguće je samo izvoditi ovakvu simultanu "ili" operaciju kada su binarne riječi koje su argumenti od $R_i$ jednake duljine.
 \paragraph{Replikacija} Za razliku od običnog proširivanja opisanog u poglavlju \ref{sec:DNAizr} ovdje ćemo koristiti biokemijsku operaciju replikacije pomoću polimerazne lančane reakcije (PCR - \textbf{p}olymerase \textbf{c}hain \textbf{r}eaction). Da bi PCR mogao djelovati, moraju se zadovoljiti sljedeći uvjeti:
@@ -534,15 +535,15 @@ Iz tehničkih, biokemijskih, razloga moguće je samo izvoditi ovakvu simultanu "
 \item svaki lanac mora biti oblika $\mathtt{\updownarrow aBc}$, gdje su $\mathtt{a}$ i $\mathtt{c}$ fiksne riječi, a $\mathtt{B}$ proizvoljna
 \item $\mathtt{a}$ i $\mathtt{c}$ se ne smiju pojaviti kao podriječi od $\mathtt{B}$
 \end{itemize}
-Ako prvi uvjet nije ispunjen, to znači da u epruveti nema takvih riječi. Drugi uvijet će se osigurati duljinom DNA oligonukleotida tako da će biti moguće kreirati točno takve lance -- $\mathtt{a}$ i $\mathtt{b}$ će u riješavanju našega problema biti takve duljine da će njihova vjerojatnost pojavljivanja u $\mathtt{B}$ biti jednaka 0, a tose omogućuje i reprezentacijom bitova opisanoj u \ref{subsub:repBit}. Podriječi $\mathtt{a}$ i $\mathtt{b}$ zovemo početnice (\textit{eng. primers}). Ova operacija omogućuje sintetičku proizvodnju kopije proizvoljne riječi $B$ (uočimo da je efekt jako sličan onom efektu operacije proširivanja opisane u poglavlju \ref{sec:DNAizr}).
+Ako prvi uvjet nije ispunjen, to znači da u epruveti nema takvih riječi. Drugi uvjet će se osigurati duljinom DNA oligonukleotida tako da će biti moguće kreirati točno takve lance -- $\mathtt{a}$ i $\mathtt{b}$ će u rješavanju našega problema biti takve duljine da će njihova vjerojatnost pojavljivanja u $\mathtt{B}$ biti jednaka 0, a to se omogućuje i reprezentacijom bitova opisanoj u \ref{subsub:repBit}. Podriječi $\mathtt{a}$ i $\mathtt{b}$ zovemo početnice (\textit{eng. primers}). Ova operacija omogućuje sintetičku proizvodnju kopije proizvoljne riječi $B$ (uočimo da je efekt jako sličan onom efektu operacije proširivanja opisane u poglavlju \ref{sec:DNAizr}).
 
-\paragraph{Označavanje} Na određeni DNA lanac, dodajemo novu oligonukleotidu $\mathtt{z}$, a postpuak je opisan sljedećim koracima:\\
-Uvjet svaki lanac je oblika $\mathtt{\uparrow Xy}$, gdje je $\mathtt{X}$ proizvoljan, a $\mathtt{y}$ fiksiran:
+\paragraph{Označavanje} Na određeni DNA lanac, dodajemo novu oligonukleotidu $\mathtt{z}$, a postupak je opisan sljedećim koracima:\\
+Uvjet je da svaki lanac ima oblik $\mathtt{\uparrow Xy}$, gdje je $\mathtt{X}$ proizvoljan, a $\mathtt{y}$ fiksiran:
 \begin{equation}
 \label{eq:Tag1}
 \mathtt{\uparrow Xy + \downarrow yz=\uparrow X \updownarrow y \downarrow z}
 \end{equation}
-Zatim se dodaje enzim DNA polimeraza koji će konvertirati paricajlni dvolančani lanac iz desne strane jednakosti jednadžbe \ref{eq:Tag1} u potpuni. Najprije se "čitaju" jednolančane porcije s desne strane jednakosti od \ref{eq:Tag1} i kreiraju njihovi Watson-Ckrickovi komplementi, za svaku nukleotidu u jednom trenutku. Odnosno događaju se pojedinačno sljedeće reakcije:
+Zatim se dodaje enzim DNA polimeraza koji će konvertirati parcijalni dvolančani lanac s desne strane jednakosti jednadžbe \ref{eq:Tag1} u potpuni. Najprije se "čitaju" jednolančane porcije s desne strane jednakosti od \ref{eq:Tag1} i kreiraju njihovi Watson-Crickovi komplementi, za svaku nukleotidu u jednom trenutku. Odnosno događaju se pojedinačno sljedeće reakcije:
 \begin{equation}
 \label{eq:Tag2}
 \mathtt{\uparrow X \updownarrow y \downarrow z + \downarrow X = \updownarrow Xy \downarrow z}
@@ -553,16 +554,16 @@ Zatim se dodaje enzim DNA polimeraza koji će konvertirati paricajlni dvolančan
 \end{equation}
 Zatim se opet pomoću DNA helikaze dobiva $\mathtt{\uparrow Xyz}$.
 
-\subsubsection{Plan napada na DES kriptosustav i algoritam}
-Označimo s $DES(M,k)$ šifrat dobiven enkripcijom otvorenog teksta $M$ koristeći ključ $k$ u DES kriptosustavu. U poglavlju \ref{sec:kripto} smo napomenuli da napadač na dani kriptosustav obično ima odabrani otvoreni tekst i njemu pripadajući šifrat. U tu svrhu pretpostavit ćemo da je parametar $M_0$ neki fiksan $64$-bitni otvoreni tekst, a $k$ ključ kojeg pokušavamo naći. Poznato je da otvorenom tekstu $M_0$ pripada šifrat $E_0$. Tada za dani $M_0$ uvodimo funkciju $f:\{0,1\}^{56} \to \{0,1\}^{64}$ koja za neki ključ $k$ proizvoljan, tekstu $M_0$ pridružuje šifrat $DES(M_0,k)$, odnosno $f(K)=DES(M_0,k)$. Jedno svojstvo DES kriptosustava jest da će ključ $k_0$ biti upravo jedinstven. Naša je zadaća naći $k_0$ takav da je $f(k_0)=E_0$, odnosno naći inverz funkcije $f$ ako su nam poznati otvoreni tekst i njegov pripadni šifrat. Ono što ćemo napraviti jest konsturiranje svih parova $[k, f(k)]$ za svih $2^{56}$ mogućih ključeva. Pošto su permutacije u $DES$ kriptosustavu fiksirane, a neke od njih samo skraćuju ili nadodaju još bitova na točno određeni način, za naše primjene te permutacijske kutije ne igraju značajnu ulogu i mogu biti ignorirane. Naime, nema potrebe da  fizički permutiramo bitove u DNA lancima, već samo možemo pratiti (na primjer na papiru) bitove DNA lanca koji kodiraju bitove u izračunavanju. Za računanje operacije $\oplus$ i $S$-kutija radimo sljedeće:
-Pretpostavimo da želimo izračunati XOR ($\oplus$) $i$-tog i $j$-tog bita u epruveti $T$. To ćemo učitniti dodajući vrijednost $x_i \oplus x_j$ na DNA lanac koji reprezentira riječ $x$. Prvi korak u tome je razdvajanje epruvete $T$ na dva riješenja $T_0, T_1$ gdje vrijedi:
+\subsection{Plan napada na DES kriptosustav i algoritam}
+Označimo s $DES(M,k)$ šifrat dobiven enkripcijom otvorenog teksta $M$ koristeći ključ $k$ u DES kriptosustavu. U poglavlju \ref{sec:kripto} smo napomenuli da napadač na dani kriptosustav obično ima odabrani otvoreni tekst i njemu pripadajući šifrat. U tu svrhu pretpostavit ćemo da je parametar $M_0$ neki fiksan $64$-bitni otvoreni tekst, a $k$ ključ kojeg pokušavamo naći. Poznato je da otvorenom tekstu $M_0$ pripada šifrat $E_0$. Tada za dani $M_0$ uvodimo funkciju $f:\{0,1\}^{56} \to \{0,1\}^{64}$ koja za neki ključ $k$ proizvoljan, tekstu $M_0$ pridružuje šifrat $DES(M_0,k)$, odnosno $f(K)=DES(M_0,k)$. Naša je zadaća naći $k_0$ takav da je $f(k_0)=E_0$, odnosno naći inverz funkcije $f$ ako su nam poznati otvoreni tekst i njegov pripadni šifrat. Ono što ćemo napraviti jest konsturiranje svih parova $[k, f(k)]$ za svih $2^{56}$ mogućih ključeva. Pošto su permutacije u $DES$ kriptosustavu fiksirane, a neke od njih samo skraćuju ili nadodaju još bitova na točno određeni način, za naše primjene te permutacijske kutije ne igraju značajnu ulogu i mogu biti ignorirane. Naime, nema potrebe da  fizički permutiramo bitove u DNA lancima, već samo možemo pratiti (na primjer na papiru) bitove DNA lanca koji kodiraju bitove u izračunavanju. Za računanje operacije $\oplus$ i $S$-kutija radimo sljedeće:
+Pretpostavimo da želimo izračunati ekskluzivno ili ($\mathtt{XOR}$, $\oplus$) $i$-tog i $j$-tog bita u epruveti $T$. To ćemo učitniti dodajući vrijednost $x_i \oplus x_j$ na DNA lanac koji reprezentira riječ $x$. Prvi korak u tome je razdvajanje epruvete $T$ na dva rješenja $T_0, T_1$ gdje vrijedi:
 $T_0=\{x \in T| x_i \oplus x_j=0 \}$, a $T_0=\{x \in T| x_i \oplus x_j=1 \}$. Definiramo međurješenje na idući način:
 \[T^{11}=Extract(T, x_i=1 \vee x_j=1)\]
 \[T^{1}=Extract(T^{11}, x_i=0 \vee x_j=0)\]
 \[T^{0}=T\backslash T^{1}\]
-Jedna $S$-kutija zaravo odgovara preslikavanju: $g: \{0,1\}^6 \to \{0,1\}^4$. Pretpostavimo sada da su bitovi koje želimo preslikati (na koje dijeluje $S$-kutija) počinju na poziciji $i$, a završavaju na poziciji $i+5$, svakom DNA lancu $x$ želimo prilijepiti $4$-bitnu riječ  $g(x)$. To se radi tako da se rješenje $T$ razdvaja na 16 različitih riješenja $T_0,...,T_{15}$ ovisno prema vrijednosti koja se dodjeljuje. Tada ćemo svakom pojedinačnom rješenju $T_j$ nadodati $4$-bitnu riječ $j$. Na primjer, pretpostavimo da funkcija $g$ preslikava $6$-bitne riječi $a$ i $b$ u $0$, i ne postoji riječ $c \in \{(x_1,...,x_6)| x_i \in \{0,1\}\}\backslash \{a,b\}$ takva da je $f(c)=0$. Tada je:
+Jedna $S$-kutija zaravo odgovara preslikavanju: $g: \{0,1\}^6 \to \{0,1\}^4$. Pretpostavimo sada da bitovi koje želimo preslikati (na koje djeluje $S$-kutija) počinju na poziciji $i$, a završavaju na poziciji $i+5$. Svakom DNA lancu $x$ želimo prilijepiti $4$-bitnu riječ  $g(x)$. To se radi tako da se rješenje $T$ razdvaja na 16 različitih riješenja $T_0,...,T_{15}$ ovisno prema vrijednosti koja se dodjeljuje. Tada ćemo svakom pojedinačnom rješenju $T_j$ nadodati $4$-bitnu riječ $j$. Na primjer, pretpostavimo da funkcija $g$ preslikava $6$-bitne riječi $a$ i $b$ u $0$, i ne postoji riječ $c \in \{(x_1,...,x_6)| x_i \in \{0,1\}\}\backslash \{a,b\}$ takva da je $f(c)=0$. Tada je:
 \[T_0 \leftarrow Extract(T, x_i...x_{i+5}=a \vee x_i...x_{i+5}=b)\]
-Preostale operacije ekstrakcije se rade na sličan način. Ovo pokazuje da se pojedinačna $S$-kutija može izračunati u $16$ operacija ekstrahiranja i jednako toliko operacija označavanja.	Operacija izdvajanja zahtjeva pripremu od $2^6=64$ različitih premaza biotin-streptavidinom. Ti premazi se pak mogu pripremiti na način kojim će biti kreirana \textit{inicijalna otopina}  za rješavanje problema, a oni će se kasnije koristiti u svih $16$ rundi izračunavanja pa je to dovoljno pripremiti jednom na početku cijelog procesa. Sada kada smo kreirali uvodni dio, krećemo na detaljan opis algoritma za probijanje DES kriptosustava. U tu svrhu pogledajmo donji graf na slici \ref{fig:graf}.
+Preostale operacije ekstrakcije se rade na sličan način. Ovo pokazuje da se pojedinačna $S$-kutija može izračunati u $16$ operacija ekstrahiranja i jednako toliko operacija označavanja.	Operacija izdvajanja zahtjeva pripremu od $2^6=64$ različitih premaza biotin-streptavidinom. Ti premazi se pak mogu pripremiti na sličan način kojim će biti kreirana \textit{inicijalna otopina}  za rješavanje problema, a oni će se kasnije koristiti u svih $16$ rundi izračunavanja pa ih je dovoljno pripremiti jednom na početku cijelog procesa. Sada kada smo opisali uvodni dio, krećemo na detaljan opis algoritma za probijanje DES kriptosustava. U tu svrhu pogledajmo donji graf na slici \ref{fig:graf}.
 \begin{figure}[h]
 \centering \includegraphics[scale=0.5]{graf.png}
 \caption{Inicijalni graf}
@@ -572,25 +573,24 @@ Preostale operacije ekstrakcije se rade na sličan način. Ovo pokazuje da se po
 Svaki put u tom grafu od čvora $S_0$ do čvora $S_{56}$ predstavlja jedan mogući ključ u DES kriptosustavu. Ta percepcija nam treba kako bi jasno shvatili korake algoritma. Važno je naglasiti da ako znamo otvoreni tekst $M_0$ preslikavanje funkcije $f$ koja preslikava ključ u šifrat se zapravo može spremiti u tablicu, a zahvaljujući izuzetnim kapacitetima DNA što se tiče memorije (na primjer 5.5 petabita podataka - što je oko 700 terabajta - je spremljeno u jedan gram DNA)\footnote{\cite{Church}}, $f(k)$ možemo spremiti bez većih problema na DNA, a njen izračun se računa samo na temelju bitova iz $k$ (jer je prva komponenta u $DES(M_0,k)$ konstanta).
 \begin{enumerate}
 \item Istaknuli smo da za svaki vrh $V$ postoje $15$-meri $V^l$ i $V^r$ takvi da je $V=V^lV^r$ i da ne postoji vrh $U \neq V$ takav da je $U=V^lV^r$ ili $U=V^rV^l$.
-\item  Ulaz: Za svaki vrh $v$ kreiraj epruvetu koja sadrži jednolančane DNA $\uparrow V^lV^r$. Za svaki usmjereni vrh $(u,v)$ epruvetu sastavljenu  od jednolančanih DNA $U^rV^l$. Kako bi kreirali potpune dvolančane strukture DNA, kreiraj dvije epruvete od kojih će jedna sadržavati $\uparrow S_0 ^l$, a druga $\downarrow S_{56}^r$
-\item Pomiješaj sve epruvete u jednu te započni postupak hibridizacij
+\item  Ulaz: Za svaki vrh $v$ kreiraj epruvetu koja sadrži jednolančane DNA $\uparrow V^lV^r$. Za svaki usmjereni vrh $(u,v)$ kreiraj epruvetu sastavljenu  od jednolančanih DNA $U^rV^l$. Kako bi kreirali potpune dvolančane strukture DNA, kreiraj dvije epruvete od kojih će jedna sadržavati $\uparrow S_0 ^l$, a druga $\downarrow S_{56}^r$. (Uočimo da je taj korak algoritma analogan drugom koraku rješavanja problema Hamiltonovog puta)
+\item Pomiješaj sve epruvete u jednu te započni postupak hibridizacije
 \item Ekstrahiraj sve DNA lance koji sadrže riječ $S_0$
 \item Ekstrahiraj sve DNA lance koji sadrže riječ $S_{56}$\\
 Time smo dobili sljedeće:
 \[\updownarrow S_0R_1(k)\]
-Gdje je $k \in \{0,1\}^{56}$
+gdje je $k \in \{0,1\}^{56}$
 \item Izračunaj prijelaze DES sklopovlja za sve ključeve, a pojedini ključ označi rezultatom DES prijelaza. Na primjer, ako prvi prijelaz DES sklopovlja, s obzirom na fiksnu poruku $M_0$ nalaže da se napravi $XOR$ na $2$ i $5$ bitu ključa $k$, tada će ključ nakon izračuna $k_2 \oplus k_5$ biti označen sa $B_{57}(k_2 \oplus k_5)S_{57}$, odnosno dobit ćemo:
 \[\updownarrow S_0R_1(k)B_{57}(k_2 \oplus k_5)S_{57}\] 
-\item Računamo jedan po jedan prijelaz u DES sklopovlju, a za svaki prijelaz, njegov izlaz dodajmo na kraj svakog DNA lanca, nakon toga svi lanci u riješenju izgledaju kao:
+\item Računamo jedan po jedan prijelaz u DES sklopovlju, a za svaki prijelaz, njegov izlaz dodajmo na kraj svakog DNA lanca. Nakon toga svi lanci u rješenju izgledaju kao:
 \[\updownarrow S_0R_1(k)R_{57}(I)R_r(DES(M_0,k))\]
-Gdje je $I$ riječ bitova koja odgovara izlaznim vrijednostima pojedinih unutarnjih prijelaza u DES sklopovlju. 
+gdje je $I$ riječ bitova koja odgovara izlaznim vrijednostima pojedinih unutarnjih prijelaza u DES sklopovlju. 
 \end{enumerate} 
-Ovaj algoritam, kada bi se ukupno raspisale sve operacije, koristi 916 koraka i to da se neki koraci izdvajanja izvedu paralelno, a o detaljnoj analizi toga, kao i o daljnjoj optimizaciji algoritma se može naći u \cite{DESbreak}.
+Ovaj algoritam, kada bi se ukupno raspisale sve operacije, koristi 916 koraka i to da se neki koraci izdvajanja izvedu paralelno, a o detaljnoj analizi algoritma, kao i o daljnjoj optimizaciji u smislu skraćivanja DNA lanaca, se može naći u \cite{DESbreak}.
 \newpage
 \section{Enkripcija i dekripcija podataka}
 \label{sec:EDDNA}
-Funkciju enkripcije i dekripcije ćemo sada opisati:
-Neka je $M$ otvoreni tekst koji Alice želi kriptirati i poslati preko nesigurnog komunikacijskog kanala. Alice će najprije pretvoriti $M$ u pripadni $ASCII$ kod, a potom će taj $ASCII$ kod prevesti u binarni otvoreni tekst $M'$. Neka je $m'=d(M')$ duljina binarnog otvorenog teksta $M'$. Označimo s $k_A$ proizvoljan, slučajno izabrani, jednolančani DNA koji će nam poslužiti kao ključ, a koji je duljine $10m'$. Alice kriptira po sljedećem algoritmu:
+U uvodu smo napomenuli da je DNA kriptografija kvantno rezistentna. U nastavku ćemo opisati jedan algoritam koji koristi koncept DNA. Na običnom računalu DNA lanac zapravo i nema neku bitnu ulogu (osim što ima Watson-Crickov komplement, ali koji bi se mogao slično definirati za bilo koja druga četiri para slova, DNA je služio samo kao motivacija), ali DNA računalo upravo zbog biokemijskih reakcija olakšava postupak dešifriranja. Pretpostavljamo da Alice želi razmjeniti poruku s Bobom preko nesigurnog komunikacijskog kanala, nakon što su preko sigurnog komunikacijskog kanala razmjenili ključeve. Neka je $M$ otvoreni tekst koji Alice želi kriptirati i poslati preko nesigurnog komunikacijskog kanala. Alice će najprije pretvoriti $M$ u pripadni $ASCII$ kod, a potom će taj $ASCII$ kod prevesti u binarni otvoreni tekst $M'$. Neka je $m'=d(M')$ duljina binarnog otvorenog teksta $M'$. Označimo s $k_A$ proizvoljan, slučajno izabrani, jednolančani DNA koji će nam poslužiti kao ključ, a koji je duljine $10m'$. Alice kriptira po sljedećem algoritmu:
 \begin{enumerate}
 	\item $M$ pretvorimo u ASCII $M_A$, a onda $M_A$ u binarni prikaz $M'$ otvorenog teksta $M$
 	\item Alice izabire slučajan $d(M')*10$-mer (ssDNA) i koristi ga kao ključ $k_A$
@@ -639,9 +639,9 @@ $\mathtt{TTGACTGAAG CTAGGGCGCT}$
 $\mathtt{ACTATCTATC CAAGTGACTA}$\\
 $\mathtt{CATGTCTAGG CCATTCCGAA}$
 $\mathtt{GTCGTTTAAC}$ \\
-Nakon toga Alice šifrira: prvi bit koji pročita je 1: uzme $\mathtt{GTCGTTTAAC}$, napravi Watson-Crickov komplement danog bloka, nadoda $0$ i dobije: $\mathtt{CAGCAAATTG0}$, iduća tri bloka ignorira (jer su idući bitovi koje je pročitala bili $0$, a zatim iz bloka $\mathtt{ACTATCTATC}$ dobije šifrat: $\mathtt{TGATAGATAG1}$. Potpuni šifrat dan je sa idućom listom blokova:
+Nakon toga Alice šifrira: prvi bit koji pročita je 1 pa uzima blok $\mathtt{GTCGTTTAAC}$, napravi Watson-Crickov komplement tog bloka, nadoda $0$ i dobije: $\mathtt{CAGCAAATTG0}$, iduća tri bloka ignorira (jer su idući bitovi koje je pročitala bili $0$), a zatim iz bloka $\mathtt{ACTATCTATC}$ dobije šifrat: $\mathtt{TGATAGATAG1}$. Potpuni šifrat dan je sa idućom listom blokova:
 \[\mathtt{['CAGCAAATTG0', 'TGATAGATAG1', 'GGTCAAGCTC2', 'CGCGATTCCT3',}\] \[\mathtt{'AATCAGCGCT4', 'GAAAACAACC5', 'AGACTGATTA6', 'ACAGTTGAAG7']}\]
-Bob je primio blok $\mathtt{TGATAGATAG1}$ i dešifrira ga tako da prvi blok ključa ignorira (1 je zaljepljen na kraj šifrata), uzima Watson-Crickov komplement bloka $\mathtt{ACTATCTATC}$, te traži idući blok (čitajući s desna na lijevo koji se poklapa s njim). Pretpostavimo da je Bob već dekriptirao prije $0$-ti blok. Sada slaže bitovnu riječ tako da svaki blok koji je ignorirao zamjeni s jednom nulom, a koji nije ignorirao zamjeni s 1: pa dobiva ${\color{red}1} {\color{blue}0001}$, gdje je s crvenom bojom označen bit dobiven nakon prve runde dekriptiranja, a plavom bojom je označena riječ dobivena drugom rundom dekriptiranja. Na taj način Bob dobiva binarni prikaz otvorenog teksta, kojeg lagano pretvori u riječ prirodnog jezika.
+Bob je primio blok $\mathtt{TGATAGATAG1}$ i dešifrira ga tako da prvi blok ključa ignorira (1 je zaljepljen na kraj šifrata), uzima Watson-Crickov komplement bloka $\mathtt{ACTATCTATC}$, te traži idući blok (čitajući s desna na lijevo) koji je njemu jednak. Pretpostavimo da je Bob već dekriptirao prije $0$-ti blok. Sada slaže bitovnu riječ tako da svaki blok koji je ignorirao zamjeni s jednom $0$, a koji nije ignorirao zamjeni s $1$: pa dobiva ${\color{red}1} {\color{blue}0001}$, gdje je s crvenom bojom označen bit dobiven nakon prve runde dekriptiranja, a plavom bojom je označena riječ dobivena drugom rundom dekriptiranja. Na taj način Bob dobiva binarni prikaz otvorenog teksta, kojeg lagano pretvara u riječ prirodnog jezika.
 \end{exa}
 Na slici \ref{fig:prim} se može vidjeti primjena enkripcije i dekripcije pomoću navedene implementacije u Pythonu.  
 \begin{figure}[h]
@@ -650,10 +650,10 @@ Na slici \ref{fig:prim} se može vidjeti primjena enkripcije i dekripcije pomoć
 \label{fig:prim}
 \end{figure}
 
-Implementacija pomoću DNA računala je zapravo jako jednostavna. Za dani otvoreni binarni tekst, Alice samo treba kreirati određene Watson-Crickove komplemente slučajno izabranog ključa, odabrati pripadajuće blokove, te ih poslati Bobu preko nesigurnog komunikacijskog kanala. Bob zatim u epruvetu koja sadrži $\uparrow k_A$, ulije dobivene blokove te pokrene proces hibridizacije. Time dobije određeni DNA lanac koji je na određenim mjestima dolančani, a na određenim jednolančani. Tamo gdje je dvolančani (vidi preko mikroskopa), stavlja bit $1$, a jednolančani bit $0$ te čita dani binarni string s desna na lijevo kreirajući njemu ekvivalentan otvoren tekst u prirodnom jeziku. O različitim načinima kriptiranja pomoću DNA računala može se naći u \cite{borda2011fundamentals}. 
-Sigurnost ovog kriptosustava može se povećati uzimanjem ključa koji će biti veće duljine (na primjer da se umjesto za svaki bit uzme $10$-mer, možemo uzeti $40$-mer), i ona ovisi samo o danom ključu (jednokratnoj bilježnici). Nadalje, što je duži tekst koji se šifrira, time će se povećavati i kompleksnost kriptosustava. Tako, na primjer, za kriptiranje riječi $DNA$ čija binarna reprezentacija ima $21$ bit, prostor ključeva sadrži $4^{21\cdot 10}=4^{210}$ različitih ključeva koji mogu šifrirati danu riječ. 
+Implementacija pomoću DNA računala je zapravo jako jednostavna. Za dani otvoreni binarni tekst, Alice samo treba kreirati određene Watson-Crickove komplemente slučajno izabranog ključa, odabrati pripadajuće blokove, te ih poslati Bobu preko nesigurnog komunikacijskog kanala. Bob zatim u epruvetu koja sadrži samo jedan primjerak $\uparrow k_A$, ulije dobivene blokove te pokrene proces hibridizacije. Time dobije određeni DNA lanac koji je na određenim mjestima dvolančani, a na određenim jednolančani. Tamo gdje je dvolančani (vidi preko mikroskopa), stavlja bit $1$, a jednolančani bit $0$ te čita dani binarni string s desna na lijevo kreirajući njemu ekvivalentan otvoren tekst u prirodnom jeziku. O različitim načinima kriptiranja pomoću DNA računala može se naći u \cite{borda2011fundamentals}. 
+Sigurnost ovog kriptosustava može se povećati uzimanjem ključa koji će biti veće duljine (na primjer da se umjesto za svaki bit uzme $10$-mer, možemo uzeti $40$-mer), i ona ovisi samo o danom ključu (jednokratnoj bilježnici). Nadalje, što je duži tekst koji se šifrira, time će se povećavati i kompleksnost kriptosustava. Tako, na primjer, za kriptiranje riječi $DNA$ čija binarna reprezentacija ima $21$ bit, prostor ključeva sadrži $4^{21\cdot 10}=4^{210}$ različitih ključeva koji mogu šifrirati danu riječ, a za kriptiranje riječi \textit{Umjetnost DNA kriptografije} (uzimajući u obzir da se jedan simbol zamijenjuje jednom $7$-bitnom riječi), prostor ključeva sadrži $4^{189\cdot 10}=4^{1890}$ ključeva. Naravno nisu svi ključevi jednako jaki - na primjer ključ koji u sebi sadrži 2 bloka koja su jednaka može zapravo interpretirati dva, pozicijski gledano, različita bita, a time, ovisno kakvi su ti bitovi (na primjer jedan 0, a drugi 1), dva različita otvorena teksta, a drugi primjer je postojanje bloka koji ne počinje na poziciji djeljivoj s $10$, a jednak je nekom drugom bloku koji počinje sa spomenutom pozicijom, tada se može dobiti da se dani šifrat ne može dekriptirati na nikakav način. Spomenuti problemi bi se riješili na način da se zahtjeva jedinstvenost blokova čija najdulja zajednička riječ nije dulja od $\frac{n}{2} - 1$, gdje $n$ označava duljinu polimera koji kriptira jedan bit, a problem jedinstvenosti polubloka bi se riješio kriptiranjem bita dužim polimerom ($n \geq 10$ u našem primjeru). 
 \section{Prednosti i mane DNA računala i DNA kriptografije}
-Glavna prednost DNA računala je izrazito veliki kapacitet i gustoća memorije zbog koje se stvari mogu lakše izračunavati i gdje se napadi na kriptosustvae s tehnikom grube sile vrlo lako probijaju. Opet rješavanje nekih $NP$ teških problema se također riješavaju istom tehnikom. Druga prednost je masivna paralelnost DNA računala zbog  toga što se jedna operacija obavlja nad skupom riječi, a ne na samo jednoj riječi (broj procesora varira - to ja kao da broj procesora konstantno varira ovisno o broju podataka u programu). S druge strane DNA računalo može raditi grešku u izračunavanju, odnosno u izvođenju biokemijskih reakcija, o tome kako utjecati na te greške se može naći u \cite{DNAerr}. Daljnja mana je ta što je DNA računalo za sada samo teoretski model izračunavanja jer da bi se moglo konstrukirati i fizički ostvariti trebaju se preći još mnoge tehnološke prepreke kao i fizička ograničenja. DNA računalo dobro računa sa, kako se čini, relativno kompliciranim operacijama (npr. $Replikacija, Ekstrakcija$), no pri izračunavanju jednostavnih operacija kao što je "ekskluzivno ili", potrebno je izvesti $4$ koraka u postupku. Daljnja mana je ta što su operacije na DNA računalu spore u odnosnu na operacije koje se obavljaju na elektromehaničkim računalima. One postaju sporije što je više parova $G$ i $C$ u nekoj dvolančanoj DNA zbog trostrukih kovalentnih veza koje se teže razbijaju i teže uspostavljaju između tih dviju dušićnih baza te što je veća duljina samih DNA lanaca u epruveti. Ipak, kako područja genetike i medicine jako brzo napreduju, postoji mogućnost otkrića kako da se te operacije ubrzaju primjenom nekih katalizatora ili električne energije. 
+Glavna prednost DNA računala je izrazito veliki kapacitet i gustoća memorije zbog koje se stvari mogu lakše izračunavati i gdje se napadi na kriptosustvae s tehnikom grube sile vrlo lako probijaju. Opet rješavanje nekih $NP$ teških problema se također riješavaju istom tehnikom. Druga prednost je masivna paralelnost DNA računala zbog  toga što se jedna operacija obavlja nad skupom riječi, a ne na samo jednoj riječi (broj procesora varira - to je kao da broj procesora konstantno varira ovisno o broju podataka u programu). S druge strane DNA računalo može raditi grešku u izračunavanju, odnosno u izvođenju biokemijskih reakcija, o tome kako utjecati na te greške se može naći u \cite{DNAerr}. Daljnja mana je ta što je DNA računalo za sada samo teoretski model izračunavanja jer da bi se moglo konstrukirati i fizički ostvariti trebaju se preći još mnoge tehnološke prepreke kao i fizička ograničenja. DNA računalo dobro računa sa, kako se čini, relativno kompliciranim operacijama (npr. $Replikacija, Ekstrakcija$), no pri izračunavanju jednostavnih operacija kao što je "ekskluzivno ili", potrebno je izvesti $4$ koraka u postupku. Daljnja mana je ta što su operacije na DNA računalu spore u odnosnu na operacije koje se obavljaju na elektromehaničkim računalima. One postaju sporije što je više parova $G$ i $C$ u nekoj dvolančanoj DNA zbog trostrukih kovalentnih veza koje se teže razbijaju i teže uspostavljaju između tih dviju dušićnih baza te što je veća duljina samih DNA lanaca u epruveti. Ipak, kako područja genetike i medicine jako brzo napreduju, postoji mogućnost otkrića kako da se te operacije ubrzaju primjenom nekih katalizatora ili električne energije. 
 
 \newpage
 \nocite{*}
@@ -665,10 +665,10 @@ DNA kriptografija predstavlja noviji model kriptiranja u teoriji računarstva, a
 \end{sazetak}
 
 \begin{summary}
-DNA cryptography, which uses the concept of a one-time pad, is a newer model of encryption in the computer science. Due to the extremely dense distribution in memory of DNA chains, and complex biochemical operations that can be performed over the DNA strands in parallel (the concept of massive parallelism), it provides greater approach to the theoretical calculation. Unlike RSA cryptosystem, DNA cryptography is quantum resistant and offers security that relies on length and one-usability of cryptographic keys. This paper discusses a method of encryption using DNA chains. In addition, it presents a mathematical concept of DNA computers and a brief analysis of its complexity and the use of the same to solve two problems: the problem of finding Hamiltonian path, and the use of DNA computers in order to attack the DES cryptosystem.
+DNA cryptography, which uses the concept of a one-time pad, is a newer model of encryption in the computer science. Due to the extremely dense distribution in memory of DNA chains, and complex biochemical operations that can be performed over the DNA strands in parallel (the concept of massive parallelism), it provides greater approach to the theoretical calculation. Unlike RSA cryptosystem, DNA cryptography is quantum resistant and offers security that relies on length and one-usability of cryptographic keys. This thesis discusses a method of encryption using DNA chains. In addition, it presents a mathematical concept of DNA computers and a brief analysis of its complexity and the use of the same to solve two problems: the problem of finding Hamiltonian path, and the use of DNA computers in order to attack the DES cryptosystem.
 \end{summary}
 \begin{cv}
-Antonio Kovačić rođen je 23. siječnja 1991. godine u Banja Luci, Bosna i Hercegovina. Od 1992. godine, nakon što je počeo Domovinski rat, odrasta u Zagrebu uz oca, majku, sestru i tri brata. Svoje obrazovanje započinje u Osnovnoj školi Tituša Brezovačkog, a nastavlja u Nadbiskupskoj klasičnoj gimnaziji u Zagrebu koju završava 2009. godine. Nakon završetka srednješkolskog obrazovanja upisuje se na preddiplomski studij matematike na Matematičkom odsjeku Prirodoslovno-matematičkog fakulteta Sveučilišta u Zagrebu. Godine 2012. upisuje diplomski studij računarstva i matematike na istom fakultetu. Tijekom visokoškolskog obrazovanja učlanjuje se u mješoviti zbor svete Barbare "Panis angelicus" u sklopu kojeg osvaja brojne nagrade na natjecanjima, te sujdeluje na raznim kulturno-umjetničkim događanjima, kako unutar Republike Hrvatske, tako i van nje. Potaknut članovima zbora, te na osobnu želju, na zadnjoj godini studija upisuje se u Glazbenu školu Vatroslava Lisinskog u Zagrebu na Odjel solo pjevanja u klasi Mr. art. Bojana Pogrmilovića. U teoriji računarstva interes pokazuje na području izračunljivosti, složenosti algoritama i kriptografije, a posebnu pažnju usmjerava na saznanja o DNA računalu te njegovoj primjeni.
+Antonio Kovačić rođen je 23. siječnja 1991. godine u Banja Luci, Bosna i Hercegovina. Od 1992. godine, nakon što je počeo Domovinski rat, odrasta u Zagrebu uz oca, majku, sestru i tri brata. Svoje obrazovanje započinje u Osnovnoj školi Tituša Brezovačkog, a nastavlja u Nadbiskupskoj klasičnoj gimnaziji u Zagrebu koju završava 2009. godine. Nakon završetka srednješkolskog obrazovanja upisuje se na preddiplomski studij matematike na Matematičkom odsjeku Prirodoslovno-matematičkog fakulteta Sveučilišta u Zagrebu. Godine 2012. upisuje diplomski studij računarstva i matematike na istom fakultetu. Tijekom visokoškolskog obrazovanja učlanjuje se u mješoviti zbor svete Barbare "Panis angelicus" u sklopu kojeg osvaja brojne nagrade na natjecanjima, te sudjeluje na raznim kulturno-umjetničkim događanjima, kako unutar Republike Hrvatske, tako i van nje. Potaknut članovima zbora, te na osobnu želju, na zadnjoj godini studija upisuje se u Glazbenu školu Vatroslava Lisinskog u Zagrebu na Odjel solo pjevanja u klasi Mr. art. Bojana Pogrmilovića. U teoriji računarstva interes pokazuje na području izračunljivosti, složenosti algoritama i kriptografije, a posebnu pažnju usmjerava na saznanja o DNA računalu te njegovoj primjeni.
 \end{cv}
 \end{spacing}
 \end{document}
